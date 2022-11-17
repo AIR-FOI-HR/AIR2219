@@ -1,10 +1,10 @@
 # eFlush Web application
 
-##Technologies
+## Technologies
 * [React](https://reactjs.org/)
 * [Tailwind](https://tailwindcss.com/)
 
-##Prerequisites
+## Prerequisites
 
 * Latest [node.js](https://nodejs.org/en/) LTS version
 * yarn - `npm install --global yarn`
