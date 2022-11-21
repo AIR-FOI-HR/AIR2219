@@ -1,9 +1,9 @@
 # eFlush Mobile application
 
-##Technologies
+## Technologies
 * [React Native](https://reactnative.dev/)
 
-##Prerequisites
+## Prerequisites
 
 * Latest [node.js](https://nodejs.org/en/) LTS version
 * yarn - `npm install --global yarn`
@@ -13,7 +13,10 @@
 
 1. Run `yarn install` to install all the project dependencies
 2. `yarn start` to run the project locally
+3. The computer and mobile device need to be connected to the same network
 3. Scan the QR code from the terminal with Expo Go (Android) or the Camera app (iOS)
+
+*NOTE: eduroam internet is known to cause issues, try other networks*
 
 ## Project scripts
 * `yarn install` - install project dependencies.
