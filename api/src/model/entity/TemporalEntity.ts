@@ -6,8 +6,7 @@ import {
   DeleteDateColumn,
 } from 'typeorm';
 
-// To avoid name collision; BaseEntity already exists in TypeORM
-export abstract class BaseAppEntity {
+export abstract class TemporalEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 

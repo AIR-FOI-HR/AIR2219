@@ -1,9 +1,9 @@
 import { Entity, Column } from 'typeorm';
 import { UserStatus } from '../constants/UserStatus';
-import { BaseAppEntity } from './BaseAppEntity';
+import { TemporalEntity } from './TemporalEntity';
 
 @Entity()
-export class User extends BaseAppEntity {
+export class User extends TemporalEntity {
   @Column('varchar', { name: 'first_name', length: 45, nullable: false })
   firstName: string;
 

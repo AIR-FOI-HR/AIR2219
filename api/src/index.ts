@@ -34,4 +34,4 @@ AppDataSource.initialize()
   .then((conn) => conn.runMigrations())
   .then(() => console.log('Successfully connected to the database!'))
   .then(main)
-  .catch((error) => console.log(error));
+  .catch((error) => console.log('An error occurred while connecting to the database!', error));
