@@ -7,9 +7,12 @@ export class insertData1661971213868 implements MigrationInterface {
         await queryRunner.query(`set schema '${schemaName}';`);
         
         await queryRunner.query(`
-            INSERT INTO "user" (created_at, updated_at, deleted_at, version, first_name, last_name, username, email, password, status) VALUES
-            ( now(), now(), NULL, 1, 'Ivo', 'Ivic', 'iivic', 'iivic@mail.com', 'password', 'Active' ),
-            ( now(), now(), NULL, 1, 'Marko', 'Markic', 'mmarkic', 'mmarkic@mail.com', 'password', 'Blocked' );
+            INSERT INTO "user" (created_at, updated_at, deleted_at, version, first_name, last_name, email, phone, password, role, status) VALUES
+            ( now(), now(), NULL, 1, 'admin', 'admic', 'admin@mail.com', '091 111 1111', 'admin', 'ADMIN', 'ACTIVE' ),
+            ( now(), now(), NULL, 1, 'obican', 'obicanko', 'obican@mail.com', '091 111 1111', 'obican', 'USER', 'ACTIVE' ),
+            ( now(), now(), NULL, 1, 'blokiran', 'blokiranko', 'blokiran@mail.com', '091 111 1111', 'blokiran', 'USER', 'BANNED' ),
+            ( now(), now(), NULL, 1, 'pending', 'pendingko', 'pending@mail.com', '091 111 1111', 'pending', 'USER', 'PENDING' ),
+            ( now(), now(), NULL, 1, 'Mimi', 'Reba', 'mimi@mail.com', '091 111 1111', 'mimi', 'USER', 'ACTIVE' );
         `);
     }
 
