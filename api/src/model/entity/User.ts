@@ -34,8 +34,7 @@ export class User extends TemporalEntity {
     lastName: string,
     email: string,
     phone: string,
-    password: string,
-    password_reset_code: string
+    password: string
   ) {
     super();
     this.firstName = firstName;
@@ -45,6 +44,5 @@ export class User extends TemporalEntity {
     this.password = password;
     this.status = UserStatus.ACTIVE;
     this.role = UserRole.USER;
-    this.password_reset_code = password_reset_code;
   }
 }

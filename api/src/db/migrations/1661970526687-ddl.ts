@@ -28,10 +28,23 @@ export class ddl1661970526687 implements MigrationInterface {
                 CONSTRAINT "email_unique" UNIQUE (email)
             );
 
+            DROP TABLE IF EXISTS "admin_options";
+            CREATE TABLE "admin_options" (
+                "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+                "created_at" timestamp NOT NULL DEFAULT now(),
+                "updated_at" timestamp NOT NULL DEFAULT now(),
+                "deleted_at" timestamp,
+                "version" int NOT NULL,
+                "contact_email" varchar(45) NOT NULL,
+                "contact_phone" varchar(45) NOT NULL,
+                "currency" varchar(20) NOT NULL,
+                "capture_mode" varchar(45) NOT NULL
+            );
+
             DROP TABLE IF EXISTS "error" CASCADE;
             CREATE TABLE "error" (
                 "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-                "status_code" int4 NOT NULL,
+                "status_code" int NOT NULL,
                 "description" varchar NOT NULL 
             );
             `

@@ -21,8 +21,11 @@ export class insertData1661971213868 implements MigrationInterface {
             ( '33efeaee-35b0-49f3-9a0b-144ab1cd1a30', 400, 'Invalid request data!'),
             ( '90dcbb75-c9f3-460f-aff9-4d6a3d3564fd', 422, 'Incorrect card credentials!'),
             ( '2d69be42-1e9f-43ef-9760-564cff3b1c7c', 422, 'Insufficient funds!'),
-            ( '9a482ec4-99d0-438d-bed4-ecb266932386', 404, 'Order can't be confirmed because it doesn't exist!'),
-            ( 'e4a2587b-96d9-42e6-903d-23bf13b75743', 422, 'Order has expired and can't be confirmed!');
+            ( '9a482ec4-99d0-438d-bed4-ecb266932386', 404, 'Order can not be confirmed because it does not exist!'),
+            ( 'e4a2587b-96d9-42e6-903d-23bf13b75743', 422, 'Order has expired and can not be confirmed!');
+            
+            INSERT INTO "admin_options" (id, created_at, updated_at, deleted_at, version, contact_email, contact_phone, currency, capture_mode) VALUES
+            ( '128b9137-ccd2-412b-aa1f-920057cc8701', now(), now(), NULL, 1, 'admin@eflushapp.com', '+385990000000', 'HRK', 'Automatic');
         `
         );
     }
