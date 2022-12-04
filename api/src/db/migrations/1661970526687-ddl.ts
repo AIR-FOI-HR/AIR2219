@@ -12,7 +12,7 @@ export class ddl1661970526687 implements MigrationInterface {
             `
             DROP TABLE IF EXISTS "user" CASCADE;
             CREATE TABLE "user" (
-                "id" serial NOT NULL,
+                "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
                 "created_at" timestamp NOT NULL DEFAULT now(),
                 "updated_at" timestamp NOT NULL DEFAULT now(),
                 "deleted_at" timestamp NULL,
@@ -25,8 +25,14 @@ export class ddl1661970526687 implements MigrationInterface {
                 "role" varchar(20) NOT NULL,
                 "status" varchar(20) NOT NULL,
                 "password_reset_code" varchar NULL,
-                CONSTRAINT "email_unique" UNIQUE (email),
-                CONSTRAINT "user_pkey" PRIMARY KEY (id)
+                CONSTRAINT "email_unique" UNIQUE (email)
+            );
+
+            DROP TABLE IF EXISTS "error" CASCADE;
+            CREATE TABLE "error" (
+                "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+                "status_code" int4 NOT NULL,
+                "description" varchar NOT NULL 
             );
             `
         );

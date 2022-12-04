@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
 import { User } from '../../model/entity/User';
+import { Error } from '../../model/entity/Error';
 dotenv.config();
 
 export const AppDataSource = new DataSource({
@@ -14,7 +15,7 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD || 'eflushpassword',
   synchronize: false,
   logging: process.env.LOG_SQL === 'true', // Logs sql that gets executed on the database
-  entities: [User],
+  entities: [User, Error],
   migrations: ['dist/db/migrations/*.js'],
   migrationsTableName: 'changelog_master',
 });
