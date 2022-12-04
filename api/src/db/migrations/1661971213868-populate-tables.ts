@@ -11,7 +11,6 @@ export class insertData1661971213868 implements MigrationInterface {
             ( '498cdfca-d855-42c4-b50c-2f9fec357cc2', '2022-12-01 13:00:00.000', '2022-12-01 13:00:00.000', NULL, 1, 'admin', 'admic', 'admin@mail.com', '091 111 1111', 'admin', 'ADMIN', 'ACTIVE' ),
             ( '60c8837a-87d1-4f7e-b4ed-7d260a8ceed7', '2022-11-02 15:40:01.000', '2022-11-02 15:40:01.000', NULL, 1, 'obican', 'obicanko', 'obican@mail.com', '091 111 1111', 'obican', 'USER', 'ACTIVE' ),
             ( '21d26684-8652-4b2c-baab-199d0853d778', '2022-10-03 17:10:20.000', '2022-10-03 17:10:20.000', NULL, 1, 'blokiran', 'blokiranko', 'blokiran@mail.com', '091 111 1111', 'blokiran', 'USER', 'BANNED' ),
-            ( '1b7f08aa-b23f-4353-b14d-68f17ac1d878', '2022-9-04 19:02:21.000', '2022-9-04 19:02:21.000', NULL, 1, 'pending', 'pendingko', 'pending@mail.com', '091 111 1111', 'pending', 'USER', 'PENDING' ),
             ( '5a04fcf5-0541-4c31-8fc2-41ab2f7af3ed', '2022-8-05 21:40:41.000', '2022-8-05 21:40:41.000', '2022-12-01 11:10:10.000', 1, 'Mimi', 'Reba', 'mimi@mail.com', '091 111 1111', 'mimi', 'USER', 'ACTIVE' );
         
             INSERT INTO "error" VALUES

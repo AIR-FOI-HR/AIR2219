@@ -27,7 +27,7 @@ export class User extends TemporalEntity {
   status: UserStatus;
 
   @Column('varchar', { name: 'password_reset_code', nullable: false})
-  password_reset_code: string;
+  passwordResetCode: string;
 
   constructor(
     firstName: string,
