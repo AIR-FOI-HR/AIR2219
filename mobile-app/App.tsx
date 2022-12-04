@@ -1,16 +1,16 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   createNavigationContainerRef,
   NavigationContainer,
-  useNavigationContainerRef,
 } from "@react-navigation/native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import MapScreen from "./src/pages/Map";
 import UserProfileScreen from "./src/pages/UserProfile";
 import ScannerScreen from "./src/pages/Scanner";
 import IconPointer from "./src/assets/ic_NavigationLocation.svg";
+import IconProfileFocused from "./src/assets/ic_NavigationProfileFocused.svg"
+import IconPointerFocused from "./src/assets/ic_NavigationLocationFocused.svg"
+import IconScannerFocused from "./src/assets/ic_NavigationQRFocused.svg"
 import IconProfile from "./src/assets/ic_NavigationProfile.svg";
 import IconScanner from "./src/assets/ic_NavigationQR.svg";
 import { color } from "./src/lib/style/theme";
@@ -20,7 +20,6 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   const navigationRef = createNavigationContainerRef();
   const [routeName, setRouteName] = useState<String | null>();
-  console.log(routeName);
 
   return (
     <NavigationContainer
@@ -33,6 +32,8 @@ export default function App() {
       }}
     >
       <Tab.Navigator
+        initialRouteName="map"
+        backBehavior="history"
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,
@@ -42,12 +43,6 @@ export default function App() {
             borderTopLeftRadius: 15,
             borderTopRightRadius: 15,
           },
-          tabBarItemStyle: {
-            //backgroundColor: color.white,
-            borderRadius: 50,
-            marginHorizontal: 35,
-            marginVertical: 7,
-          },
         }}
       >
         <Tab.Screen
@@ -55,13 +50,9 @@ export default function App() {
           component={UserProfileScreen}
           options={{
             tabBarIcon: () => {
-              return <IconProfile width={30} height={30} />;
-            },
-            tabBarItemStyle: {
-              backgroundColor: routeName == "profile" ? color.white : "",
-              borderRadius: 50,
-              marginHorizontal: 35,
-              marginVertical: 7,
+              return routeName === "profile" ?
+              <IconProfileFocused width={54} height={54} /> :
+              <IconProfile width={30} height={30} />;
             },
           }}
         />
@@ -70,16 +61,20 @@ export default function App() {
           component={MapScreen}
           options={{
             tabBarIcon: () => {
-              return <IconPointer width={30} height={30} />;
+              return routeName === "map" ?
+              <IconPointerFocused width={54} height={54} /> :
+              <IconPointer width={30} height={30} />;
             },
           }}
         />
         <Tab.Screen
           name={"scanner"}
           component={ScannerScreen}
-          options={{
+          options={{ 
             tabBarIcon: () => {
-              return <IconScanner width={30} height={30} />;
+              return routeName === "scanner" ?
+              <IconScannerFocused width={54} height={54} /> :
+              <IconScanner width={35} height={35} />;
             },
           }}
         />
@@ -87,12 +82,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
