@@ -7,12 +7,26 @@ export class insertData1661971213868 implements MigrationInterface {
         await queryRunner.query(`set schema '${schemaName}';`);
         
         await queryRunner.query(`
-            INSERT INTO "user" (created_at, updated_at, deleted_at, version, first_name, last_name, username, email, password, status) VALUES
-            ( now(), now(), NULL, 1, 'Ivo', 'Ivic', 'iivic', 'iivic@mail.com', 'password', 'Active' ),
-            ( now(), now(), NULL, 1, 'Marko', 'Markic', 'mmarkic', 'mmarkic@mail.com', 'password', 'Blocked' );
-            INSERT INTO eflush_app.admin_options(created_at, updated_at, deleted_at, version, contact_email, contact_phone, currency, capture_mode) VALUES
-            ( now(), now(), NULL, 1, 'admin@eflushapp.com', '+385990000000', 'HRK', 'Automatic');
-        `);
+            INSERT INTO "user" VALUES
+            ( '498cdfca-d855-42c4-b50c-2f9fec357cc2', '2022-12-01 13:00:00.000', '2022-12-01 13:00:00.000', NULL, 1, 'admin', 'admic', 'admin@mail.com', '091 111 1111', 'admin', 'ADMIN', 'ACTIVE' ),
+            ( '60c8837a-87d1-4f7e-b4ed-7d260a8ceed7', '2022-11-02 15:40:01.000', '2022-11-02 15:40:01.000', NULL, 1, 'obican', 'obicanko', 'obican@mail.com', '091 111 1111', 'obican', 'USER', 'ACTIVE' ),
+            ( '21d26684-8652-4b2c-baab-199d0853d778', '2022-10-03 17:10:20.000', '2022-10-03 17:10:20.000', NULL, 1, 'blokiran', 'blokiranko', 'blokiran@mail.com', '091 111 1111', 'blokiran', 'USER', 'BANNED' ),
+            ( '5a04fcf5-0541-4c31-8fc2-41ab2f7af3ed', '2022-8-05 21:40:41.000', '2022-8-05 21:40:41.000', '2022-12-01 11:10:10.000', 1, 'Mimi', 'Reba', 'mimi@mail.com', '091 111 1111', 'mimi', 'USER', 'ACTIVE' );
+        
+            INSERT INTO "error" VALUES
+            ( '5867120d-90ea-4a2f-8c7c-7347e18da6e3', 401, 'API key not present!'),
+            ( '96712ca4-6c83-4af0-b76b-e9ed0359c0c3', 403, 'Invalid API key!'),
+            ( 'b9706d29-b011-49b7-ba3b-d3a46971afbe', 404, 'Unsupported route!'),
+            ( '33efeaee-35b0-49f3-9a0b-144ab1cd1a30', 400, 'Invalid request data!'),
+            ( '90dcbb75-c9f3-460f-aff9-4d6a3d3564fd', 422, 'Incorrect card credentials!'),
+            ( '2d69be42-1e9f-43ef-9760-564cff3b1c7c', 422, 'Insufficient funds!'),
+            ( '9a482ec4-99d0-438d-bed4-ecb266932386', 404, 'Order can not be confirmed because it does not exist!'),
+            ( 'e4a2587b-96d9-42e6-903d-23bf13b75743', 422, 'Order has expired and can not be confirmed!');
+            
+            INSERT INTO "admin_options" (id, created_at, updated_at, deleted_at, version, contact_email, contact_phone, currency, capture_mode) VALUES
+            ( '128b9137-ccd2-412b-aa1f-920057cc8701', now(), now(), NULL, 1, 'admin@eflushapp.com', '+385990000000', 'HRK', 'Automatic');
+        `
+        );
     }
 
     public async down(): Promise<void> {
