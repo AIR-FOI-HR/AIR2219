@@ -47,6 +47,33 @@ export class ddl1661970526687 implements MigrationInterface {
                 "status_code" int NOT NULL,
                 "description" varchar NOT NULL 
             );
+
+            DROP TABLE IF EXISTS "city" CASCADE;
+            CREATE TABLE "city" (
+            "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+            "name" varchar(45) NOT NULL,
+            "code" varchar(10) NOT NULL
+            );
+
+            DROP TABLE IF EXISTS "restroom" CASCADE;
+            CREATE TABLE "restroom" (
+                "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+                "created_at" timestamp NOT NULL DEFAULT now(),
+                "updated_at" timestamp NOT NULL DEFAULT now(),
+                "deleted_at" timestamp NULL,
+                "version" int4 NOT NULL,
+                "name" varchar(45) NOT NULL,
+                "tag" varchar(25) NOT NULL,
+                "price" decimal(10,2) NOT NULL,
+                "address" varchar(255) NOT NULL,
+                "latitude" decimal(8,6) NOT NULL,
+                "longitude" decimal(9,6) NOT NULL,
+                "city_id" uuid NOT NULL,
+                CONSTRAINT "city_fk"
+                FOREIGN KEY("city_id") 
+                REFERENCES city(id)
+            );
+
             `
         );
     }
