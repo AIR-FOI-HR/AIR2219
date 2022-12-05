@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="106.481mm"
+   height="106.33801mm"
+   viewBox="0 0 106.481 106.33801"
+   version="1.1"
+   id="svg5"
+   inkscape:export-filename="ic_Logo.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.78127806"
+     inkscape:cx="397.42573"
+     inkscape:cy="561.89982"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showguides="false" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-51.759499,-95.33099)">
+    <rect
+       style="fill:#ff7d00;fill-opacity:1;stroke-width:0.451517"
+       id="rect234"
+       width="106.33752"
+       height="106.33752"
+       x="51.831242"
+       y="95.331245"
+       ry="22.351198" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.362364"
+       id="rect234-7"
+       width="85.340935"
+       height="85.340935"
+       x="62.329533"
+       y="105.82954"
+       ry="17.937904" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.264761"
+       id="rect4100"
+       width="106.481"
+       height="24.721779"
+       x="51.759499"
+       y="138.07185"
+       ry="0"
+       inkscape:label="rect4100" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.264571"
+       id="rect4100-1"
+       width="106.32861"
+       height="24.721779"
+       x="-201.70422"
+       y="92.582466"
+       ry="0"
+       inkscape:label="rect4100"
+       transform="matrix(-3.8141162e-4,-0.99999993,0.99999993,-3.8032064e-4,0,0)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.7px;font-family:Kanit;-inkscape-font-specification:Kanit;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+       x="105.09525"
+       y="152.7164"
+       id="text4187"><tspan
+         sodipodi:role="line"
+         id="tspan4185"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12.7px;font-family:Kanit;-inkscape-font-specification:'Kanit Semi-Bold';text-align:center;text-anchor:middle;fill:#006daa;fill-opacity:1;stroke-width:0.264583"
+         x="105.09525"
+         y="152.7164">eFlush</tspan></text>
+  </g>
+</svg>
