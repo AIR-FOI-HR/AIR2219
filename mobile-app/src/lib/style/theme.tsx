@@ -1,5 +1,10 @@
 export const font={
-    mainFont: '"Open Sans", sans-serif'
+    light:'OpenSans_300Light',
+    regular:'OpenSans_400Regular',
+    semiBold:'OpenSans_600SemiBold',
+    regularItalic:'OpenSans_400Regular_Italic',
+    lightItalic:'OpenSans_300Light_Italic',
+    boldItalic:'OpenSans_700Bold_Italic',
 }
 
 export const color={

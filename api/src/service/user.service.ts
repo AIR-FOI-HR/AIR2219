@@ -6,7 +6,7 @@ export const registerUser = async (userCreateRequest: UserCreateRequest) => {
   const newUser: User = new User(
     userCreateRequest.firstName,
     userCreateRequest.lastName,
-    userCreateRequest.username,
+    userCreateRequest.phone,
     userCreateRequest.email,
     userCreateRequest.password
   );

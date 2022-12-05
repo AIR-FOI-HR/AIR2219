@@ -12,20 +12,40 @@ export class ddl1661970526687 implements MigrationInterface {
             `
             DROP TABLE IF EXISTS "user" CASCADE;
             CREATE TABLE "user" (
-                "id" serial NOT NULL,
+                "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+                "created_at" timestamp NOT NULL DEFAULT now(),
+                "updated_at" timestamp NOT NULL DEFAULT now(),
+                "deleted_at" timestamp NULL,
+                "version" int4 NOT NULL,
+                "first_name" varchar(45) NOT NULL,
+                "last_name" varchar(45) NOT NULL,
+                "email" varchar(45) NOT NULL,
+                "phone" varchar(15) NOT NULL,
+                "password" varchar NOT NULL,
+                "role" varchar(20) NOT NULL,
+                "status" varchar(20) NOT NULL,
+                "password_reset_code" varchar NULL,
+                CONSTRAINT "email_unique" UNIQUE (email)
+            );
+
+            DROP TABLE IF EXISTS "admin_options";
+            CREATE TABLE "admin_options" (
+                "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
                 "created_at" timestamp NOT NULL DEFAULT now(),
                 "updated_at" timestamp NOT NULL DEFAULT now(),
                 "deleted_at" timestamp,
                 "version" int NOT NULL,
-                "first_name" varchar(45) NOT NULL,
-                "last_name" varchar(45) NOT NULL,
-                "username" varchar(45) NOT NULL,
-                "email" varchar(45) NOT NULL,
-                "password" varchar NOT NULL,
-                "status" varchar(20) NOT NULL,
-                PRIMARY KEY ("id"),
-                CONSTRAINT "username_unique" UNIQUE (username),
-                CONSTRAINT "email_unique" UNIQUE (email)
+                "contact_email" varchar(45) NOT NULL,
+                "contact_phone" varchar(45) NOT NULL,
+                "currency" varchar(20) NOT NULL,
+                "capture_mode" varchar(45) NOT NULL
+            );
+
+            DROP TABLE IF EXISTS "error" CASCADE;
+            CREATE TABLE "error" (
+                "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+                "status_code" int NOT NULL,
+                "description" varchar NOT NULL 
             );
             `
         );

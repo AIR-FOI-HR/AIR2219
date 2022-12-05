@@ -2,11 +2,11 @@ import { User } from '../entity/User';
 
 export class UserResponse {
   constructor(
-    public id: number,
+    public id: string,
     public firstName: string,
     public lastName: string,
-    public username: string,
-    public email: string
+    public email: string,
+    public phone: string
   ) {}
 
   public static toDto(user: User): UserResponse {
@@ -14,8 +14,8 @@ export class UserResponse {
       user.id,
       user.firstName,
       user.lastName,
-      user.username,
-      user.email
+      user.email,
+      user.phone
     );
   }
 }
