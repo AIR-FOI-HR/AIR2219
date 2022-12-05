@@ -25,6 +25,19 @@ export class insertData1661971213868 implements MigrationInterface {
             
             INSERT INTO "admin_options" (id, created_at, updated_at, deleted_at, version, contact_email, contact_phone, currency, capture_mode) VALUES
             ( '128b9137-ccd2-412b-aa1f-920057cc8701', now(), now(), NULL, 1, 'admin@eflushapp.com', '+385990000000', 'HRK', 'Automatic');
+
+            INSERT INTO "city" (id, name, code) values
+            ('af2cf8c0-513c-4d1f-a061-0bd46a7b2a36', 'Varazdin', '42000'),
+            ('ab1fce53-64ca-4398-8541-f5ff47bc9dc7', 'Zagreb', '10000'),
+            ('5611b312-da8b-4e90-8bc3-0372c144c22e', 'Split', '21000'),
+            ('064f4bd5-96b3-4b58-b9ad-04ecb874abb8', 'Rijeka', '51000'),
+            ('caac5312-2a93-4a0f-8c93-2cd68b0d18be', 'Osijek', '31000');
+
+            INSERT INTO restroom
+            (id, created_at, updated_at, deleted_at, "version", "name", tag, price, address, latitude, longitude, city_id) values
+            ('95b17ff6-4036-4020-be2c-a9751518af4f', now(), now(), null, 1, 'FOI1', 'tag1?', 0.4, 'Pavlinska ul. 2', 46.30770732889613, 16.338047018104785, 'af2cf8c0-513c-4d1f-a061-0bd46a7b2a36'),
+            ('54ccab34-df7a-4d09-ac3b-88eface2c780', now(), now(), null, 1, 'FOI2', 'tag2?', 0.5, 'Prilaz Fausta Vrančića 3', 46.309320610288765, 16.342742220051523, 'af2cf8c0-513c-4d1f-a061-0bd46a7b2a36');
+
         `
         );
     }
