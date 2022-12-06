@@ -10,7 +10,7 @@ const router = express.Router();
 
 
 const errors = new Map();
-errors.set(1, {id: "7a09cc08-3cdb-4de8-ae97-0e8879151031", statusCode: 403, description: "Invalid Data!"});
+errors.set(1, {id: "7a09cc08-3cdb-4de8-ae97-0e8879151031", statusCode: 400, description: "Invalid Data!"});
 errors.set(2, {id: "9cd3ce47-6dfa-459b-b590-375a37ef6aa4", statusCode: 500, description: "Server error! Payment not processed successfully!"});
 
 
