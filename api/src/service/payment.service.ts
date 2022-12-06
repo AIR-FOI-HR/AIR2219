@@ -11,10 +11,10 @@ export const processPayment = async (req: Request): Promise<{}> => {
   });
 
   const JSONResponse = await response.json();
-  console.log(JSONResponse);
+  //console.log(JSONResponse);
   
 
-  if (JSONResponse.state == 'PENDING'){
+  if (response.status == 201){
     //
     //TODO: Save the response to the database (todo when the database is completed)
     //
@@ -35,11 +35,11 @@ export const confirmOrder = async (id: string): Promise<{}> => {
   }
 });
 
-const JSONResponse = await response.json();
-console.log(JSONResponse);
+//const JSONResponse = await response.json();
+//console.log(JSONResponse);
 
 
-if (JSONResponse.state == 'COMPLETED'){
+if (response.status == 200){
   return true;
 
 } else
