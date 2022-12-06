@@ -1,4 +1,5 @@
-import { PrimaryGeneratedColumn, Entity, Column } from 'typeorm';
+import { PrimaryGeneratedColumn, Entity, Column, OneToMany } from 'typeorm';
+import { OrderError } from './OrderError';
 
 @Entity()
 export class Error{
@@ -10,6 +11,9 @@ export class Error{
 
     @Column('varchar', { name: 'description', length: 255, nullable: false })
     description: string;
+
+    @OneToMany(() => OrderError, (orderError) => orderError.error)
+    errorToOrder: OrderError[]
 
     constructor(
         statusCode: number,
