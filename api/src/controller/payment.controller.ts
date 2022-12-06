@@ -38,7 +38,7 @@ router.post(
 
     if (paymentResponse) {
       paymentService.confirmOrder(paymentResponse);
-      client.publish('test/topic/foi/air', JSON.stringify({id: "Test-Id", message:"Test Message for MQTT Subscriber"}));
+      client.publish('foi/air2219', JSON.stringify({id: "Test-Id", message:"Test Message for MQTT Subscriber"}));
       res.json({ message: "Payment processed successfully!" });
     } else {
       return returnError(res, 2);
