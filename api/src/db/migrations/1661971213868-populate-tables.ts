@@ -8,10 +8,10 @@ export class insertData1661971213868 implements MigrationInterface {
         
         await queryRunner.query(`
             INSERT INTO "user" VALUES
-            ( '498cdfca-d855-42c4-b50c-2f9fec357cc2', '2022-12-01 13:00:00.000', '2022-12-01 13:00:00.000', NULL, 1, 'admin', 'admic', 'admin@mail.com', '091 111 1111', 'admin', 'ADMIN', 'ACTIVE' ),
-            ( '60c8837a-87d1-4f7e-b4ed-7d260a8ceed7', '2022-11-02 15:40:01.000', '2022-11-02 15:40:01.000', NULL, 1, 'obican', 'obicanko', 'obican@mail.com', '091 111 1111', 'obican', 'USER', 'ACTIVE' ),
-            ( '21d26684-8652-4b2c-baab-199d0853d778', '2022-10-03 17:10:20.000', '2022-10-03 17:10:20.000', NULL, 1, 'blokiran', 'blokiranko', 'blokiran@mail.com', '091 111 1111', 'blokiran', 'USER', 'BANNED' ),
-            ( '5a04fcf5-0541-4c31-8fc2-41ab2f7af3ed', '2022-8-05 21:40:41.000', '2022-8-05 21:40:41.000', '2022-12-01 11:10:10.000', 1, 'Mimi', 'Reba', 'mimi@mail.com', '091 111 1111', 'mimi', 'USER', 'ACTIVE' );
+            ( '498cdfca-d855-42c4-b50c-2f9fec357cc2', '2022-12-01 13:00:00.000', '2022-12-01 13:00:00.000', NULL, 1, 'admin', 'admic', 'admin@mail.com', '091 111 1111', '$argon2id$v=19$m=65536,t=3,p=4$4J45ikrVP6rZXCk9pb9Xog$LEmDbLehEEAlEtOfeH9dpEKu9sDTGmsLdrua0BPlAYk', 'ADMIN', 'ACTIVE' ),
+            ( '60c8837a-87d1-4f7e-b4ed-7d260a8ceed7', '2022-11-02 15:40:01.000', '2022-11-02 15:40:01.000', NULL, 1, 'obican', 'obicanko', 'obican@mail.com', '091 111 1111', '$argon2id$v=19$m=65536,t=3,p=4$4J45ikrVP6rZXCk9pb9Xog$LEmDbLehEEAlEtOfeH9dpEKu9sDTGmsLdrua0BPlAYk', 'USER', 'ACTIVE' ),
+            ( '21d26684-8652-4b2c-baab-199d0853d778', '2022-10-03 17:10:20.000', '2022-10-03 17:10:20.000', NULL, 1, 'blokiran', 'blokiranko', 'blokiran@mail.com', '091 111 1111', '$argon2id$v=19$m=65536,t=3,p=4$4J45ikrVP6rZXCk9pb9Xog$LEmDbLehEEAlEtOfeH9dpEKu9sDTGmsLdrua0BPlAYk', 'USER', 'BANNED' ),
+            ( '5a04fcf5-0541-4c31-8fc2-41ab2f7af3ed', '2022-8-05 21:40:41.000', '2022-8-05 21:40:41.000', '2022-12-01 11:10:10.000', 1, 'Mimi', 'Reba', 'mimi@mail.com', '091 111 1111', '$argon2id$v=19$m=65536,t=3,p=4$4J45ikrVP6rZXCk9pb9Xog$LEmDbLehEEAlEtOfeH9dpEKu9sDTGmsLdrua0BPlAYk', 'USER', 'ACTIVE' );
         
             INSERT INTO "error" VALUES
             ( '5867120d-90ea-4a2f-8c7c-7347e18da6e3', 401, 'API key not present!'),
@@ -24,7 +24,7 @@ export class insertData1661971213868 implements MigrationInterface {
             ( 'e4a2587b-96d9-42e6-903d-23bf13b75743', 422, 'Order has expired and can not be confirmed!');
             
             INSERT INTO "admin_options" (id, created_at, updated_at, deleted_at, version, contact_email, contact_phone, currency, capture_mode) VALUES
-            ( '128b9137-ccd2-412b-aa1f-920057cc8701', now(), now(), NULL, 1, 'admin@eflushapp.com', '+385990000000', 'HRK', 'Automatic');
+            ( '128b9137-ccd2-412b-aa1f-920057cc8701', now(), now(), NULL, 1, 'admin@eflushapp.com', '+385990000000', 'EUR', 'Automatic');
 
             INSERT INTO "city" (id, name, code) values
             ('af2cf8c0-513c-4d1f-a061-0bd46a7b2a36', 'Varazdin', '42000'),
@@ -38,6 +38,23 @@ export class insertData1661971213868 implements MigrationInterface {
             ('95b17ff6-4036-4020-be2c-a9751518af4f', now(), now(), null, 1, 'FOI1', 'tag1?', 0.4, 'Pavlinska ul. 2', 46.30770732889613, 16.338047018104785, 'af2cf8c0-513c-4d1f-a061-0bd46a7b2a36'),
             ('54ccab34-df7a-4d09-ac3b-88eface2c780', now(), now(), null, 1, 'FOI2', 'tag2?', 0.5, 'Prilaz Fausta Vrančića 3', 46.309320610288765, 16.342742220051523, 'af2cf8c0-513c-4d1f-a061-0bd46a7b2a36');
 
+            INSERT INTO amount (id,value,currency,order_created_at,user_email) VALUES
+            ('6b53fe77-8643-45ac-a7da-7b5d7958fb42',0.40,'EUR','2022-12-06 15:52:37.513937','admin@mail.com'),
+            ('4cf36de6-a6dd-40c2-8523-be5eaafe9986',0.50,'EUR','2022-12-06 15:57:50.904053','obican@mail.com'),
+            ('67a5a5f1-182e-4d7f-b39e-42da85c2296e',0.40,'EUR','2022-12-06 15:57:50.912413','blokiran@mail.com'),
+            ('cdff709e-3bbd-413a-a01c-61d670e5872b',0.50,'EUR','2022-12-06 15:57:50.914728','mimi@mail.com');
+
+            INSERT INTO "order" (id,public_id,created_at,updated_at,deleted_at,"version","type",state,capture_mode,merchant_order_ext_ref,email,amount_id,checkout_url,user_id,restroom_id) VALUES
+            ('852a090d-5580-4d97-8f3d-d95fc9e3f48a','b6b6cd73-939b-485f-96cd-f782508336c1','2022-12-06 17:39:57.722059','2022-12-06 17:39:57.722059',NULL,1,'PAYMENT','PENDING','AUTOMATIC','Order test','admin@mail.com','6b53fe77-8643-45ac-a7da-7b5d7958fb42','https://business.revolut.com/payment-link/uLHGQVGNx_ZRDV14z5VFIA','498cdfca-d855-42c4-b50c-2f9fec357cc2','95b17ff6-4036-4020-be2c-a9751518af4f'),
+            ('6752599b-637c-4e16-952e-2b1c440bceda','2ff50f1c-065a-454a-84f1-f266822b3820','2022-12-06 17:39:57.729498','2022-12-06 17:39:57.729498',NULL,1,'PAYMENT','COMPLETED','AUTOMATIC','Order test','obican@mail.com','4cf36de6-a6dd-40c2-8523-be5eaafe9986','https://business.revolut.com/payment-link/uLHGQVGNx_ZRDV14z5VFIA','60c8837a-87d1-4f7e-b4ed-7d260a8ceed7','95b17ff6-4036-4020-be2c-a9751518af4f'),
+            ('38d168db-fa8d-4c5f-8a90-afbcb601836b','9f4569f4-2ea7-40db-abc1-888c85a7a9ac','2022-12-06 17:39:57.733014','2022-12-06 17:39:57.733014',NULL,1,'PAYMENT','COMPLETED','AUTOMATIC','Order test','blokiran@mail.com','67a5a5f1-182e-4d7f-b39e-42da85c2296e','https://business.revolut.com/payment-link/uLHGQVGNx_ZRDV14z5VFIA','21d26684-8652-4b2c-baab-199d0853d778','54ccab34-df7a-4d09-ac3b-88eface2c780'),
+            ('a7332f6e-dfae-4931-b126-e137a83a45f6','c4374a7a-c641-48a6-b2aa-87810aee47b7','2022-12-06 17:39:57.735703','2022-12-06 17:39:57.735703',NULL,1,'PAYMENT','PENDING','AUTOMATIC','Order test','mimi@mail.com','cdff709e-3bbd-413a-a01c-61d670e5872b','https://business.revolut.com/payment-link/uLHGQVGNx_ZRDV14z5VFIA','5a04fcf5-0541-4c31-8fc2-41ab2f7af3ed','54ccab34-df7a-4d09-ac3b-88eface2c780');
+       
+            INSERT INTO order_error (id,order_id,error_id,"timestamp") VALUES
+            ('1768a522-4edb-44fb-b901-77d730d517b6','38d168db-fa8d-4c5f-8a90-afbcb601836b','2d69be42-1e9f-43ef-9760-564cff3b1c7c',1670345159),
+            ('9d3edbc7-cdc9-4bf6-a8e5-da5eb883dd05','6752599b-637c-4e16-952e-2b1c440bceda','b9706d29-b011-49b7-ba3b-d3a46971afbe',1670345155),
+            ('d0e323c3-0b9a-43c3-a0a2-ca640b081880','852a090d-5580-4d97-8f3d-d95fc9e3f48a','96712ca4-6c83-4af0-b76b-e9ed0359c0c3',1670345217),
+            ('478b90d7-cfc9-4b38-8880-96365319715d','a7332f6e-dfae-4931-b126-e137a83a45f6','2d69be42-1e9f-43ef-9760-564cff3b1c7c',1670345235);
         `
         );
     }

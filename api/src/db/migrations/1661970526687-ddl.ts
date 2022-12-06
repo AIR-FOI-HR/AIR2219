@@ -81,7 +81,7 @@ export class ddl1661970526687 implements MigrationInterface {
                 "currency" varchar(20) NOT NULL,
                 "order_created_at" timestamp NOT NULL,
                 "user_email" varchar(45) NOT NULL
-            )
+            );
 
             DROP TABLE IF EXISTS "order" CASCADE;
             CREATE TABLE "order" (
@@ -106,7 +106,7 @@ export class ddl1661970526687 implements MigrationInterface {
                 FOREIGN KEY("user_id") REFERENCES "user"(id),
                 CONSTRAINT "FK_OrderRestroom"
                 FOREIGN KEY("restroom_id") REFERENCES restroom(id)
-            )     
+            );     
 
             DROP TABLE IF EXISTS "order_error" CASCADE;
             CREATE TABLE "order_error" (
@@ -115,10 +115,10 @@ export class ddl1661970526687 implements MigrationInterface {
                 "error_id" uuid NOT NULL,
                 "timestamp" int NOT NULL,
                 CONSTRAINT "FK_Order_errorError"
-                FOREIGN KEY("error_id") REFERENCES error(id) 
+                FOREIGN KEY("error_id") REFERENCES error(id), 
                 CONSTRAINT "FK_Order_errorOrder"
-                FOREIGN KEY("order_id") REFERENCES order(id) 
-            )
+                FOREIGN KEY("order_id") REFERENCES "order"(id) 
+            );
             `
         );
     }
