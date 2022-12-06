@@ -1,8 +1,8 @@
 export enum OrderState {
-    PENDING = "Pending",
-    PROCESSING = "Processing",
-    AUTHORISED = "Authorised",
-    COMPLETED = "Completed",
-    CANCELLED = "Cancelled",
-    FAILED = "Failed"
+    PENDING = "PENDING",
+    PROCESSING = "PROCESSING",
+    AUTHORISED = "AUTHORISED",
+    COMPLETED = "COMPLETED",
+    CANCELLED = "CANCELLED",
+    FAILED = "FAILED"
 }
