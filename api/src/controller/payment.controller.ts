@@ -29,13 +29,12 @@ router.post(
       
       const paymentResponse = await paymentService.processPayment(req.body);      
 
-      if (paymentResponse == true){
+      if (paymentResponse != false){
+        paymentService.confirmOrder(paymentResponse as string);
         res.json({message: 'Payment processed successfully!'});
       } else {
-        res.json({message: 'Payment not processed successfully!'});
+        return next(new AppError("Payment could not be processed, error ocurred!", 500))
       }
-
-  
       
     }
   );

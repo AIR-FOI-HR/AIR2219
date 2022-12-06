@@ -18,11 +18,31 @@ export const processPayment = async (req: Request): Promise<{}> => {
     //
     //TODO: Save the response to the database (todo when the database is completed)
     //
-
-    //TODO: Implement Confirming order
-    return true;
+    return JSONResponse.id;
 
   } else
-    return false;
+      return false;
   
+}
+
+
+export const confirmOrder = async (id: string): Promise<{}> => {
+  const response = await fetch('https://dummy-payment-provider.vercel.app/api/confirmOrder/' + id, {
+  method: 'PUT',
+  headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer 3ELBMYXvPXZKSrejHvJT'
+  }
+});
+
+const JSONResponse = await response.json();
+console.log(JSONResponse);
+
+
+if (JSONResponse.state == 'COMPLETED'){
+  return true;
+
+} else
+    return false;
+
 }
