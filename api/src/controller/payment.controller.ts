@@ -4,7 +4,7 @@ import { check } from "express-validator";
 import * as paymentService from "../service/payment.service";
 import * as dotenv from "dotenv";
 const mqtt = require('mqtt')
-
+const client = mqtt.connect('mqtt://test.mosquitto.org:1883/ws')
 
 dotenv.config();
 
@@ -37,6 +37,7 @@ router.post(
 
     if (paymentResponse != false) {
       paymentService.confirmOrder(paymentResponse as string);
+      client.publish('test/topic/foi/air', JSON.stringify({id: "Test-Id", message:"Test Message for MQTT Subscriber"}));
       res.json({ message: "Payment processed successfully!" });
     } else {
       return returnError(res, 2);
