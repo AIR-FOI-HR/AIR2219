@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
-const ScannerScreen: React.FC = () => {
+const ScannerScreen: React.FC = ({navigation}) => {
     return (
       <View style={styles.container}>
         <Text>Scanner</Text>
+        <Button title='Go to Payment' onPress={() => navigation.navigate("payment")}></Button>
       </View>
     )
 }
