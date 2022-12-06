@@ -21,7 +21,7 @@ export const processPayment = async (req: OrderCreateRequest): Promise<string | 
   });
 
   const JSONResponse = await response.json();
-  console.log(JSONResponse);
+  //console.log(JSONResponse);
 
   if (response.status == 201){
     let orderResponse: DummyOrderResponse = JSONResponse;
