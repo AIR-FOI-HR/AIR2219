@@ -10,8 +10,8 @@ import { User } from './User';
 
 @Entity()
 export class Order extends TemporalEntity{
-    @Column('uuid', {name: "public_id" , nullable: false })
-    publicId: number;
+    @Column('uuid', { nullable: false })
+    publicId: string;
 
     @Column('varchar', { length: 20, nullable: false })
     type: OrderType;
@@ -19,20 +19,20 @@ export class Order extends TemporalEntity{
     @Column('varchar', { length: 20, nullable: false })
     state: OrderState;
 
-    @Column('varchar', {name: "capture_mode", length: 45, nullable: false })
+    @Column('varchar', { length: 45, nullable: false })
     captureMode: CaptureMode;
 
-    @Column('varchar', { name: "merchant_order_ext_ref", length: 255, nullable: false })
+    @Column('varchar', { length: 255, nullable: false })
     merchantOrderExtRef: string;
 
-    @Column('varchar', { name: 'email', length: 45, nullable: false, unique: true })
+    @Column('varchar', { length: 45, nullable: false, unique: true })
     email: string;
 
     @OneToOne(() => Amount)
     @JoinColumn() 
     amount: Amount;
 
-    @Column('varchar', { name: "checkout_url", length: 255, nullable: false })
+    @Column('varchar', { length: 255, nullable: false })
     checkoutUrl: string;
 
     @ManyToOne(() => User, (user) => user.orders)
@@ -45,7 +45,7 @@ export class Order extends TemporalEntity{
     errorToOrder: OrderError[]
 
     constructor(
-        publicId: number,
+        publicId: string,
         type: OrderType,
         state: OrderState,
         captureMode: CaptureMode,
