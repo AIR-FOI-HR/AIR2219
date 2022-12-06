@@ -74,6 +74,44 @@ export class ddl1661970526687 implements MigrationInterface {
                 REFERENCES city(id)
             );
 
+            DROP TABLE IF EXISTS "amount" CASCADE;
+            CREATE TABLE "amount" (
+                "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+                "value" int NOT NULL,
+                "currency" varchar(20) NOT NULL,
+                "order_created_at" timestamp NOT NULL,
+                "user_email" varchar(45) NOT NULL
+            )
+
+            DROP TABLE IF EXISTS "order" CASCADE;
+            CREATE TABLE "order" (
+                "public_id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+                "type" varchar(20) NOT NULL,
+                "state" varchar(20) NOT NULL,
+                "capture_mode" varchar(45) NOT NULL,
+                "merchant_order_ext_ref" varchar(255) NOT NULL,
+                "email" varchar(45) NOT NULL,
+                "amount_id" uuid NOT NULL,
+                "checkout_url" varchar(255) NOT NULL,
+                "user_id" uuid NOT NULL,
+                "restroom_id" uuid NOT NULL,
+                CONSTRAINT "FK_OrderAmount"
+                FOREIGN KEY("amount_id") REFERENCES amount(id),
+                CONSTRAINT "FK_OrderUser"
+                FOREIGN KEY("user_id") REFERENCES "user"(id),
+                CONSTRAINT "FK_OrderRestroom"
+                FOREIGN KEY("restroom_id") REFERENCES restroom(id)
+            )     
+
+            DROP TABLE IF EXISTS "order_error" CASCADE;
+            CREATE TABLE "order_error" (
+                "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+                "order_id" uuid NOT NULL,
+                "error_id" uuid NOT NULL,
+                "timestamp" int NOT NULL,
+                CONSTRAINT "FK_Order_errorError"
+                FOREIGN KEY("error_id") REFERENCES error(id) 
+            )
             `
         );
     }
