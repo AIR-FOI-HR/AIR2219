@@ -1,7 +1,8 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, OneToMany } from 'typeorm';
 import { UserStatus } from '../constants/UserStatus';
 import { UserRole } from '../constants/UserRole';
 import { TemporalEntity } from './TemporalEntity';
+import { Order } from './Order';
 
 @Entity()
 export class User extends TemporalEntity {
@@ -28,6 +29,9 @@ export class User extends TemporalEntity {
 
   @Column('varchar', { name: 'password_reset_code', nullable: false})
   passwordResetCode: string;
+
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[]
 
   constructor(
     firstName: string,

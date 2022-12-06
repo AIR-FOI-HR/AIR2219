@@ -28,7 +28,7 @@ export class ddl1661970526687 implements MigrationInterface {
                 CONSTRAINT "email_unique" UNIQUE (email)
             );
 
-            DROP TABLE IF EXISTS "admin_options";
+            DROP TABLE IF EXISTS "admin_options" CASCADE;
             CREATE TABLE "admin_options" (
                 "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
                 "created_at" timestamp NOT NULL DEFAULT now(),
@@ -77,7 +77,7 @@ export class ddl1661970526687 implements MigrationInterface {
             DROP TABLE IF EXISTS "amount" CASCADE;
             CREATE TABLE "amount" (
                 "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-                "value" int NOT NULL,
+                "value" decimal(10,2) NOT NULL,
                 "currency" varchar(20) NOT NULL,
                 "order_created_at" timestamp NOT NULL,
                 "user_email" varchar(45) NOT NULL
@@ -85,7 +85,12 @@ export class ddl1661970526687 implements MigrationInterface {
 
             DROP TABLE IF EXISTS "order" CASCADE;
             CREATE TABLE "order" (
-                "public_id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+                "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+                "public_id" uuid NOT NULL,
+                "created_at" timestamp NOT NULL DEFAULT now(),
+                "updated_at" timestamp NOT NULL DEFAULT now(),
+                "deleted_at" timestamp NULL,
+                "version" int4 NOT NULL,
                 "type" varchar(20) NOT NULL,
                 "state" varchar(20) NOT NULL,
                 "capture_mode" varchar(45) NOT NULL,
@@ -111,6 +116,8 @@ export class ddl1661970526687 implements MigrationInterface {
                 "timestamp" int NOT NULL,
                 CONSTRAINT "FK_Order_errorError"
                 FOREIGN KEY("error_id") REFERENCES error(id) 
+                CONSTRAINT "FK_Order_errorOrder"
+                FOREIGN KEY("order_id") REFERENCES order(id) 
             )
             `
         );

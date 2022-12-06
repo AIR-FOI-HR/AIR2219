@@ -1,5 +1,6 @@
-import { Entity, Column, ManyToOne } from 'typeorm';
+import { Entity, Column, ManyToOne, OneToMany } from 'typeorm';
 import { City } from './City';
+import { Order } from './Order';
 import { TemporalEntity } from './TemporalEntity';
 
 @Entity()
@@ -24,6 +25,9 @@ export class Restroom extends TemporalEntity {
 
   @ManyToOne(() => City, city => city.id) 
   city: City;
+
+  @OneToMany(() => Order, (order) => order.restroom)
+  orders: Order[]
 
   constructor(
     name: string,
