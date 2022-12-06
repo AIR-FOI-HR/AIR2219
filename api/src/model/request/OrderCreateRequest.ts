@@ -1,6 +1,7 @@
 
 export class OrderCreateRequest {
     constructor(
+      public restroomId: string,
       public amount: string,
       public currency: string,
       public email: string,

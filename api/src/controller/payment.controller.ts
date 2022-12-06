@@ -19,6 +19,7 @@ errors.set(2, {id: "9cd3ce47-6dfa-459b-b590-375a37ef6aa4", statusCode: 500, desc
 router.post(
   "/createOrder",
   [
+    check("restroomId").notEmpty(),
     check("amount").notEmpty(),
     check("currency").notEmpty(),
     check("email").isEmail(),
@@ -35,8 +36,8 @@ router.post(
 
     const paymentResponse = await paymentService.processPayment(req.body);
 
-    if (paymentResponse != false) {
-      paymentService.confirmOrder(paymentResponse as string);
+    if (paymentResponse) {
+      paymentService.confirmOrder(paymentResponse);
       client.publish('test/topic/foi/air', JSON.stringify({id: "Test-Id", message:"Test Message for MQTT Subscriber"}));
       res.json({ message: "Payment processed successfully!" });
     } else {
