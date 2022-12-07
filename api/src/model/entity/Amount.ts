@@ -12,10 +12,10 @@ export class Amount{
     @Column('varchar', { length: 20, nullable: false })
     currency: Currency;
 
-    @Column('timestamp', { name: "order_created_at", nullable: false })
+    @Column('timestamp', { nullable: false })
     orderCreatedAt: string;
 
-    @Column('varchar', { name: "user_email", length: 45, nullable: false })
+    @Column('varchar', { length: 45, nullable: false })
     userEmail: string;
 
     constructor(
