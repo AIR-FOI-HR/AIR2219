@@ -3,6 +3,7 @@ import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
 import { AppError } from './model/constants/AppError';
 const userRoutes = require('./controller/user.controller');
+const paymentRoutes = require('./controller/payment.controller');
 
 const main = async () => {
   const app = express();
@@ -11,6 +12,7 @@ const main = async () => {
   app.use(cors());
 
   app.use('/api/users', userRoutes);
+  app.use('/api/payments', paymentRoutes);
 
   //Reached only when no other middleware gives a response. Basically, for handling unsupported routes
   app.use((_, __, next) => {
@@ -24,7 +26,10 @@ const main = async () => {
     }
 
     res.status(error.code || 500);
-    res.json({ error: error.message || 'Unknown error occurred!' });
+    res.json({
+      error: error.message || 'Unknown error occurred!',
+      timestamp: new Date().toISOString(),
+    });
   });
 
   app.listen(parseInt(process.env.API_PORT!) || 8000);
@@ -34,4 +39,6 @@ AppDataSource.initialize()
   .then((conn) => conn.runMigrations())
   .then(() => console.log('Successfully connected to the database!'))
   .then(main)
-  .catch((error) => console.log('An error occurred while connecting to the database!', error));
+  .catch((error) =>
+    console.log('An error occurred while connecting to the database!', error)
+  );

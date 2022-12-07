@@ -9,12 +9,12 @@ import { AppError } from '../model/constants/AppError';
 const router = express.Router();
 
 router.post(
-  "/register",
+  '',
   [
     check("firstName").notEmpty(),
     check("lastName").notEmpty(),
-    check("username").notEmpty(),
     check("email").isEmail(),
+    check("phone").notEmpty(),
     check("password").isLength({ min: 8 })
   ],
   async (req: Request, res: Response, next: NextFunction) => {
