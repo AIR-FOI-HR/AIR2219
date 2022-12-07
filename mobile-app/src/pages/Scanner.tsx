@@ -26,7 +26,7 @@ const ScannerScreen: React.FC = () => {
 
   const [hasPermission, setHasPermission] = useState(false);
   const [scanned, setScanned] = useState(false);
-  const [dataQR, setDataQR] = useState("");
+  const [dataQR, setDataQR] = useState<Restroom>();
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -43,10 +43,8 @@ const ScannerScreen: React.FC = () => {
 
   const handleBarCodeScanned = async ({ data }: Props) => {
     setScanned(true);
-    setDataQR(data);
     const restroom: Restroom = await getRestroomById(data);
-    console.log(restroom);
-    
+    setDataQR(restroom);  
   };
 
   if (hasPermission === null) {
@@ -74,18 +72,17 @@ const ScannerScreen: React.FC = () => {
                   <View style={styles.infoContainerChild}>
                     <Text style={styles.blackText}>Scanner</Text>
                     <Text style={styles.blueText}>
-                      Ul. Vladimira Nazora 17, 42000 Varaždin
+                      {`${dataQR?.address}, ${dataQR?.cityCode} ${dataQR?.cityName}`}
                     </Text>
                   </View>
                   <View style={styles.infoContainerChild}>
                     <Text style={styles.blackText}>Price</Text>
-                    <Text style={styles.orangeText}>3,00 HRK</Text>
+                    <Text style={styles.orangeText}>{dataQR?.price} EUR</Text>
                   </View>
                   <Text style={styles.blackText}>
-                    Procced to payment?
+                    Proceed to payment?
                   </Text>
                 </View>
-                {/* <Text>{dataQR}</Text> */}
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity style={styles.confirmButton}>
                     <Text style={styles.confirmText}>Confirm</Text>

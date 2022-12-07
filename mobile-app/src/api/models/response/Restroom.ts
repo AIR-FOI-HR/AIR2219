@@ -1,5 +1,3 @@
-import apiOrigin from "../../api";
-
 export type Restroom = {
   id: string;
   name: string;
