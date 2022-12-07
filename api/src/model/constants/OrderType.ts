@@ -1,5 +1,5 @@
 export enum OrderType {
-    PAYMENT = "Payment",
-    REFUND = "Refund",
-    CHARGEBACK = "Chargeback"
+  PAYMENT = 'PAYMENT',
+  REFUND = 'REFUND',
+  CHARGEBACK = 'CHARGEBACK',
 }

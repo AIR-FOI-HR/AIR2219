@@ -1,61 +1,52 @@
-import express, { Request, Response } from "express";
-import { validationResult } from "express-validator";
-import { check } from "express-validator";
-import * as paymentService from "../service/payment.service";
-import * as dotenv from "dotenv";
-const mqtt = require('mqtt')
-const client = mqtt.connect('mqtt://test.mosquitto.org:1883/ws')
+import express, { NextFunction, Request, Response } from 'express';
+import { validationResult } from 'express-validator';
+import { check } from 'express-validator';
+import * as paymentService from '../service/payment.service';
+import * as dotenv from 'dotenv';
+import { AppError } from '../model/constants/AppError';
+import { OrderState } from '../model/constants/OrderState';
 
 dotenv.config();
 
 const router = express.Router();
 
-
-const errors = new Map();
-errors.set(1, {id: "7a09cc08-3cdb-4de8-ae97-0e8879151031", statusCode: 400, description: "Invalid Data!"});
-errors.set(2, {id: "9cd3ce47-6dfa-459b-b590-375a37ef6aa4", statusCode: 500, description: "Server error! Payment not processed successfully!"});
-
-
 router.post(
-  "/createOrder",
+  '/createOrder',
   [
-    check("restroomId").notEmpty(),
-    check("amount").notEmpty(),
-    check("currency").notEmpty(),
-    check("email").isEmail(),
-    check("cardNumber").notEmpty(),
-    check("cvv").isLength({ min: 3 }),
-    check("expiryDate").isLength({ max: 5 }),
+    check('restroomId').notEmpty(),
+    check('amount').notEmpty(),
+    check('currency').notEmpty(),
+    check('email').isEmail(),
+    check('cardNumber').notEmpty(),
+    check('cvv').isLength({ min: 3 }),
+    check('expiryDate').isLength({ max: 5 }),
   ],
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      //console.log(errors);
-      return returnError(res, 1); 
+      return next(new AppError('Invalid order data!', 422));
     }
 
-    const paymentResponse = await paymentService.processPayment(req.body);
+    const createdOrder = await paymentService.processPayment(req.body);
 
-    if (paymentResponse) {
-      paymentService.confirmOrder(paymentResponse);
-      client.publish('foi/air2219', JSON.stringify({id: "Test-Id", message:"Test Message for MQTT Subscriber"}));
-      res.json({ message: "Payment processed successfully!" });
-    } else {
-      return returnError(res, 2);
+    if (createdOrder.state === OrderState.FAILED) {
+      
+      return next(
+        new AppError(createdOrder.errorToOrder[0].error.description, createdOrder.errorToOrder[0].error.statusCode)
+      );
     }
+
+    const confirmedOrder = await paymentService.confirmOrder(createdOrder.id);
+
+    if(!confirmedOrder) {
+      return next(
+        new AppError('Internal Server error! Payment not processed successfully!', 500)
+      );
+    }
+
+    paymentService.publishMQTTMessage(confirmedOrder.id, confirmedOrder.restroom.tag);
+    res.json({ message: 'Payment processed successfully!' });
   }
 );
-
-
-
-const returnError = (res: any, key: any) => {
-  const error = errors.get(key);
-  res.status(error.statusCode);
-  res.json({
-    id: error.id,
-    description: error.description,
-    timestamp: new Date().getTime(),
-  });
-};
 
 module.exports = router;

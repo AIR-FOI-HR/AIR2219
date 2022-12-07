@@ -1,4 +1,4 @@
 export enum Currency {
-    HRK = "HRK",
-    EUR = "EUR"
+  HRK = 'HRK',
+  EUR = 'EUR',
 }

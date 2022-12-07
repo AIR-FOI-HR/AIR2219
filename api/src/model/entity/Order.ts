@@ -10,8 +10,8 @@ import { User } from './User';
 
 @Entity()
 export class Order extends TemporalEntity{
-    @Column('uuid', { nullable: false })
-    publicId: string;
+    @Column('uuid')
+    publicId: string | null;
 
     @Column('varchar', { length: 20, nullable: false })
     type: OrderType;
@@ -32,7 +32,7 @@ export class Order extends TemporalEntity{
     @JoinColumn() 
     amount: Amount;
 
-    @Column('varchar', { length: 255, nullable: false })
+    @Column('varchar')
     checkoutUrl: string;
 
     @ManyToOne(() => User, (user) => user.orders)
@@ -45,7 +45,7 @@ export class Order extends TemporalEntity{
     errorToOrder: OrderError[]
 
     constructor(
-        publicId: string,
+        publicId: string | null,
         type: OrderType,
         state: OrderState,
         captureMode: CaptureMode,
