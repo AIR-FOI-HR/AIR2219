@@ -34,8 +34,8 @@ export class insertData1661971213868 implements MigrationInterface {
             ('caac5312-2a93-4a0f-8c93-2cd68b0d18be', 'Osijek', '31000');
 
             INSERT INTO restroom VALUES
-            ('95b17ff6-4036-4020-be2c-a9751518af4f', now(), now(), null, 1, 'FOI1', 'tag1?', 0.4, 'Pavlinska ul. 2', 46.30770732889613, 16.338047018104785, 'af2cf8c0-513c-4d1f-a061-0bd46a7b2a36'),
-            ('54ccab34-df7a-4d09-ac3b-88eface2c780', now(), now(), null, 1, 'FOI2', 'tag2?', 0.5, 'Prilaz Fausta Vrančića 3', 46.309320610288765, 16.342742220051523, 'af2cf8c0-513c-4d1f-a061-0bd46a7b2a36');
+            ('95b17ff6-4036-4020-be2c-a9751518af4f', now(), now(), null, 1, 'FOI1', 'eFlush-WnmqqYYrWc', 0.4, 'Pavlinska ul. 2', 46.30770732889613, 16.338047018104785, 'af2cf8c0-513c-4d1f-a061-0bd46a7b2a36'),
+            ('54ccab34-df7a-4d09-ac3b-88eface2c780', now(), now(), null, 1, 'FOI2', 'eFlush-eBjhjZOvxG', 0.5, 'Prilaz Fausta Vrančića 3', 46.309320610288765, 16.342742220051523, 'af2cf8c0-513c-4d1f-a061-0bd46a7b2a36');
 
             INSERT INTO amount VALUES
             ('6b53fe77-8643-45ac-a7da-7b5d7958fb42',0.40,'EUR','2022-12-06 15:52:37.513937','admin@mail.com'),
