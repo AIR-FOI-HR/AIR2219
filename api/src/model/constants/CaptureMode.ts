@@ -1,4 +1,4 @@
 export enum CaptureMode {
-    AUTOMATIC = "Automatic",
-    MANUAL = "Manual"
+  AUTOMATIC = 'AUTOMATIC',
+  MANUAL = 'MANUAL',
 }

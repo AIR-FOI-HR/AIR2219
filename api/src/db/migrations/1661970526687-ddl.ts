@@ -86,7 +86,7 @@ export class ddl1661970526687 implements MigrationInterface {
             DROP TABLE IF EXISTS "order" CASCADE;
             CREATE TABLE "order" (
                 "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-                "publicId" uuid NOT NULL,
+                "publicId" uuid NULL,
                 "createdAt" timestamp NOT NULL DEFAULT now(),
                 "updatedAt" timestamp NOT NULL DEFAULT now(),
                 "deletedAt" timestamp NULL,

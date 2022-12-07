@@ -10,7 +10,7 @@ import { User } from './User';
 
 @Entity()
 export class Order extends TemporalEntity{
-    @Column('uuid', { nullable: false })
+    @Column('uuid')
     publicId: string;
 
     @Column('varchar', { length: 20, nullable: false })

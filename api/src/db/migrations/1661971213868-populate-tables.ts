@@ -24,7 +24,7 @@ export class insertData1661971213868 implements MigrationInterface {
             ( 'e4a2587b-96d9-42e6-903d-23bf13b75743', 422, 'Order has expired and can not be confirmed!');
             
             INSERT INTO "admin_options" VALUES
-            ( '128b9137-ccd2-412b-aa1f-920057cc8701', now(), now(), NULL, 1, 'admin@eflushapp.com', '+385990000000', 'EUR', 'Automatic');
+            ( '128b9137-ccd2-412b-aa1f-920057cc8701', now(), now(), NULL, 1, 'admin@eflushapp.com', '+385990000000', 'EUR', 'AUTOMATIC');
 
             INSERT INTO "city" VALUES
             ('af2cf8c0-513c-4d1f-a061-0bd46a7b2a36', 'Varazdin', '42000'),
