@@ -65,9 +65,6 @@ export const confirmOrder = async (id: string): Promise<{}> => {
   }
 });
 
-//const JSONResponse = await response.json();
-//console.log(JSONResponse);
-
 
 if (response.status == 200){
   
