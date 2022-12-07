@@ -14,4 +14,5 @@ export const color={
     black: '#000000',
     successGreen:'#006428',
     failureRed:'#ad0000',
+    borderGrey: "#bdbdbd"
 }
