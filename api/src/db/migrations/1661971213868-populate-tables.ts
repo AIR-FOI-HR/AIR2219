@@ -50,10 +50,10 @@ export class insertData1661971213868 implements MigrationInterface {
             ('a7332f6e-dfae-4931-b126-e137a83a45f6','c4374a7a-c641-48a6-b2aa-87810aee47b7','2022-12-06 17:39:57.735703','2022-12-06 17:39:57.735703',NULL,1,'PAYMENT','PENDING','AUTOMATIC','Order test','mimi@mail.com','cdff709e-3bbd-413a-a01c-61d670e5872b','https://www.eflush.hr/checkout/a7332f6e-dfae-4931-b126-e137a83a45f6','5a04fcf5-0541-4c31-8fc2-41ab2f7af3ed','54ccab34-df7a-4d09-ac3b-88eface2c780');
        
             INSERT INTO order_error VALUES
-            ('1768a522-4edb-44fb-b901-77d730d517b6','38d168db-fa8d-4c5f-8a90-afbcb601836b','2d69be42-1e9f-43ef-9760-564cff3b1c7c',1670345159),
-            ('9d3edbc7-cdc9-4bf6-a8e5-da5eb883dd05','6752599b-637c-4e16-952e-2b1c440bceda','b9706d29-b011-49b7-ba3b-d3a46971afbe',1670345155),
-            ('d0e323c3-0b9a-43c3-a0a2-ca640b081880','852a090d-5580-4d97-8f3d-d95fc9e3f48a','96712ca4-6c83-4af0-b76b-e9ed0359c0c3',1670345217),
-            ('478b90d7-cfc9-4b38-8880-96365319715d','a7332f6e-dfae-4931-b126-e137a83a45f6','2d69be42-1e9f-43ef-9760-564cff3b1c7c',1670345235);
+            ('1768a522-4edb-44fb-b901-77d730d517b6','38d168db-fa8d-4c5f-8a90-afbcb601836b','2d69be42-1e9f-43ef-9760-564cff3b1c7c',1670415370701),
+            ('9d3edbc7-cdc9-4bf6-a8e5-da5eb883dd05','6752599b-637c-4e16-952e-2b1c440bceda','b9706d29-b011-49b7-ba3b-d3a46971afbe',1670415350701),
+            ('d0e323c3-0b9a-43c3-a0a2-ca640b081880','852a090d-5580-4d97-8f3d-d95fc9e3f48a','96712ca4-6c83-4af0-b76b-e9ed0359c0c3',1670415270701),
+            ('478b90d7-cfc9-4b38-8880-96365319715d','a7332f6e-dfae-4931-b126-e137a83a45f6','2d69be42-1e9f-43ef-9760-564cff3b1c7c',1670415350701);
         `
         );
     }

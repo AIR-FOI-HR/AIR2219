@@ -26,7 +26,7 @@ export class DummyOrderResponse {
     ) {}
 
     public static toEntity(dto: DummyOrderResponse, amount: Amount, user: User, restroom: Restroom): Order {
-      return new Order(
+      const order = new Order(
       dto.publicId,
       dto.type,
       dto.state,
@@ -38,6 +38,8 @@ export class DummyOrderResponse {
       user,
       restroom
       );
+      order.id = dto.id;
+      return order
     }
   }
 

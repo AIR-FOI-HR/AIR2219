@@ -26,7 +26,10 @@ const main = async () => {
     }
 
     res.status(error.code || 500);
-    res.json({ error: error.message || 'Unknown error occurred!' });
+    res.json({
+      error: error.message || 'Unknown error occurred!',
+      timestamp: new Date().toISOString(),
+    });
   });
 
   app.listen(parseInt(process.env.API_PORT!) || 8000);
@@ -36,4 +39,6 @@ AppDataSource.initialize()
   .then((conn) => conn.runMigrations())
   .then(() => console.log('Successfully connected to the database!'))
   .then(main)
-  .catch((error) => console.log('An error occurred while connecting to the database!', error));
+  .catch((error) =>
+    console.log('An error occurred while connecting to the database!', error)
+  );

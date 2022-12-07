@@ -97,7 +97,7 @@ export class ddl1661970526687 implements MigrationInterface {
                 "merchantOrderExtRef" varchar(255) NOT NULL,
                 "email" varchar(45) NOT NULL,
                 "amountId" uuid NOT NULL,
-                "checkoutUrl" varchar(255) NOT NULL,
+                "checkoutUrl" varchar(255) NULL,
                 "userId" uuid NOT NULL,
                 "restroomId" uuid NOT NULL,
                 CONSTRAINT "FK_OrderAmount"
@@ -113,7 +113,7 @@ export class ddl1661970526687 implements MigrationInterface {
                 "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
                 "orderId" uuid NOT NULL,
                 "errorId" uuid NOT NULL,
-                "timestamp" int NOT NULL,
+                "timestamp" bigint NOT NULL,
                 CONSTRAINT "FK_Order_errorError"
                 FOREIGN KEY("errorId") REFERENCES error(id), 
                 CONSTRAINT "FK_Order_errorOrder"
