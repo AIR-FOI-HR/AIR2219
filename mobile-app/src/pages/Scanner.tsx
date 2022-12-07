@@ -15,6 +15,8 @@ import {
   OpenSans_400Regular,
   OpenSans_600SemiBold,
 } from "@expo-google-fonts/open-sans";
+import { getRestroomById } from "../api/restrooms";
+import { Restroom } from "../api/models/response/Restroom";
 
 const ScannerScreen: React.FC = () => {
   let [fontsLoaded] = useFonts({
@@ -39,9 +41,12 @@ const ScannerScreen: React.FC = () => {
     data: string;
   }
 
-  const handleBarCodeScanned = ({ data }: Props) => {
+  const handleBarCodeScanned = async ({ data }: Props) => {
     setScanned(true);
     setDataQR(data);
+    const restroom: Restroom = await getRestroomById(data);
+    console.log(restroom);
+    
   };
 
   if (hasPermission === null) {
@@ -67,29 +72,29 @@ const ScannerScreen: React.FC = () => {
               <View style={styles.popUp}>
                 <View style={styles.infoContainer}>
                   <View style={styles.infoContainerChild}>
-                    <Text style={styles.blackText}>Skenirana brava</Text>
+                    <Text style={styles.blackText}>Scanner</Text>
                     <Text style={styles.blueText}>
                       Ul. Vladimira Nazora 17, 42000 Varaždin
                     </Text>
                   </View>
                   <View style={styles.infoContainerChild}>
-                    <Text style={styles.blackText}>Cijena</Text>
+                    <Text style={styles.blackText}>Price</Text>
                     <Text style={styles.orangeText}>3,00 HRK</Text>
                   </View>
                   <Text style={styles.blackText}>
-                    Želite li platiti ulazak?
+                    Procced to payment?
                   </Text>
                 </View>
                 {/* <Text>{dataQR}</Text> */}
                 <View style={styles.buttonContainer}>
                   <TouchableOpacity style={styles.confirmButton}>
-                    <Text style={styles.confirmText}>Potvrdi</Text>
+                    <Text style={styles.confirmText}>Confirm</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.cancelButton}
                     onPress={() => setScanned(false)}
                   >
-                    <Text style={styles.cancelText}>Odustani</Text>
+                    <Text style={styles.cancelText}>Cancel</Text>
                   </TouchableOpacity>
                 </View>
               </View>
