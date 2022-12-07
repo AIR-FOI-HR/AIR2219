@@ -23,6 +23,7 @@ export const processPayment = async (
   //TODO: Transactions
 
   let price: number = parseOrderPrice(req.amount);
+  console.log('NUMBA PRICE: ', price);
   const amount: Amount = new Amount(
     price,
     req.currency,
@@ -38,7 +39,11 @@ export const processPayment = async (
     email: req.email,
   });
 
-  const response = await sendRequestToPaymentService('POST', 'createOrder', JSON.stringify(req));
+  const response = await sendRequestToPaymentService(
+    'POST',
+    'createOrder',
+    JSON.stringify(req)
+  );
   const parsedResponse = await response.json();
 
   let newOrder: Order;
@@ -57,11 +62,25 @@ export const processPayment = async (
   } else {
     let orderResponse: DummyErrorResponse = parsedResponse;
 
-    newOrder = new Order(null, OrderType.PAYMENT, OrderState.FAILED, CaptureMode.AUTOMATIC, 'Order created using a test card', req.email, amount, '', user, restroom);
+    newOrder = new Order(
+      null,
+      OrderType.PAYMENT,
+      OrderState.FAILED,
+      CaptureMode.AUTOMATIC,
+      'Order created using a test card',
+      req.email,
+      amount,
+      '',
+      user,
+      restroom
+    );
 
-    error = await ErrorRepository.findOneBy({id: orderResponse.id});
-    if(!error) {
-      error = DummyErrorResponse.toEntity(orderResponse.description, parsedResponse.status);
+    error = await ErrorRepository.findOneBy({ id: orderResponse.id });
+    if (!error) {
+      error = DummyErrorResponse.toEntity(
+        orderResponse.description,
+        parsedResponse.status
+      );
       await ErrorRepository.save(error);
     }
 
@@ -70,11 +89,14 @@ export const processPayment = async (
 
   await AmountRepository.save(amount);
   await OrderRepository.save(newOrder);
-  if(orderError) {
+  if (orderError) {
     await OrderErrorRepository.save(orderError);
   }
 
-  const order = await OrderRepository.findOne({where: {id: newOrder.id}, relations: {errorToOrder: {error: true}}});
+  const order = await OrderRepository.findOne({
+    where: { id: newOrder.id },
+    relations: { errorToOrder: { error: true } },
+  });
   return order!;
 };
 
@@ -85,9 +107,12 @@ export const confirmOrder = async (id: string): Promise<Order> => {
     ''
   );
 
-  const orderResponse = await response.json() as DummyOrderResponse;
+  const orderResponse = (await response.json()) as DummyOrderResponse;
 
-  const order = await OrderRepository.findOne({where: {id: orderResponse.id}, relations: {restroom: true}});
+  const order = await OrderRepository.findOne({
+    where: { id: orderResponse.id },
+    relations: { restroom: true },
+  });
   order!.state = OrderState.COMPLETED;
   await OrderRepository.save(order!);
 
@@ -106,11 +131,16 @@ export const publishMQTTMessage = (orderId: string, orderTag: string): void => {
 
 const parseOrderPrice = (price: string): number => {
   const decimalPointInsertIndex: number = price.length - 2;
-  return parseInt(
+  console.log(
+    'STRING PRICE: ',
     price.slice(0, decimalPointInsertIndex) +
       '.' +
-      price.slice(decimalPointInsertIndex),
-    10
+      price.slice(decimalPointInsertIndex)
+  );
+  return parseFloat(
+    price.slice(0, decimalPointInsertIndex) +
+      '.' +
+      price.slice(decimalPointInsertIndex)
   );
 };
 
@@ -119,15 +149,12 @@ const sendRequestToPaymentService = async (
   path: string,
   body: string
 ): Promise<Response> => {
-  return fetch(
-    'https://dummy-payment-provider.vercel.app/api/' + path,
-    {
-      method: method,
-      body,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer 3ELBMYXvPXZKSrejHvJT',
-      },
-    }
-  );
+  return fetch('https://dummy-payment-provider.vercel.app/api/' + path, {
+    method: method,
+    body,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer 3ELBMYXvPXZKSrejHvJT',
+    },
+  });
 };
