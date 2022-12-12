@@ -16,4 +16,13 @@ router.get('/:restroomId', async (req, res, next) => {
 
 });
 
+router.get('/cities/:cityId', async (req, res, next) => {
+    const restrooms: Restroom[] | null = await restroomService.getRestroomsByCityId(req.params.cityId);
+    if (!restrooms){
+        return next(new AppError("Restrooms not found for this city!", 404));
+    }
+    res.json(RestroomResponse.toDtos(restrooms));
+
+});
+
 module.exports = router;
