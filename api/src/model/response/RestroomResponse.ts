@@ -26,4 +26,10 @@ export class RestroomResponse {
 
         );
     }
+
+    public static toDtos(restrooms: Restroom[]): RestroomResponse[] {
+        let restroomResponses: RestroomResponse[] = [];
+        restrooms.forEach((restroom: Restroom) => {restroomResponses.push(RestroomResponse.toDto(restroom))});
+        return restroomResponses;
+    }
 }
