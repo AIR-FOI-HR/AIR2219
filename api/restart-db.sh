@@ -6,4 +6,4 @@ docker stop eflush-db;
 
 docker rm eflush-db;
 
-docker-compose up -d;
+docker-compose up -d eflush-db;
