@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('', async (_, res) => {
     const cities: City[] = await cityService.getAllCities();
-    res.json(cities.map(city => CityResponse.toDto(city)));
+    res.json(CityResponse.toDtos(cities));
 });
 
 module.exports = router;

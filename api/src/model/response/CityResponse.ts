@@ -15,4 +15,10 @@ export class CityResponse {
             city.code
         );
     }
+
+    public static toDtos(cities: City[]): CityResponse[] {
+        let cityResponses: CityResponse[] = [];
+        cities.forEach((city: City) => {cityResponses.push(CityResponse.toDto(city))});
+        return cityResponses;
+    }
 }
