@@ -24,9 +24,9 @@ export class AdminOptions extends TemporalEntity {
     captureMode: CaptureMode,
   ) {
     super();
-    this.contactEmail = contactEmail,
-    this.contactPhone = contactPhone,
-    this.currency = currency,
-    this.captureMode = captureMode
+    this.contactEmail = contactEmail;
+    this.contactPhone = contactPhone;
+    this.currency = currency;
+    this.captureMode = captureMode;
   }
 }

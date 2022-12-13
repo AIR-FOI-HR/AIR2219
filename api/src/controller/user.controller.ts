@@ -31,7 +31,7 @@ router.post(
 
 router.get('', async (_, res) => {
     const users: User[] = await userService.getAllUsers();
-    res.json(users.map(user => UserResponse.toDto(user)));
+    res.json(UserResponse.toDtos(users));
 });
 
 module.exports = router;
