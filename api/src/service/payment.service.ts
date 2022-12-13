@@ -23,7 +23,6 @@ export const processPayment = async (
   //TODO: Transactions
 
   let price: number = parseOrderPrice(req.amount);
-  console.log('NUMBA PRICE: ', price);
   const amount: Amount = new Amount(
     price,
     req.currency,
