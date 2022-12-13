@@ -5,6 +5,7 @@ import { AppError } from './model/constants/AppError';
 const userRoutes = require('./controller/user.controller');
 const paymentRoutes = require('./controller/payment.controller');
 const restroomRoutes = require('./controller/restroom.controller');
+const cityRoutes = require('./controller/city.controller');
 
 const main = async () => {
   const app = express();
@@ -15,6 +16,7 @@ const main = async () => {
   app.use('/api/users', userRoutes);
   app.use('/api/restrooms', restroomRoutes);
   app.use('/api/payments', paymentRoutes);
+  app.use('/api/cities', cityRoutes);
 
   //Reached only when no other middleware gives a response. Basically, for handling unsupported routes
   app.use((_, __, next) => {
