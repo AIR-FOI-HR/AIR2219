@@ -14,7 +14,6 @@ export class RestroomResponse {
     ) {}
 
     public static toDto(restroom: Restroom): RestroomResponse {
-        console.log(restroom);
         return new RestroomResponse(
             restroom.id,
             restroom.name,

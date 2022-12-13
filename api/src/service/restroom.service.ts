@@ -1,6 +1,5 @@
 import { Restroom } from '../model/entity/Restroom';
 import { RestroomRepository } from '../dao/restroom.repository';
-import { CityRepository } from '../dao/city.repository';
 
 export const getRestroomById = async (id: string): Promise<Restroom | null> => {
     if(id.length !== 36 || id.split("-").length - 1 !== 4) {
@@ -14,7 +13,5 @@ export const getRestroomsByCityId= async (cityId: string): Promise<Restroom[] | 
     return null;
   }
 
-  const city = await CityRepository.findOne({where: {id: cityId}, relations: {restrooms: {city: true}}});
-  return city ? city.restrooms : null;
-
+  return RestroomRepository.find({relations: {city: true}, where: {city: { id: cityId }}});
 };
