@@ -124,19 +124,13 @@ export const publishMQTTMessage = (orderId: string, orderTag: string): void => {
     'foi/air2219',
     JSON.stringify({
       id: orderId,
-      message: orderTag,
+      tag: orderTag,
     })
   );
 };
 
 const parseOrderPrice = (price: string): number => {
   const decimalPointInsertIndex: number = price.length - 2;
-  console.log(
-    'STRING PRICE: ',
-    price.slice(0, decimalPointInsertIndex) +
-      '.' +
-      price.slice(decimalPointInsertIndex)
-  );
   return parseFloat(
     price.slice(0, decimalPointInsertIndex) +
       '.' +

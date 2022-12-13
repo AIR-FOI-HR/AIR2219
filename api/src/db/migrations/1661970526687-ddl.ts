@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class ddl1661970526687 implements MigrationInterface {
-    name?: string | undefined;
+    name: string | undefined;
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         const schemaName: string = process.env.DB_SCHEMA || 'eflush_app';
