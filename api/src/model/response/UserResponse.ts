@@ -18,4 +18,10 @@ export class UserResponse {
       user.phone
     );
   }
+
+  public static toDtos(users: User[]): UserResponse[] {
+    let userResponses: UserResponse[] = [];
+    users.forEach((user: User) => {userResponses.push(UserResponse.toDto(user))});
+    return userResponses;
+}
 }
