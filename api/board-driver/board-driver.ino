@@ -1,91 +1,106 @@
 #include <Adafruit_NeoPixel.h>
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+#include <ArduinoJson.h>
 #include "credentials.h"
-#include <map>
-#include <string>
-#define LED1_PIN 1
-#define LED2_PIN 2
+#define lock_1 12
+#define lock_2 13
+#define ONBOARD_LED_PIN 2
 
-// WiFi credentials -read from credentials.h
-const char *ssid = WIFI_SSID;
-const char *password = WIFI_PASS;
+Adafruit_NeoPixel onboard_led(1, ONBOARD_LED_PIN, NEO_GRB + NEO_KHZ800);
 
 // MQTT Broker
 const char *mqtt_broker = "test.mosquitto.org";
 const char *topic = "foi/air2219";
 const int mqtt_port = 1883;
 
-//LED config
-Adafruit_NeoPixel led1(1, LED1_PIN, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel led2(1, LED2_PIN, NEO_GRB + NEO_KHZ800);
-
-//Ports and the corresponding tags
-map<string, int> connectedLocks;
-map<char,int>::iterator it;
-
 WiFiClient espClient;
 PubSubClient client(espClient);
 
 void setup() {
-  // Set serial baud rate to 9600 (Serial monitor logs)
+  // Set the serial baud rate to 9600 (Serial monitor logs)
   Serial.begin(9600);
 
-  led1.begin();
+  // Initialize hardware connected to the board
+  onboard_led.begin();
+  pinMode(lock_1, OUTPUT);
+  pinMode(lock_2, OUTPUT);
 
-  connectedLocks.insert(pair<string, int>("eFlush-WnmqqYYrWc", 1));
-  connectedLocks.insert(pair<string, int>("eFlush-eBjhjZOvxG", 2));
-  
-  // connecting to a WiFi network
-  WiFi.begin(ssid, password);
+  // Change on board led's color to red
+  delay(100);
+  onboard_led.setPixelColor(0, onboard_led.Color(255, 0, 0));
+  onboard_led.show();
+
+  // Connect to a WiFi network
+  connectToWifi();
+
+  //Connect to an MQTT broker
+  setupMQTTConnection();
+}
+
+void connectToWifi() {
+  WiFi.begin(WIFI_SSID, WIFI_PASS); //Credentials need to be defined in the credentials.h header file
   while (WiFi.status() != WL_CONNECTED) {
       // Retry every 5 seconds
+      Serial.println("Connecting to the WiFi network");
       delay(5000);
-      Serial.println("Connecting to WiFi..");
   }
   Serial.println("Connected to the WiFi network");
-  
-  //Connecting to an MQTT broker
+  // Change on board led's color to yellow
+  onboard_led.setPixelColor(0, onboard_led.Color(255, 255, 0));
+  onboard_led.show();
+}
+
+void setupMQTTConnection() {
   client.setServer(mqtt_broker, mqtt_port);
-  client.setCallback(parseTagAndUnlockDoor);
+  client.setCallback(parseTagAndUnlockDoor); //Called upon receiving a message
   while (!client.connected()) {
       String client_id = "esp8266-client-";
       client_id += String(WiFi.macAddress());
       Serial.printf("The client %s connects to the public mqtt broker\n", client_id.c_str());
-      if (client.connect(client_id.c_str(), mqtt_username, mqtt_password)) {
+      if (client.connect(client_id.c_str())) {
           Serial.println("Public emqx mqtt broker connected");
       } else {
-          Serial.print("fai1 with state ");
+          Serial.print("Failed with state ");
           Serial.print(client.state());
           delay(2000);
       }
   }
   // Subscribe to the specified topic
   client.subscribe(topic);
+  // Change on board led's color to green
+  onboard_led.setPixelColor(0, onboard_led.Color(0, 255, 0));
+  onboard_led.show();  
 }
 
 void parseTagAndUnlockDoor(char *topic, byte *payload, unsigned int length) {
   Serial.print("Tag arrived in topic: ");
   Serial.println(topic);
 
-  string tag;
+  String jsonMessage;
   for (int i = 0; i < length; i++) {
-    tag.push_back((char) payload[i]);
+    jsonMessage += (char) payload[i];
   }
-  Serial.print("Tag:");
-  Serial.println(tag);
+  Serial.print("Message:");
+  Serial.println(jsonMessage);
 
-  it = connectedLocks.find(tag);
-  
-  if (it != connectedLocks.end()) {
-    led1.setPixelColor(0, led1.Color(255, 0, 0));
-    led1.show();
-    delay(1000);
-    led1.setPixelColor(0, led1.Color(0, 0, 0));
-    led1.show();
+  DynamicJsonDocument message(1024);
+  deserializeJson(message, jsonMessage);
+
+  String restroomTag = (String)message["tag"];
+  Serial.println(restroomTag);
+  if(restroomTag == CONNECTED_LOCK_1) {
+      digitalWrite(lock_1, HIGH);
+      delay(3000);
+      digitalWrite(lock_1, LOW);
+  } else if(restroomTag == CONNECTED_LOCK_2) {
+    digitalWrite(lock_2, HIGH);
+    delay(3000);
+    digitalWrite(lock_2, LOW);
   }
 }
 
 void loop() {
+  // Keeps the connection alive (sends keepalive)
   client.loop();
-}
+  }
