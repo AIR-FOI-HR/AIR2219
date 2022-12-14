@@ -40,8 +40,6 @@ export default function App() {
           tabBarStyle: {
             height: 80,
             backgroundColor: color.primaryBlue,
-            borderTopLeftRadius: 15,
-            borderTopRightRadius: 15,
           },
         }}
       >
