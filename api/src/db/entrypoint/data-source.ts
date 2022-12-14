@@ -9,6 +9,7 @@ import { City } from '../../model/entity/City';
 import { Order } from '../../model/entity/Order';
 import { OrderError } from '../../model/entity/OrderError';
 import { Amount } from '../../model/entity/Amount';
+import path from 'path';
 dotenv.config();
 
 export const AppDataSource = new DataSource({
@@ -22,6 +23,6 @@ export const AppDataSource = new DataSource({
   synchronize: false,
   logging: process.env.LOG_SQL === 'true', // Logs sql that gets executed on the database
   entities: [User, Error, AdminOptions, Restroom, City, Order, OrderError, Amount],
-  migrations: ['dist/db/migrations/*.js'],
+  migrations: [path.join(__dirname, "../migrations/*.js")],
   migrationsTableName: 'changelog_master',
 });
