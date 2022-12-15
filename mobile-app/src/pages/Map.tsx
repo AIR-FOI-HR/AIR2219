@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, } from "react-native";
+import CitySelectBar from '../components/CitySelectBar';
 import RestroomMap from '../components/RestroomMap';
 
 const varazdinRegion = {
@@ -20,6 +21,7 @@ const MapScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <RestroomMap initialRegion={varazdinRegion}/>
+      <CitySelectBar/>
     </View>
   );
 };
