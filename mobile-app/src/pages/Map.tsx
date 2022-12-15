@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
-import MapView from "react-native-maps";
+import React from 'react';
+import { StyleSheet, View, } from "react-native";
+import RestroomMap from '../components/RestroomMap';
 
 const varazdinRegion = {
   latitude: 46.30774076067861,
@@ -13,15 +14,12 @@ const zagrebRegion = {
   longitude: 15.977320885433711,
   latitudeDelta: 0.0412,
   longitudeDelta: 0.0211,
-}
+};
 
 const MapScreen: React.FC = () => {
   return (
     <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        initialRegion={zagrebRegion}
-      />
+      <RestroomMap initialRegion={varazdinRegion}/>
     </View>
   );
 };
@@ -33,9 +31,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
   },
 });
 
