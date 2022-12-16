@@ -27,7 +27,7 @@ export class insertData1661971213868 implements MigrationInterface {
             ( '128b9137-ccd2-412b-aa1f-920057cc8701', now(), now(), NULL, 1, 'admin@eflushapp.com', '+385990000000', 'EUR', 'AUTOMATIC');
 
             INSERT INTO "city" VALUES
-            ('af2cf8c0-513c-4d1f-a061-0bd46a7b2a36', 'Varazdin', '42000'),
+            ('af2cf8c0-513c-4d1f-a061-0bd46a7b2a36', 'Varaždin', '42000'),
             ('ab1fce53-64ca-4398-8541-f5ff47bc9dc7', 'Zagreb', '10000'),
             ('5611b312-da8b-4e90-8bc3-0372c144c22e', 'Split', '21000'),
             ('064f4bd5-96b3-4b58-b9ad-04ecb874abb8', 'Rijeka', '51000'),
