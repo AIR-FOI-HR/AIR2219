@@ -11,10 +11,15 @@ dotenv.config();
 const router = express.Router();
 
 router.get('/:userId', async (req, res, next) => {
-    const orders: Order[] | null = await orderService.getOrdersByUserId(req.params.userId);
-    if (!orders){
-        return next(new AppError("Orders not found for this user!", 404));
+    if (req.query.cityId){
+        const orders: Order[] | null = await orderService.getOrdersByUserId(req.params.userId, req.query.cityId.toString());
+        if (!orders){
+            return next(new AppError("Orders not found for this user!", 404));
+        }
+        res.json(OrderResponse.toDtos(orders));
+    } else {
+        return next(new AppError("City Id not provided!", 400));
     }
-    res.json(OrderResponse.toDtos(orders));
-
 });
+
+module.exports = router;
