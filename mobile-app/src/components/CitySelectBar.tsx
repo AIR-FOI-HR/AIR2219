@@ -11,25 +11,21 @@ import {
 import AppLoading from "expo-app-loading";
 import IconLocation from "../assets/ic_CurrentLocation.svg";
 import { City } from "../api/models/response/City";
-import { getAllCities } from "../api/cities";
 
-const CitySelectBar: React.FC = () => {
+interface Props {
+  cityList: City[];
+  cityId: string;
+  setCityId: (cityId: string | ((prevCityId: string) => string)) => void;
+}
+
+const CitySelectBar: React.FC<Props> = ({cityId, setCityId, cityList} ) => {
   let [fontsLoaded] = useFonts({
     OpenSans_400Regular,
     OpenSans_600SemiBold,
   });
 
   const [selected, setSelected] = useState(true);
-  const [citiesList, setCitiesList] = useState<City[]>();
 
-  useEffect(() => {
-    getCities();
-  }, []);
-
-  const getCities = async () => {
-    const cities: City[] = await getAllCities();
-    setCitiesList(cities);
-  };
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -44,12 +40,14 @@ const CitySelectBar: React.FC = () => {
         distance={5}
       >
         <IconLocation width={22.5} height={22.5} style={styles.iconLocation} />
-        {citiesList && (
+        {cityList && (
           <SelectDropdown
-            data={citiesList!.map((city) => city.name)}
+            data={cityList!.map((city) => city.name)}
             defaultValueByIndex={0}
             onSelect={(selectedItem, index) => {
               console.log(selectedItem);
+              const selectedCity = cityList.find(city => city.name == selectedItem);
+              setCityId(selectedCity!.id);
               setSelected(true);
             }}
             buttonTextStyle={styles.buttonText}
