@@ -5,104 +5,89 @@ import { color } from "../lib/style/theme";
 import Title from "../components/Title";
 import TitledInput from "../components/TitledInput";
 import SimpleButton from "../components/SimpleButton";
-import { registerRootComponent } from "expo";
-
+import * as yup from 'yup';
+import {Formik} from 'formik';
+import {ScrollView} from 'react-native';
 interface Props{
   navigation:any;
+  data:any; //Koji tip da stavljam za ovakve stvari?
 }
 
-const Payment = ({navigation}:Props) => {
+//Jel sve pišem na engleskom?
 
-  const [inputs,setInputs] = React.useState({
-    cardNumber: '',
-    date:'',
-    controlNumber: '',
-  })
+const paymentValidationSchema = yup.object().shape({
+  cardNumber: 
+    yup.string()
+    .min(16,({min})=>'Premalo znamenka! Broj kartice mora imati točno 16 znamenka')
+    .max(16,({max})=>'Previše znamenka! Broj kartice mora imati točno 16 znamenka')
+    .required('Niste unijeli broj kartice'),
+
+  expirationDate:
+    yup.string()
+    .matches(/^[0-9]{2}\/[0-9]{2}$/g,'Pogrešan format datuma isteka!')
+    .required('Niste unijeli datum isteka'),
+
+  CVV:
+    yup.string()
+    .min(3,'Kontrolni broj čine tri znamenke!')
+    .max(3,'Kontrolni broj čine tri znamenke!')
+    .required('Niste unijeli kontrolni broj'),
   
-  const [warnings,setWarnings] = React.useState({})
+})
 
-
-  const handleWarning = (warningMessage:string,input:string)=>{
-    setWarnings((prevState)=>({...prevState,[input]:warningMessage}))
-  }
-
-  const validate = () =>{
-
-    handleWarning(null,'cardNumber');
-    handleWarning(null,'date');
-    handleWarning(null,'controlNumber');
-    let valid = true;
-    if(!inputs.cardNumber){
-      handleWarning('Niste unijeli broj kartice!','cardNumber');
-      valid = false;
-    }
-    else if(!inputs.cardNumber.match(/^[0-9]{16}$/g)){
-      handleWarning('Unijeli ste pogrešan format broja kartice!','cardNumber');
-      valid = false;
-    }
-
-    if(!inputs.date){
-      handleWarning('Niste unijeli datum!','date');
-      valid = false;
-    }    
-    else if(!inputs.date.match(/^[0-9]{2}\/[0-9]{2}$/g)){
-      handleWarning('Unijeli ste pogrešan format datuma!','date');
-      valid = false;
-    }
-
-    if(!inputs.controlNumber){
-      handleWarning('Niste unijeli kontrolni broj!','controlNumber');
-      valid = false;
-    }    
-    else if(!inputs.controlNumber.match(/^[0-9]{3}$/g)){
-      handleWarning('Unijeli ste pogrešan format kontrolnog broja!','controlNumber');
-      valid = false;
-    }
-
-    if(valid){
-      register();
-      
-    }
-  };
-
-  const register = ()=>{
+const Payment = ({navigation,data={}}:Props) => { //Jel da mi se ovaj data prosljeđuje iz prijašnje forme ili se dohvaća s nekim api? (https://reactnavigation.org/docs/params/)
+  function ime(values:string) {
+    alert(values);
     navigation.navigate("scannerOptions")
   }
-  const handleOnChange = (text:string,input:string)=>{
-    setInputs(prevState => ({...prevState, [input]: text}));
-  }
+
   return (
-    <View style={styles.container}>
-      <View>
-        <Title value="Plaćanje" fontSize={24} color={color.primaryBlue}/>
-      </View>
+    <Formik
+      initialValues={{cardNumber: '', expirationDate:'',CVV:''}}
+      validateOnMount={true}
+      onSubmit={values => ime(JSON.stringify(values))}
+      validationSchema={paymentValidationSchema}> 
+      {({ handleChange, handleBlur, handleSubmit, values, touched,errors, isValid }) => (
 
-      <View>
-        <SimpleTitledText title="Brava" value="Ul. Vladimira Nazora 17, 42000 Varaždin" valueColor={color.primaryBlue}/>
-        <SimpleTitledText title="Cijena" value="3,00 HRK" valueColor={color.primaryOrange}/>
-      </View>
-
-      <View>
-        <View>
-          <TitledInput title="Broj kartice" placeholder="xxxx xxxx xxxx xxxx" warning={warnings.cardNumber} onFocus={()=>handleWarning(null,'cardNumber')} onChange={(text:string) => handleOnChange(text,'cardNumber')}/>
-        </View>
-
-        <View style={{flexDirection:'row'}}>
-          <View style={{flex:1,marginRight:20}}>
-          <TitledInput title="Datum isteka" placeholder="MM/YY" warning={warnings.date} onFocus={()=>handleWarning(null,'date')}  onChange={(text:string) => handleOnChange(text,'date')}/>
+        <ScrollView style={styles.container}  contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
+          <View>
+            <Title value="Plaćanje" fontSize={24} color={color.primaryBlue}/>
           </View>
-          <View style={{flex:1,marginLeft:20}}>
-            <TitledInput title="Kontrolni broj" placeholder="xxx" warning={warnings.controlNumber} onFocus={()=>handleWarning(null,'controlNumber')}  onChange={(text:string) => handleOnChange(text,'controlNumber')}/>
+
+          <View>
+            <SimpleTitledText title="Brava" value={`${data?.address}, ${data?.cityCode} ${data?.cityName}`}valueColor={color.primaryBlue}/> 
+            <SimpleTitledText title="Cijena" value={`${data?.price}, EUR`} valueColor={color.primaryOrange}/>
           </View>
-        </View>
 
-      </View>
+          <View>
+            <View>
+              <TitledInput title="Broj kartice" placeholder="xxxx xxxx xxxx xxxx" 
+              onChangeText={handleChange('cardNumber')} onBlur={handleBlur('cardNumber')} value={values.cardNumber} errors={errors.cardNumber} touched={touched.cardNumber}/>
+            </View>
 
-      <View>
-        <SimpleButton text="Potvrdi" onPress={validate}/>
-        <SimpleButton text="Otkaži" onPress={() => navigation.navigate("scannerOptions")}/>
-      </View>
-    </View>
+            <View style={{flexDirection:'row'}}>
+              <View style={{flex:1,marginRight:20}}>
+                <TitledInput title="Datum isteka" placeholder="MM/YY"
+                onChangeText={handleChange('expirationDate')} onBlur={handleBlur('expirationDate')} 
+                value={values.expirationDate} errors={errors.expirationDate} touched={touched.expirationDate} />
+              </View>
+              <View style={{flex:1,marginLeft:20}}>
+                <TitledInput title="Kontrolni broj" placeholder="xxx" 
+                onChangeText={handleChange('CVV')} onBlur={handleBlur('CVV')} 
+                value={values.CVV} errors={errors.CVV} touched={touched.CVV}/>
+              </View>
+            </View>
+
+          </View>
+
+          <View>
+            <SimpleButton text="Potvrdi" onPress={handleSubmit}/>
+            <SimpleButton text="Otkaži" onPress={() => navigation.navigate("scannerOptions")}/>
+          </View>
+        </ScrollView>
+
+      )}
+    </Formik>
   );
 };
 
@@ -110,7 +95,6 @@ const styles = StyleSheet.create({
   container: {
     height:'100%',
     flexDirection:'column',
-    justifyContent:'space-between',
     padding:30,
   },
 });

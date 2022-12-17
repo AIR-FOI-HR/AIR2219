@@ -1,19 +1,13 @@
 import { ColorValue, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { color, font } from '../lib/style/theme'
-//-----------------------------------------------FONT
 import {
   useFonts,
   OpenSans_400Regular,
-  OpenSans_400Regular_Italic,
-  OpenSans_700Bold_Italic,
-  OpenSans_300Light,
   OpenSans_600SemiBold,
-  OpenSans_300Light_Italic,
 
 }from "@expo-google-fonts/open-sans";
-//-----------------------------------------------FONT
-
+import AppLoading from "expo-app-loading"
 interface Props{
   title:string;
   value:string;
@@ -22,17 +16,15 @@ interface Props{
 
 const SimpleTitledText = ({title, value, valueColor=color.black}:Props) => {
 
-  //-----------------------------------------------FONT
   let [fontsLoaded] = useFonts({
     OpenSans_400Regular,
-    OpenSans_400Regular_Italic,
-    OpenSans_700Bold_Italic,
-    OpenSans_300Light,
     OpenSans_600SemiBold,
-    OpenSans_300Light_Italic,
   });
-  //-----------------------------------------------FONT
 
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
 
   return (
     <View style={styles.container}>

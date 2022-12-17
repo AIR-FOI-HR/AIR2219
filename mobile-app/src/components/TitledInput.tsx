@@ -2,60 +2,45 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { TextInput } from 'react-native-gesture-handler'
 import { color, font } from "../lib/style/theme";
-//-----------------------------------------------FONT
 import {
-    useFonts,
+    useFonts, 
     OpenSans_400Regular,
-    OpenSans_400Regular_Italic,
-    OpenSans_700Bold_Italic,
-    OpenSans_300Light,
-    OpenSans_600SemiBold,
-    OpenSans_300Light_Italic,
-  
+    OpenSans_300Light_Italic, 
   }from "@expo-google-fonts/open-sans";
-  //-----------------------------------------------FONT
+import AppLoading from "expo-app-loading"
 interface Props{
     title:string;
     placeholder:string;
-    warning:string;
-    onFocus:any;
-    onChange:any;
+    onChangeText:any;
+    onBlur:any;
+    value:any;
+    touched:any;
+    errors:any;
 }
 
-const TitledInput = ({title,placeholder,warning,onFocus,onChange}:Props) => {
-   //-----------------------------------------------FONT
+const TitledInput = ({title,placeholder,...props}:Props) => {
   let [fontsLoaded] = useFonts({
     OpenSans_400Regular,
-    OpenSans_400Regular_Italic,
-    OpenSans_700Bold_Italic,
-    OpenSans_300Light,
-    OpenSans_600SemiBold,
     OpenSans_300Light_Italic,
   });
-  //-----------------------------------------------FONT
-  
-  const [isFocused, setIsFocused]=React.useState(false);
 
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       <TextInput 
-      style={[styles.input,{borderColor: warning ? color.failureRed:color.primaryBlue}]} 
+      style={[styles.input, {borderColor: (props.errors && props.touched) ? color.failureRed:color.primaryBlue}]} 
       placeholder={placeholder} autoCorrect={false}
-      onFocus={()=>{
-        onFocus();
-        setIsFocused(true);
-        }}
-        
-        onBlur={()=>{
-          setIsFocused(false);
-        }}
-
-        onChangeText = {onChange}
-        />
-
-    
-      <Text style={[styles.warning,{opacity: warning ?  1 : 0}]}>*{warning}</Text>
+      onChangeText={props.onChangeText}
+      onBlur = {props.onBlur}
+      value= {props.value}
+      />
+    {(props.errors && props.touched) &&
+      <Text style={[styles.warning,]}>*{props.errors}</Text>
+    }
     </View>
   )
 }
@@ -86,6 +71,7 @@ const styles = StyleSheet.create({
         paddingRight:20,
         borderWidth:1,
         borderRadius:40,
+        borderColor: color.primaryBlue
 
     },
 

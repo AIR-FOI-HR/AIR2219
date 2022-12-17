@@ -1,42 +1,31 @@
 import {StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { color,font } from '../lib/style/theme';
-//-----------------------------------------------FONT
 import {
   useFonts,
-  OpenSans_400Regular,
-  OpenSans_400Regular_Italic,
-  OpenSans_700Bold_Italic,
-  OpenSans_300Light,
   OpenSans_600SemiBold,
-  OpenSans_300Light_Italic,
-
 }from "@expo-google-fonts/open-sans";
-//-----------------------------------------------FONT
+import AppLoading from "expo-app-loading"
 interface Props {
     text: string;
     onPress: any;
 }
 
 const SimpleButton = ({text, onPress} : Props) => {
-  //-----------------------------------------------FONT
   let [fontsLoaded] = useFonts({
-    OpenSans_400Regular,
-    OpenSans_400Regular_Italic,
-    OpenSans_700Bold_Italic,
-    OpenSans_300Light,
     OpenSans_600SemiBold,
-    OpenSans_300Light_Italic,
   });
-  //-----------------------------------------------FONT
+
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.button}>
-        
-        <Text style={styles.buttonText}>
-          {text}
-        </Text>
+        <Text style={styles.buttonText}>{text}</Text>
       </View>
     </TouchableOpacity>
   )
