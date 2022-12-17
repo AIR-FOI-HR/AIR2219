@@ -1,5 +1,5 @@
-import {StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import {GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { FormEvent } from 'react'
 import { color,font } from '../lib/style/theme';
 import {
   useFonts,
@@ -8,7 +8,7 @@ import {
 import AppLoading from "expo-app-loading"
 interface Props {
     text: string;
-    onPress: any;
+    onPress: (event: FormEvent<HTMLFormElement>) => void;
 }
 
 const SimpleButton = ({text, onPress} : Props) => {

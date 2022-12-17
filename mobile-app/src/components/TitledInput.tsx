@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import {NativeSyntheticEvent, StyleSheet, Text, TextInputFocusEventData, View } from 'react-native'
 import React from 'react'
 import { TextInput } from 'react-native-gesture-handler'
 import { color, font } from "../lib/style/theme";
@@ -11,11 +11,11 @@ import AppLoading from "expo-app-loading"
 interface Props{
     title:string;
     placeholder:string;
-    onChangeText:any;
-    onBlur:any;
-    value:any;
-    touched:any;
-    errors:any;
+    onChangeText:(event: string) => void;
+    onBlur:(event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+    value:string;
+    touched:boolean | undefined;
+    errors:string | undefined;
 }
 
 const TitledInput = ({title,placeholder,...props}:Props) => {

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, InputAccessoryView } from "react-native";
+import { StyleSheet, View} from "react-native";
 import React from "react";
 import SimpleTitledText from "../components/SimpleTitledText";
 import { color } from "../lib/style/theme";
@@ -8,19 +8,21 @@ import SimpleButton from "../components/SimpleButton";
 import * as yup from 'yup';
 import {Formik} from 'formik';
 import {ScrollView} from 'react-native';
+import { NavigationComponent } from "react-navigation";
+
 interface Props{
   navigation:any;
-  data:any; //Koji tip da stavljam za ovakve stvari?
+  data:any;
 }
-
-//Jel sve pišem na engleskom?
 
 const paymentValidationSchema = yup.object().shape({
   cardNumber: 
     yup.string()
+    .matches(/^[0-9]*$/,'Broj kartice se mora sastojati samo od brojeva!')
     .min(16,({min})=>'Premalo znamenka! Broj kartice mora imati točno 16 znamenka')
     .max(16,({max})=>'Previše znamenka! Broj kartice mora imati točno 16 znamenka')
-    .required('Niste unijeli broj kartice'),
+    .required('Niste unijeli broj kartice')
+    ,
 
   expirationDate:
     yup.string()
@@ -29,16 +31,17 @@ const paymentValidationSchema = yup.object().shape({
 
   CVV:
     yup.string()
+    .matches(/^[0-9]*$/,'Kontrolni broj se smije sastojati samo od brojeva')
     .min(3,'Kontrolni broj čine tri znamenke!')
     .max(3,'Kontrolni broj čine tri znamenke!')
     .required('Niste unijeli kontrolni broj'),
   
 })
 
-const Payment = ({navigation,data={}}:Props) => { //Jel da mi se ovaj data prosljeđuje iz prijašnje forme ili se dohvaća s nekim api? (https://reactnavigation.org/docs/params/)
+const Payment : React.FC<Props> = ({navigation,data={}}) => { //Jel da mi se ovaj data prosljeđuje iz prijašnje forme ili se dohvaća s nekim api? (https://reactnavigation.org/docs/params/)
   function ime(values:string) {
     alert(values);
-    navigation.navigate("scannerOptions")
+    navigation.navigate("scannerOptions");
   }
 
   return (
