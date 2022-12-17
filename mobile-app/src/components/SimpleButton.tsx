@@ -8,7 +8,7 @@ import {
 import AppLoading from "expo-app-loading"
 interface Props {
     text: string;
-    onPress: (event: FormEvent<HTMLFormElement>) => void;
+    onPress: any;
 }
 
 const SimpleButton : React.FC<Props>= ({text, onPress}) => {
