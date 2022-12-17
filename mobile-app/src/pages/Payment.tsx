@@ -8,10 +8,12 @@ import SimpleButton from "../components/SimpleButton";
 import * as yup from 'yup';
 import {Formik} from 'formik';
 import {ScrollView} from 'react-native';
+import PaymnetSuccesModal from "../components/PaymentSuccesModal";
 
 interface Props{
   navigation:any;
   data:any;
+  showModal:boolean;
 }
 
 const paymentValidationSchema = yup.object().shape({
@@ -37,13 +39,14 @@ const paymentValidationSchema = yup.object().shape({
   
 })
 
-const Payment : React.FC<Props> = ({navigation,data={}}) => {
+const Payment : React.FC<Props> = ({navigation,data={address:'Ul. Vladimira Nazora 17',cityCode:'42000',cityName:'Varaždin',price:'3,00'},showModal=true}) => {
   function ime(values:string) {
     alert(values);
     navigation.navigate("scannerOptions");
   }
 
   return (
+    
     <Formik
       initialValues={{cardNumber: '', expirationDate:'',CVV:''}}
       validateOnMount={true}
@@ -60,7 +63,7 @@ const Payment : React.FC<Props> = ({navigation,data={}}) => {
             <SimpleTitledText title="Brava" value={`${data?.address}, ${data?.cityCode} ${data?.cityName}`}valueColor={color.primaryBlue}/> 
             <SimpleTitledText title="Cijena" value={`${data?.price}, EUR`} valueColor={color.primaryOrange}/>
           </View>
-
+          {showModal && (<PaymnetSuccesModal/>)}
           <View>
             <View>
               <TitledInput title="Broj kartice" placeholder="xxxx xxxx xxxx xxxx" 
