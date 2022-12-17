@@ -14,7 +14,7 @@ interface Props{
   valueColor?:ColorValue;
 }
 
-const SimpleTitledText = ({title, value, valueColor=color.black}:Props) => {
+const SimpleTitledText : React.FC<Props>= ({title, value, valueColor=color.black}) => {
 
   let [fontsLoaded] = useFonts({
     OpenSans_400Regular,

@@ -14,7 +14,7 @@ interface Props{
     color:ColorValue;
 }
 
-const Title = ({value,fontSize,color}:Props) => {
+const Title : React.FC<Props>= ({value,fontSize,color}) => {
   let [fontsLoaded] = useFonts({
     OpenSans_600SemiBold,
   });

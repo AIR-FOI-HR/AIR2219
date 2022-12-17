@@ -18,7 +18,7 @@ interface Props{
     errors:string | undefined;
 }
 
-const TitledInput = ({title,placeholder,...props}:Props) => {
+const TitledInput : React.FC<Props> = ({title,placeholder,...props}) => {
   let [fontsLoaded] = useFonts({
     OpenSans_400Regular,
     OpenSans_300Light_Italic,

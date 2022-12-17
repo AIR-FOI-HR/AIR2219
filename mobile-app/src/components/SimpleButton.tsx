@@ -11,7 +11,7 @@ interface Props {
     onPress: (event: FormEvent<HTMLFormElement>) => void;
 }
 
-const SimpleButton = ({text, onPress} : Props) => {
+const SimpleButton : React.FC<Props>= ({text, onPress}) => {
   let [fontsLoaded] = useFonts({
     OpenSans_600SemiBold,
   });

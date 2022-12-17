@@ -8,7 +8,6 @@ import SimpleButton from "../components/SimpleButton";
 import * as yup from 'yup';
 import {Formik} from 'formik';
 import {ScrollView} from 'react-native';
-import { NavigationComponent } from "react-navigation";
 
 interface Props{
   navigation:any;
@@ -38,7 +37,7 @@ const paymentValidationSchema = yup.object().shape({
   
 })
 
-const Payment : React.FC<Props> = ({navigation,data={}}) => { //Jel da mi se ovaj data prosljeđuje iz prijašnje forme ili se dohvaća s nekim api? (https://reactnavigation.org/docs/params/)
+const Payment : React.FC<Props> = ({navigation,data={}}) => {
   function ime(values:string) {
     alert(values);
     navigation.navigate("scannerOptions");
