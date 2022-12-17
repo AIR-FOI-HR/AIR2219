@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Modal, Image, TouchableOpacity, BackHandler } from 'react-native'
+import { StyleSheet, Text, View, Modal, TouchableOpacity,} from 'react-native'
 import React, { useState } from 'react'
 import { color, font } from '../lib/style/theme';
 import {
