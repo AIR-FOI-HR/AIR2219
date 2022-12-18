@@ -12,14 +12,24 @@ export class City{
     @Column('varchar', { length: 10, nullable: false })
     code: string;
 
+    @Column('float', { nullable: false })
+    latitude: number;
+
+    @Column('float', { nullable: false })
+    longitude: number;
+
     @OneToMany(() => Restroom, (restroom) => restroom.city)
     restrooms: Restroom[];
 
     constructor(
         name: string,
         code: string,
+        latitude: number,
+        longitude: number,
     ) {
         this.name = name;
         this.code = code;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 }

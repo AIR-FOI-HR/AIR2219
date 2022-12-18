@@ -52,7 +52,9 @@ export class ddl1661970526687 implements MigrationInterface {
             CREATE TABLE "city" (
             "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
             "name" varchar(45) NOT NULL,
-            "code" varchar(10) NOT NULL
+            "code" varchar(10) NOT NULL,
+            "latitude" float NOT NULL,
+            "longitude" float NOT NULL
             );
 
             DROP TABLE IF EXISTS "restroom" CASCADE;
