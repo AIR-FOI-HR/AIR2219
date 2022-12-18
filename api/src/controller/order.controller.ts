@@ -23,7 +23,7 @@ const router = express.Router();
 
 router.get("/:userId", async (req, res, next) => {
   const orders: Order[] | null = await orderService.getOrdersByUserId(
-    req.params.userId
+    req.params.userId, req.query.cityId.toString()
   );
   if (!orders) {
     return next(new AppError("Orders not found for this user!", 404));
