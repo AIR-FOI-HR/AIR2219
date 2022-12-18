@@ -22,11 +22,17 @@ export function checkQueryParamsExist(req: Request) {
 const router = express.Router();
 
 router.get("/:userId", async (req, res, next) => {
-  const orders: Order[] | null = await orderService.getOrdersByUserId(
-    req.params.userId, req.query.cityId.toString()
-  );
-  if (!orders) {
-    return next(new AppError("Orders not found for this user!", 404));
+  let orders: Order[] | null = null;
+  try {
+    orders = await orderService.getOrdersByUserId(
+      req.params.userId, req.query.cityId?.toString() 
+    );
+  } catch (error) {
+    return next(new AppError("Bad Request! Incorrectly formatted inputs.", 400));
+  }
+  
+  if (!orders || orders.length == 0) {
+    return next(new AppError("Orders not found for this user and given filters!", 404));
   }
   res.json(OrderResponse.toDtos(orders));
 });
