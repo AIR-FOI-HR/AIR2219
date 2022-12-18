@@ -7,29 +7,28 @@ import { getRestroomsByCityId } from "../api/restrooms";
 import { City } from "../api/models/response/City";
 import { getAllCities } from "../api/cities";
 
-const varazdinRegion = {
-  latitude: 46.30774076067861,
-  longitude: 16.338090229632893,
-  latitudeDelta: 0.0412,
-  longitudeDelta: 0.0211,
-};
+const latitudeDelta = 0.0412;
+const longitudeDelta = 0.0211;
 
-const zagrebRegion = {
-  latitude: 45.8129526993897,
-  longitude: 15.977320885433711,
-  latitudeDelta: 0.0412,
-  longitudeDelta: 0.0211,
-};
+interface Region {
+  latitude: number;
+  longitude: number;
+  latitudeDelta: number;
+  longitudeDelta: number;
+}
 
 const MapScreen: React.FC = () => {
   const [cityId, setCityId] = useState("");
   const [restroomList, setRestroomList] = useState<Restroom[]>();
   const [cityList, setCitiesList] = useState<City[]>();
+  const [region, setRegion] = useState<Region>();
 
   useEffect(() => {
     (async () => {
       const cities: City[] = await getAllCities();
       setCitiesList(cities);
+      let region : Region = {latitude: cities[0].latitude, longitude: cities[0].longitude, latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta};
+      setRegion(region)
       const restrooms: Restroom[] = await getRestroomsByCityId(cities[0].id);
       setRestroomList(restrooms);
     })();
@@ -41,17 +40,21 @@ const MapScreen: React.FC = () => {
       (async () => {
         const restrooms: Restroom[] = await getRestroomsByCityId(cityId);
         setRestroomList(restrooms);
+        {}
+        let city: City | undefined = cityList!.find(city => city.id == cityId);
+        let region : Region = {latitude: city!.latitude, longitude: city!.longitude, latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta};
+        setRegion(region);
       })();
     }
   }, [cityId]);
 
   return (
     <View style={styles.container}>
-      {restroomList &&
-        <RestroomMap initialRegion={varazdinRegion} restrooms={restroomList} />
+      {restroomList && region &&
+        <RestroomMap region={region} restrooms={restroomList} />
       }
       {cityList &&
-        <CitySelectBar cityList={cityList} setCityId={setCityId} cityId={cityId} />
+        <CitySelectBar cityList={cityList} setCityId={setCityId} />
       }
     </View>
   );

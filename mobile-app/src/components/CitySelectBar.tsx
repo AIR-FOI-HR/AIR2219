@@ -14,11 +14,10 @@ import { City } from "../api/models/response/City";
 
 interface Props {
   cityList: City[];
-  cityId: string;
   setCityId: (cityId: string | ((prevCityId: string) => string)) => void;
 }
 
-const CitySelectBar: React.FC<Props> = ({cityId, setCityId, cityList} ) => {
+const CitySelectBar: React.FC<Props> = ({setCityId, cityList} ) => {
   let [fontsLoaded] = useFonts({
     OpenSans_400Regular,
     OpenSans_600SemiBold,

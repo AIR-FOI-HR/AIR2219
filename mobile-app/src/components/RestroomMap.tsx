@@ -5,7 +5,7 @@ import { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
 import { Restroom } from "../api/models/response/Restroom";
-import { color } from "../lib/style/theme";
+import { City } from "../api/models/response/City";
 
 interface Region {
   latitude: number;
@@ -15,12 +15,12 @@ interface Region {
 }
 
 interface Props {
-  initialRegion: Region;
+  region: Region | undefined;
   restrooms: Restroom[];
   //TODO: Add markers and callbacks
 }
 
-const RestroomMap: React.FC<Props> = ({ initialRegion, restrooms }) => {
+const RestroomMap: React.FC<Props> = ({ region, restrooms}) => {
   const [userLocation, setUserLocation] = useState<LocationObject | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -32,7 +32,6 @@ const RestroomMap: React.FC<Props> = ({ initialRegion, restrooms }) => {
         console.log("Error: ", errorMsg);
         return;
       }
-
       let location = await Location.getCurrentPositionAsync({});
       setUserLocation(location);
       //console.log(userLocation);
@@ -41,8 +40,8 @@ const RestroomMap: React.FC<Props> = ({ initialRegion, restrooms }) => {
 
   return (
     <MapView
+      region={region}
       style={styles.map}
-      initialRegion={initialRegion}
       showsUserLocation={true}
       followsUserLocation={true}
     >
