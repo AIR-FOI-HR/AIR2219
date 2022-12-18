@@ -16,7 +16,6 @@ import {
 }from "@expo-google-fonts/open-sans";
 import { font } from "../lib/style/theme";
 import AppLoading from "expo-app-loading";
-import { ArchivoNarrow_400Regular_Italic } from "@expo-google-fonts/dev";
 
 
 interface Props{
@@ -52,12 +51,8 @@ const Payment : React.FC<Props> = ({navigation,data={address:'Ul. Vladimira Nazo
   let [fontsLoaded] = useFonts({
     OpenSans_600SemiBold,
   });
-
-
-
   
   function ime(values:string) {
-    
     alert(values);
     navigation.navigate("scannerOptions");
   }
