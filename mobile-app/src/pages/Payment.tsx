@@ -16,6 +16,7 @@ import {
 }from "@expo-google-fonts/open-sans";
 import { font } from "../lib/style/theme";
 import AppLoading from "expo-app-loading";
+import SliderArrow from "../assets/ic_SliderArrow.svg";
 
 
 interface Props{
@@ -76,7 +77,6 @@ const Payment : React.FC<Props> = ({navigation,data={address:'Ul. Vladimira Nazo
           <View>
             <Title value="Plaćanje" fontSize={24} color={color.primaryBlue}/>
           </View>
-
           <View>
             <SimpleTitledText title="Brava" value={`${data?.address}, ${data?.cityCode} ${data?.cityName}`}valueColor={color.primaryBlue}/> 
             <SimpleTitledText title="Cijena" value={`${data?.price}, EUR`} valueColor={color.primaryOrange}/>
@@ -109,6 +109,7 @@ const Payment : React.FC<Props> = ({navigation,data={address:'Ul. Vladimira Nazo
             swipeSuccessThreshold={75} 
             containerStyles={styles.slideContainer}
             thumbIconStyles={styles.slideIcon} 
+            thumbIconComponent={SliderArrow}
             railStyles={styles.slideRail} 
             titleStyles={styles.slideTitle}
             onSwipeSuccess={handleSubmit}
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
   },
   slideRail:
   {
-    backgroundColor:'rgba(0,100,150,0.2)'
+    backgroundColor:'rgba(0,109,170,0.9)',
   },
   slideTitle:
   {
