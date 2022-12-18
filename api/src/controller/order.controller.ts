@@ -25,7 +25,7 @@ router.get("/:userId", async (req, res, next) => {
   let orders: Order[] | null = null;
   try {
     orders = await orderService.getOrdersByUserId(
-      req.params.userId, req.query.cityId?.toString() 
+      req.params.userId, req.query.cityId?.toString() , req.query.sortDirection?.toString()
     );
   } catch (error) {
     return next(new AppError("Bad Request! Incorrectly formatted inputs.", 400));
