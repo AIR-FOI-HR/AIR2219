@@ -23,7 +23,7 @@ export class Restroom extends TemporalEntity {
   @Column({type: 'decimal', precision: 9, scale: 6, nullable: false})
   longitude: number;
 
-  @ManyToOne(() => City, city => city.id) 
+  @ManyToOne(() => City, city => city.restrooms) 
   city: City;
 
   @OneToMany(() => Order, (order) => order.restroom)

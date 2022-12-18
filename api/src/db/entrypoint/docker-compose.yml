@@ -1,5 +1,9 @@
 version: '3.8'
 
+networks:
+  eflushNet:
+    driver: bridge
+
 services:
   eflush-db:
     container_name: eflush-db
@@ -10,5 +14,24 @@ services:
      POSTGRES_DB: eflush_db
      POSTGRES_USER: eflush
      POSTGRES_PASSWORD: password
+    networks:
+      - eflushNet
     volumes:
       - ./postgresql:/docker-entrypoint-initdb.d/
+      - eflush-persist:/var/lib/postgresql/data
+  eflush-api:
+    container_name: eflush-api
+    image: tfulir/eflush:test
+    environment:
+      - DB_HOST=eflush-db
+      - DB_PORT=5432
+    ports:
+      - "8000:8000"
+    depends_on:
+      - eflush-db
+    links:
+      - eflush-db
+    networks:
+      - eflushNet
+volumes:
+  eflush-persist:

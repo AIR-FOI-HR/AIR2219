@@ -1,4 +1,5 @@
-import { PrimaryGeneratedColumn, Entity, Column } from 'typeorm';
+import { PrimaryGeneratedColumn, Entity, Column, OneToMany } from 'typeorm';
+import { Restroom } from './Restroom';
 
 @Entity()
 export class City{
@@ -10,6 +11,9 @@ export class City{
 
     @Column('varchar', { length: 10, nullable: false })
     code: string;
+
+    @OneToMany(() => Restroom, (restroom) => restroom.city)
+    restrooms: Restroom[];
 
     constructor(
         name: string,

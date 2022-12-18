@@ -1,5 +1,5 @@
 export enum AccountStatus {
-    ACTIVE = "Active",
-    PENDING = "Pending",
-    BANNED = "Banned"
+  ACTIVE = 'ACTIVE',
+  PENDING = 'PENDING',
+  BANNED = 'BANNED',
 }

@@ -15,4 +15,5 @@ export const color={
     successGreen:'#006428',
     failureRed:'#ad0000',
     transparentGray: 'rgba(0,0,0,0.5)',
+    borderGrey: "#bdbdbd"
 }

@@ -4,7 +4,7 @@
 
 Docker is used to run a PostgreSQL:v15 database.
 
-To compose and start a database, navigate to the src/db/entrypoint folder and run docker-compose up -d.
+To compose and start a database, navigate to the src/db/entrypoint folder and run docker-compose up -d eflush-db.
 
 This will also create an eflush_app schema and a system user - the application connects to the database using those credentials.
 
@@ -35,11 +35,13 @@ Once dev migrations are updated, to apply them, do the following:
 
 2. Run `docker rm eflush-db` to delete the container
 
-3. Navigate to the `src/db/entrypoint` folder and just run `docker-compose up -d` to initialize a fresh database.
+3. Run `docker volume rm entrypoint_eflush-persist`
 
-4. (Re)Run the project, migrations will be applied automatically
+4. Navigate to the `src/db/entrypoint` folder and just run `docker-compose up -d eflush-db` to initialize a fresh database.
 
-Tip: The `restart-db.sh`script will perform the first three steps automatically when executed. (Not available in Windows)
+5. (Re)Run the project, migrations will be applied automatically
+
+Tip: The `restart-db.sh`script will perform the first four steps automatically when executed. (Not available in Windows)
 
 Tip 2: Use the above procedure to also apply somebody else's changes that were merged to the develop branch
 
@@ -52,7 +54,7 @@ The API consists of five basic layers:
 
 1. db layer 
 	* Used to compose a database, provide a connection object for the created database and run the migrations.
-	* The `docker-compose.yml` file contains instructions for creating a database container. It also contains a command to copy the `postgresql` folder into the containers `docker-entrypoint-initdb.d` directory. SQL scripts in the `postgresql` folder get executed because after the docker entrypoint composes a container it will run any *.sql files and run any executable *.sh scripts found in the `docker-entrypoint-initdb.d` directory of a container to do further initialization before starting the service.
+	* The `docker-compose.yml` file contains instructions for creating an API and database container. It also contains a command to copy the `postgresql` folder into the database container's `docker-entrypoint-initdb.d` directory. SQL scripts in the `postgresql` folder get executed because after the docker entrypoint composes a container it will run any *.sql files and run any executable *.sh scripts found in the `docker-entrypoint-initdb.d` directory of a container to do further initialization before starting the service.
 	* `data-source.ts` file contains an object with all the metadata needed for a database connection
 	* `migrations` directory includes one set of migrations, DDL-s (Data Definition Language), and inserts. The `...-ddl.ts` file contains SQL scripts for creating the database structure (tables, keys, constraints, etc.). The `...-populate-tables.ts` file contains test data SQL inserts, aka. populates tables with some mock data
 
@@ -80,11 +82,14 @@ Note: Each layer can ONLY communicate with layers below it. For example, the ser
 3. Start the TypeScript compiler in a terminal using the `yarn watch` script
 4. Start the application in another terminal window using the `yarn start` script
 
+The above procedure is the best option for development. However, API can also be started from a docker container. To do that, in the first step, instead of running `docker-compose up -d eflush-db` run `docker-compose up -d`. That will start both the database and the API containers.
+
 ### Environment variables
 These can be used to overwrite some of the default application metadata listed below. Use the .env file to define them
 
 - `API_PORT` - Port on which the server will listen
 - `DB_HOST` - Location of the PostgreSQL server and database
+- `DB_PORT` - Port on which the database listens
 - `DB_NAME` - Name of the database that the application connects to
 - `DB_SCHEMA` - Name of the database schema that the application connects to
 - `DB_USER` - Database user that the application connects with
