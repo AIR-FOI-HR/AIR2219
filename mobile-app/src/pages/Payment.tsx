@@ -28,23 +28,23 @@ interface Props{
 const paymentValidationSchema = yup.object().shape({
   cardNumber: 
     yup.string()
-    .matches(/^[0-9]*$/,'Broj kartice se mora sastojati samo od brojeva!')
-    .min(16,({min})=>'Premalo znamenka! Broj kartice mora imati točno 16 znamenka')
-    .max(16,({max})=>'Previše znamenka! Broj kartice mora imati točno 16 znamenka')
-    .required('Niste unijeli broj kartice')
+    .matches(/^[0-9]*$/,'The card number should consist only of numbers!')
+    .min(16,({min})=>'Not enough digits! The card number consists of 16 digits!')
+    .max(16,({max})=>'Too many digits! The card number consists of 16 digits!')
+    .required('This field is required!')
     ,
 
   expirationDate:
     yup.string()
-    .matches(/^[0-9]{2}\/[0-9]{2}$/g,'Pogrešan format datuma isteka!')
-    .required('Niste unijeli datum isteka'),
+    .matches(/^[0-9]{2}\/[0-9]{2}$/g,'Expiration date format is MM/DD!')
+    .required('This field is required!'),
 
   CVV:
     yup.string()
-    .matches(/^[0-9]*$/,'Kontrolni broj se smije sastojati samo od brojeva')
-    .min(3,'Kontrolni broj čine tri znamenke!')
-    .max(3,'Kontrolni broj čine tri znamenke!')
-    .required('Niste unijeli kontrolni broj'),
+    .matches(/^[0-9]*$/,'The CVV should consist only of numbers!')
+    .min(3,'The CVV is 3 digits long!')
+    .max(3,'The CVV is 3 digits long!')
+    .required('This field is required!'),
   
 })
 
@@ -78,24 +78,24 @@ const Payment : React.FC<Props> = ({navigation,data={address:'Ul. Vladimira Nazo
             <Title value="Plaćanje" fontSize={24} color={color.primaryBlue}/>
           </View>
           <View>
-            <SimpleTitledText title="Brava" value={`${data?.address}, ${data?.cityCode} ${data?.cityName}`}valueColor={color.primaryBlue}/> 
-            <SimpleTitledText title="Cijena" value={`${data?.price}, EUR`} valueColor={color.primaryOrange}/>
+            <SimpleTitledText title="Door" value={`${data?.address}, ${data?.cityCode} ${data?.cityName}`}valueColor={color.primaryBlue}/> 
+            <SimpleTitledText title="Price" value={`${data?.price}, EUR`} valueColor={color.primaryOrange}/>
           </View>
           
           <View>
             <View>
-              <TitledInput title="Broj kartice" placeholder="xxxx xxxx xxxx xxxx" 
+              <TitledInput title="Card number" placeholder="xxxx xxxx xxxx xxxx" 
               onChangeText={handleChange('cardNumber')} onBlur={handleBlur('cardNumber')} value={values.cardNumber} errors={errors.cardNumber} touched={touched.cardNumber}/>
             </View>
 
             <View style={{flexDirection:'row'}}>
               <View style={{flex:1,marginRight:20}}>
-                <TitledInput title="Datum isteka" placeholder="MM/YY"
+                <TitledInput title="Expiration date" placeholder="MM/YY"
                 onChangeText={handleChange('expirationDate')} onBlur={handleBlur('expirationDate')} 
                 value={values.expirationDate} errors={errors.expirationDate} touched={touched.expirationDate} />
               </View>
               <View style={{flex:1,marginLeft:20}}>
-                <TitledInput title="Kontrolni broj" placeholder="xxx" 
+                <TitledInput title="CVV" placeholder="xxx" 
                 onChangeText={handleChange('CVV')} onBlur={handleBlur('CVV')} 
                 value={values.CVV} errors={errors.CVV} touched={touched.CVV}/>
               </View>
@@ -105,7 +105,7 @@ const Payment : React.FC<Props> = ({navigation,data={address:'Ul. Vladimira Nazo
           <View style={{marginTop:35}}>
             <SwipeButton 
             disabled={isValid?false:true}
-            title='Povucite da potvrdite'
+            title='Slide to confirm'
             swipeSuccessThreshold={75} 
             containerStyles={styles.slideContainer}
             thumbIconStyles={styles.slideIcon} 
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   },
   slideTitle:
   {
-    fontSize:14,
+    fontSize:16,
     fontFamily: font.semiBold,
     color:color.white,
   }

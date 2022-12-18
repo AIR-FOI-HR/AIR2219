@@ -61,6 +61,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'justify',
     marginBottom:10,
-    marginTop:10,
+    marginTop:0,
   }
 })

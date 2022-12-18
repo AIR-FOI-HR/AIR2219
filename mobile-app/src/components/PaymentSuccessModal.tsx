@@ -25,7 +25,7 @@ const PaymnetSuccesModal : React.FC = () => {
       <Modal animationType='fade' transparent visible={!hide} style={styles.modalContainer}>
         <TouchableOpacity onPress={handlePress} style={styles.touchContainer}>
           <View style={styles.textBox}>
-            <Text style={styles.text}>Plaćanje uspješno izvršeno. </Text>
+            <Text style={styles.text}>Success!</Text>
           </View>
         </TouchableOpacity>
         </Modal>
