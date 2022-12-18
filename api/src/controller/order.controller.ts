@@ -7,32 +7,52 @@ import { OrderResponse } from "../model/response/OrderResponse";
 
 dotenv.config();
 
-/*
-export function checkQueryParamsExist(req: Request) {
-  
-    let params = req.query;
-    if (params.cityId){
-        return true;
-    } else {
-        return false;
-    }
-    
-}*/
+export function checkQueryParamsValidity(
+  cityId?: string,
+  sortDirection: string = "DESC"
+) {
+  if (
+    (sortDirection != "ASC" && sortDirection != "DESC") ||
+    cityId?.length !== 36 ||
+    cityId?.split("-").length - 1 !== 4
+  ) {
+    return null;
+  } else {
+    return true;
+  }
+}
 
 const router = express.Router();
 
 router.get("/:userId", async (req, res, next) => {
   let orders: Order[] | null = null;
   try {
-    orders = await orderService.getOrdersByUserId(
-      req.params.userId, req.query.cityId?.toString() , req.query.sortDirection?.toString()
-    );
+    if (
+      checkQueryParamsValidity(
+        req.query.cityId?.toString(),
+        req.query.sortDirection?.toString()
+      )
+    ) {
+      orders = await orderService.getOrdersByUserId(
+        req.params.userId,
+        req.query.cityId?.toString(),
+        req.query.sortDirection?.toString()
+      );
+    } else {
+      return next(
+        new AppError("Bad Request! Incorrectly formatted inputs.", 400)
+      );
+    }
   } catch (error) {
-    return next(new AppError("Bad Request! Incorrectly formatted inputs.", 400));
+    return next(
+      new AppError("Bad Request! Can't handle inputs.", 400)
+    );
   }
-  
+
   if (!orders || orders.length == 0) {
-    return next(new AppError("Orders not found for this user and given filters!", 404));
+    return next(
+      new AppError("Orders not found for this user and given filters!", 404)
+    );
   }
   res.json(OrderResponse.toDtos(orders));
 });

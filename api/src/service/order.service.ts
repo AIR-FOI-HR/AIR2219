@@ -6,10 +6,6 @@ export const getOrdersByUserId = async (userId: string, cityId?: string, sortDir
   if(userId.length !== 36 || userId.split("-").length - 1 !== 4) {
     return null;
   }
-  
-  if (sortDirection != "ASC" && sortDirection != "DESC"){
-    return null;
-  }
 
   let orders = null;
 
