@@ -9,6 +9,15 @@ import * as yup from 'yup';
 import {Formik} from 'formik';
 import {ScrollView} from 'react-native';
 import PaymnetSuccesModal from "../components/PaymentSuccesModal";
+import SwipeButton from 'rn-swipe-button';
+import {
+  useFonts,
+  OpenSans_600SemiBold,
+}from "@expo-google-fonts/open-sans";
+import { font } from "../lib/style/theme";
+import AppLoading from "expo-app-loading";
+import { ArchivoNarrow_400Regular_Italic } from "@expo-google-fonts/dev";
+
 
 interface Props{
   navigation:any;
@@ -39,10 +48,22 @@ const paymentValidationSchema = yup.object().shape({
   
 })
 
-const Payment : React.FC<Props> = ({navigation,data={address:'Ul. Vladimira Nazora 17',cityCode:'42000',cityName:'Varaždin',price:'3,00'},showModal=true}) => {
+const Payment : React.FC<Props> = ({navigation,data={address:'Ul. Vladimira Nazora 17',cityCode:'42000',cityName:'Varaždin',price:'3,00'},showModal=false}) => {
+  let [fontsLoaded] = useFonts({
+    OpenSans_600SemiBold,
+  });
+
+
+
+  
   function ime(values:string) {
+    
     alert(values);
     navigation.navigate("scannerOptions");
+  }
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
   }
 
   return (
@@ -55,6 +76,8 @@ const Payment : React.FC<Props> = ({navigation,data={address:'Ul. Vladimira Nazo
       {({ handleChange, handleBlur, handleSubmit, values, touched,errors, isValid }) => (
 
         <ScrollView style={styles.container}  contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
+          {showModal && (<PaymnetSuccesModal/>)}
+
           <View>
             <Title value="Plaćanje" fontSize={24} color={color.primaryBlue}/>
           </View>
@@ -63,7 +86,7 @@ const Payment : React.FC<Props> = ({navigation,data={address:'Ul. Vladimira Nazo
             <SimpleTitledText title="Brava" value={`${data?.address}, ${data?.cityCode} ${data?.cityName}`}valueColor={color.primaryBlue}/> 
             <SimpleTitledText title="Cijena" value={`${data?.price}, EUR`} valueColor={color.primaryOrange}/>
           </View>
-          {showModal && (<PaymnetSuccesModal/>)}
+          
           <View>
             <View>
               <TitledInput title="Broj kartice" placeholder="xxxx xxxx xxxx xxxx" 
@@ -82,11 +105,26 @@ const Payment : React.FC<Props> = ({navigation,data={address:'Ul. Vladimira Nazo
                 value={values.CVV} errors={errors.CVV} touched={touched.CVV}/>
               </View>
             </View>
-
           </View>
 
-          <View>
-            <SimpleButton text="Potvrdi" onPress={handleSubmit}/>
+          <View style={{marginTop:35}}>
+            <SwipeButton 
+            disabled={isValid?false:true}
+            title='Povucite da potvrdite'
+            swipeSuccessThreshold={75} 
+            containerStyles={styles.slideContainer}
+            thumbIconStyles={styles.slideIcon} 
+            railStyles={styles.slideRail} 
+            titleStyles={styles.slideTitle}
+            onSwipeSuccess={handleSubmit}
+            railBackgroundColor={color.primaryBlue}
+            railFillBorderColor={'rgba(0,0,0,0)'}
+            thumbIconBackgroundColor={color.white}
+            thumbIconBorderColor= {'rgba(0,0,0,0)'}
+            railBorderColor={'rgba(0,0,0,0)'}
+            shouldResetAfterSuccess={true}
+            resetAfterSuccessAnimDuration={0}
+            />
             <SimpleButton text="Otkaži" onPress={() => navigation.navigate("scannerOptions")}/>
           </View>
         </ScrollView>
@@ -102,6 +140,31 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     padding:30,
   },
+  slideContainer:
+  {
+    elevation:3, 
+    padding: 3,
+    marginBottom: 10,
+  },
+  slideIcon:{
+    borderBottomColor:'rgba(230,230,230,1)',
+    borderColor:'rgba(230,230,230,1)',
+    borderEndColor:'rgba(230,230,230,1)',
+    borderTopColor:'rgba(230,230,230,1)',
+    borderLeftColor:'rgba(230,230,230,1)',
+    borderRightColor:'rgba(230,230,230,1)',
+    borderStartColor:'rgba(230,230,230,1)',
+  },
+  slideRail:
+  {
+    backgroundColor:'rgba(0,100,150,0.2)'
+  },
+  slideTitle:
+  {
+    fontSize:14,
+    fontFamily: font.semiBold,
+    color:color.white,
+  }
 });
 
 export default Payment;
