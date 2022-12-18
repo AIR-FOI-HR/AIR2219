@@ -3,8 +3,8 @@ export type Restroom = {
   name: string;
   price: number;
   address: string;
-  latitude: number;
-  longitude: number;
+  latitude: string;
+  longitude: string;
   cityName: string;
   cityCode: string;
 };

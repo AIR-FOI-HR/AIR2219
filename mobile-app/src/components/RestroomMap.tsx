@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet } from "react-native";
-import MapView from "react-native-maps";
+import { StyleSheet, Image, View } from "react-native";
+import MapView, { Callout } from "react-native-maps";
+import { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
 import { Restroom } from "../api/models/response/Restroom";
-import { City } from "../api/models/response/City";
+import { color } from "../lib/style/theme";
 
 interface Region {
   latitude: number;
@@ -23,7 +24,6 @@ const RestroomMap: React.FC<Props> = ({ initialRegion, restrooms }) => {
   const [userLocation, setUserLocation] = useState<LocationObject | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -36,7 +36,6 @@ const RestroomMap: React.FC<Props> = ({ initialRegion, restrooms }) => {
       let location = await Location.getCurrentPositionAsync({});
       setUserLocation(location);
       //console.log(userLocation);
-
     })();
   }, []);
 
@@ -46,7 +45,25 @@ const RestroomMap: React.FC<Props> = ({ initialRegion, restrooms }) => {
       initialRegion={initialRegion}
       showsUserLocation={true}
       followsUserLocation={true}
-    ></MapView>
+    >
+      {restrooms.map((restroom) => (
+        <View key={restroom.id}>
+          <Marker
+            coordinate={{
+              latitude: parseFloat(restroom.latitude),
+              longitude: parseFloat(restroom.longitude),
+            }}
+            title={restroom.address}
+            description={`${restroom.price} EUR`}
+          >
+            <Image
+              source={require("../assets/img_WCLocator.png")}
+              style={{ width: 40, height: 40 }}
+            />
+          </Marker>
+        </View>
+      ))}
+    </MapView>
   );
 };
 
