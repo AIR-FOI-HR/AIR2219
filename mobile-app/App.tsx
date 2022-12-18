@@ -97,11 +97,11 @@ export default function App() {
       <ScannerStack.Navigator
         screenOptions={{
           headerShown: false,
-          tabBarShowLabel: false,
+/*           tabBarShowLabel: false,
           tabBarStyle: {
             height: 80,
             backgroundColor: color.primaryBlue,
-          },
+          }, */
         }}
       >
         <ScannerStack.Screen name="home" component={HomeTabs} />

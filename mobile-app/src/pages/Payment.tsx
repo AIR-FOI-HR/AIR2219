@@ -21,8 +21,8 @@ import SliderArrow from "../assets/ic_SliderArrow.svg";
 
 interface Props{
   navigation:any;
-  data:any;
-  showModal:boolean;
+  data?:any;
+  showModal?:boolean;
 }
 
 const paymentValidationSchema = yup.object().shape({
