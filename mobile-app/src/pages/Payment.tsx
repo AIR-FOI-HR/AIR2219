@@ -8,7 +8,7 @@ import SimpleButton from "../components/SimpleButton";
 import * as yup from 'yup';
 import {Formik} from 'formik';
 import {ScrollView} from 'react-native';
-import PaymnetSuccesModal from "../components/PaymentSuccesModal";
+import PaymnetSuccesModal from "../components/PaymentSuccessModal";
 import SwipeButton from 'rn-swipe-button';
 import {
   useFonts,
