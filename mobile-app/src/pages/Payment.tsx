@@ -18,12 +18,11 @@ import { font } from "../lib/style/theme";
 import AppLoading from "expo-app-loading";
 import SliderArrow from "../assets/ic_SliderArrow.svg";
 import Loader from "../components/Loader";
-
+import { Restroom } from "../api/models/response/Restroom";
 
 interface Props{
   navigation:any;
-  data?:any;
-  showModal?:boolean;
+  restroomData:Restroom;
 }
 
 const paymentValidationSchema = yup.object().shape({
@@ -49,7 +48,7 @@ const paymentValidationSchema = yup.object().shape({
   
 })
 
-const Payment : React.FC<Props> = ({navigation,data={address:'Ul. Vladimira Nazora 17',cityCode:'42000',cityName:'Varaždin',price:'3,00'},showModal=false}) => {
+const Payment : React.FC<Props> = ({navigation,restroomData={address:'Ul. Vladimira Nazora 17',cityCode:'42000',cityName:'Varaždin',price:'3,00'}}) => {
   let [fontsLoaded] = useFonts({
     OpenSans_600SemiBold,
   });
@@ -95,13 +94,12 @@ const Payment : React.FC<Props> = ({navigation,data={address:'Ul. Vladimira Nazo
         {({ handleChange, handleBlur, handleSubmit, values, touched,errors, isValid }) => (
 
           <ScrollView style={styles.container}  contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
-            {showModal && (<PaymnetSuccesModal/>)}
             <View>
               <Title value="Plaćanje" fontSize={24} color={color.primaryBlue}/>
             </View>
             <View>
-              <SimpleTitledText title="Door" value={`${data?.address}, ${data?.cityCode} ${data?.cityName}`}valueColor={color.primaryBlue}/> 
-              <SimpleTitledText title="Price" value={`${data?.price}, EUR`} valueColor={color.primaryOrange}/>
+              <SimpleTitledText title="Door" value={`${restroomData?.address}, ${restroomData?.cityCode} ${restroomData?.cityName}`}valueColor={color.primaryBlue}/> 
+              <SimpleTitledText title="Price" value={`${restroomData?.price}, EUR`} valueColor={color.primaryOrange}/>
             </View>
             <View>
               <View>

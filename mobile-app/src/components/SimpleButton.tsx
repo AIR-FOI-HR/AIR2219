@@ -6,12 +6,14 @@ import {
   OpenSans_600SemiBold,
 }from "@expo-google-fonts/open-sans";
 import AppLoading from "expo-app-loading"
+
 interface Props {
     text: string;
     onPress: any;
+    svgImage?:any;
 }
 
-const SimpleButton : React.FC<Props>= ({text, onPress}) => {
+const SimpleButton : React.FC<Props>= ({text, onPress,svgImage=null}) => {
   let [fontsLoaded] = useFonts({
     OpenSans_600SemiBold,
   });
@@ -24,8 +26,11 @@ const SimpleButton : React.FC<Props>= ({text, onPress}) => {
   return (
     
     <TouchableOpacity onPress={onPress} style={styles.container}>
-      <View style={styles.button}>
-        <Text style={styles.buttonText}>{text}</Text>
+      <View style={[styles.button,]}>
+        <View style={styles.insideButton}>
+          <View style={{marginRight: svgImage==null?0:30,marginLeft:svgImage==null?0:5,}}>{svgImage}</View>      
+          <Text style={[styles.buttonText,{marginLeft: svgImage==null?60:0}]}>{text}</Text>
+        </View>
       </View>
     </TouchableOpacity>
   )
@@ -38,22 +43,27 @@ const styles = StyleSheet.create({
     margin:10
   },
   button:{
-    fontFamily: font.semiBold,
-    borderRadius: 82,
-    fontSize: 14,
     padding: 18,
-    paddingLeft: 50,
-    paddingRight: 50,
+    borderRadius: 82,
     backgroundColor: color.primaryBlue,
-    alignSelf: 'flex-start',
     elevation: 3,
   },
 
   buttonText:{
+    fontFamily: font.semiBold,
     color: color.white,
     fontSize: 16,
-    textAlign: 'center'
+    textAlignVertical:'center',
+    textAlign:'center',
+    marginRight:60,
   },
+
+  insideButton:{
+    flexDirection:'row',
+    justifyContent:'space-evenly',
+    
+  },
+
 })
 
 export default SimpleButton
