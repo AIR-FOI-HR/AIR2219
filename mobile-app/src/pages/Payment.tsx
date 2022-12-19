@@ -1,5 +1,5 @@
-import { StyleSheet, View} from "react-native";
-import React from "react";
+import { ActivityIndicator, StyleSheet, View} from "react-native";
+import React, { useState } from "react";
 import SimpleTitledText from "../components/SimpleTitledText";
 import { color } from "../lib/style/theme";
 import Title from "../components/Title";
@@ -17,6 +17,7 @@ import {
 import { font } from "../lib/style/theme";
 import AppLoading from "expo-app-loading";
 import SliderArrow from "../assets/ic_SliderArrow.svg";
+import Loader from "../components/Loader";
 
 
 interface Props{
@@ -52,10 +53,32 @@ const Payment : React.FC<Props> = ({navigation,data={address:'Ul. Vladimira Nazo
   let [fontsLoaded] = useFonts({
     OpenSans_600SemiBold,
   });
-  
-  function ime(values:string) {
-    alert(values);
-    navigation.navigate("scannerOptions");
+
+  const [loaderState, setLoaderState] = useState<string>('hide');
+
+
+  async function submit(values:string) {
+    
+    setLoaderState('loading')
+
+    setTimeout(()=>{
+
+      setLoaderState('success');
+
+      setTimeout(()=>{
+        setLoaderState('failure');
+
+        setTimeout(()=>{setLoaderState('hide')},2000)
+
+      },2000);
+
+
+    },
+    2000);
+
+    
+
+    
   }
 
   if (!fontsLoaded) {
@@ -63,70 +86,71 @@ const Payment : React.FC<Props> = ({navigation,data={address:'Ul. Vladimira Nazo
   }
 
   return (
-    
-    <Formik
-      initialValues={{cardNumber: '', expirationDate:'',CVV:''}}
-      validateOnMount={true}
-      onSubmit={values => ime(JSON.stringify(values))}
-      validationSchema={paymentValidationSchema}> 
-      {({ handleChange, handleBlur, handleSubmit, values, touched,errors, isValid }) => (
+    <>
+      <Formik
+        initialValues={{cardNumber: '', expirationDate:'',CVV:''}}
+        validateOnMount={true}
+        onSubmit={values => submit(JSON.stringify(values))}
+        validationSchema={paymentValidationSchema}> 
+        {({ handleChange, handleBlur, handleSubmit, values, touched,errors, isValid }) => (
 
-        <ScrollView style={styles.container}  contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
-          {showModal && (<PaymnetSuccesModal/>)}
-
-          <View>
-            <Title value="Plaćanje" fontSize={24} color={color.primaryBlue}/>
-          </View>
-          <View>
-            <SimpleTitledText title="Door" value={`${data?.address}, ${data?.cityCode} ${data?.cityName}`}valueColor={color.primaryBlue}/> 
-            <SimpleTitledText title="Price" value={`${data?.price}, EUR`} valueColor={color.primaryOrange}/>
-          </View>
-          
-          <View>
+          <ScrollView style={styles.container}  contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
+            {showModal && (<PaymnetSuccesModal/>)}
             <View>
-              <TitledInput title="Card number" placeholder="xxxx xxxx xxxx xxxx" 
-              onChangeText={handleChange('cardNumber')} onBlur={handleBlur('cardNumber')} value={values.cardNumber} errors={errors.cardNumber} touched={touched.cardNumber}/>
+              <Title value="Plaćanje" fontSize={24} color={color.primaryBlue}/>
+            </View>
+            <View>
+              <SimpleTitledText title="Door" value={`${data?.address}, ${data?.cityCode} ${data?.cityName}`}valueColor={color.primaryBlue}/> 
+              <SimpleTitledText title="Price" value={`${data?.price}, EUR`} valueColor={color.primaryOrange}/>
+            </View>
+            <View>
+              <View>
+                <TitledInput title="Card number" placeholder="xxxx xxxx xxxx xxxx" 
+                onChangeText={handleChange('cardNumber')} onBlur={handleBlur('cardNumber')} value={values.cardNumber} errors={errors.cardNumber} touched={touched.cardNumber}/>
+              </View>
+              <View style={{flexDirection:'row'}}>
+                <View style={{flex:1,marginRight:20}}>
+                  <TitledInput title="Expiration date" placeholder="MM/YY"
+                  onChangeText={handleChange('expirationDate')} onBlur={handleBlur('expirationDate')} 
+                  value={values.expirationDate} errors={errors.expirationDate} touched={touched.expirationDate} />
+                </View>
+                <View style={{flex:1,marginLeft:20}}>
+                  <TitledInput title="CVV" placeholder="xxx" 
+                  onChangeText={handleChange('CVV')} onBlur={handleBlur('CVV')} 
+                  value={values.CVV} errors={errors.CVV} touched={touched.CVV}/>
+                </View>
+              </View>
             </View>
 
-            <View style={{flexDirection:'row'}}>
-              <View style={{flex:1,marginRight:20}}>
-                <TitledInput title="Expiration date" placeholder="MM/YY"
-                onChangeText={handleChange('expirationDate')} onBlur={handleBlur('expirationDate')} 
-                value={values.expirationDate} errors={errors.expirationDate} touched={touched.expirationDate} />
-              </View>
-              <View style={{flex:1,marginLeft:20}}>
-                <TitledInput title="CVV" placeholder="xxx" 
-                onChangeText={handleChange('CVV')} onBlur={handleBlur('CVV')} 
-                value={values.CVV} errors={errors.CVV} touched={touched.CVV}/>
-              </View>
+            <View style={{marginTop:35}}>
+              <SwipeButton 
+              disabled={isValid?false:true}
+              title='Slide to confirm'
+              swipeSuccessThreshold={75} 
+              containerStyles={styles.slideContainer}
+              thumbIconStyles={styles.slideIcon} 
+              thumbIconComponent={SliderArrow}
+              railStyles={styles.slideRail} 
+              titleStyles={styles.slideTitle}
+              onSwipeSuccess={handleSubmit}
+              railBackgroundColor={color.primaryBlue}
+              railFillBorderColor={'rgba(0,0,0,0)'}
+              thumbIconBackgroundColor={color.white}
+              thumbIconBorderColor= {'rgba(0,0,0,0)'}
+              railBorderColor={'rgba(0,0,0,0)'}
+              shouldResetAfterSuccess={true}
+              resetAfterSuccessAnimDuration={200}
+              />
+              <SimpleButton text="Otkaži" onPress={() => navigation.navigate("scannerOptions")}/>
             </View>
-          </View>
+          </ScrollView>
+          
+          
+        )}
+      </Formik>
 
-          <View style={{marginTop:35}}>
-            <SwipeButton 
-            disabled={isValid?false:true}
-            title='Slide to confirm'
-            swipeSuccessThreshold={75} 
-            containerStyles={styles.slideContainer}
-            thumbIconStyles={styles.slideIcon} 
-            thumbIconComponent={SliderArrow}
-            railStyles={styles.slideRail} 
-            titleStyles={styles.slideTitle}
-            onSwipeSuccess={handleSubmit}
-            railBackgroundColor={color.primaryBlue}
-            railFillBorderColor={'rgba(0,0,0,0)'}
-            thumbIconBackgroundColor={color.white}
-            thumbIconBorderColor= {'rgba(0,0,0,0)'}
-            railBorderColor={'rgba(0,0,0,0)'}
-            shouldResetAfterSuccess={true}
-            resetAfterSuccessAnimDuration={0}
-            />
-            <SimpleButton text="Otkaži" onPress={() => navigation.navigate("scannerOptions")}/>
-          </View>
-        </ScrollView>
-
-      )}
-    </Formik>
+      <Loader state={loaderState}/>
+    </>
   );
 };
 
