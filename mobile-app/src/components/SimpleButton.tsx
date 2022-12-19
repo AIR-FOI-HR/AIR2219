@@ -11,13 +11,18 @@ interface Props {
     text: string;
     onPress: any;
     svgImage?:any;
+    width?:number;
+    textColor?:string;
+    buttonColor?:string;
+    disabled?:boolean;
 }
 
-const SimpleButton : React.FC<Props>= ({text, onPress,svgImage=null}) => {
+const SimpleButton : React.FC<Props>= ({text, onPress,svgImage=null, width=undefined,textColor=color.white,buttonColor=color.primaryBlue, disabled=false}) => {
   let [fontsLoaded] = useFonts({
     OpenSans_600SemiBold,
   });
 
+  
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -25,11 +30,12 @@ const SimpleButton : React.FC<Props>= ({text, onPress,svgImage=null}) => {
 
   return (
     
-    <TouchableOpacity onPress={onPress} style={styles.container}>
-      <View style={[styles.button,]}>
+    <TouchableOpacity onPress={disabled?()=>{}:onPress} style={[styles.container,]}>
+      <View style={[styles.button,{backgroundColor:disabled?color.borderGrey:buttonColor,width:width}]}>
         <View style={styles.insideButton}>
-          <View style={{marginRight: svgImage==null?0:30,marginLeft:svgImage==null?0:5,}}>{svgImage}</View>      
-          <Text style={[styles.buttonText,{marginLeft: svgImage==null?60:0}]}>{text}</Text>
+          <View style={{}}>{svgImage}</View>      
+          <Text style={[styles.buttonText,{color:textColor}]}>{text}</Text>
+          <View style={svgImage?{width:20,height:20,backgroundColor:disabled?color.borderGrey:buttonColor}:null}></View>
         </View>
       </View>
     </TouchableOpacity>
@@ -40,28 +46,32 @@ const styles = StyleSheet.create({
   container:{
     flexDirection:'row',
     justifyContent:'center',
-    margin:10
+    margin:10,
+    marginLeft:60,
+    marginRight:60,
+    
   },
   button:{
     padding: 18,
     borderRadius: 82,
-    backgroundColor: color.primaryBlue,
     elevation: 3,
   },
 
   buttonText:{
     fontFamily: font.semiBold,
-    color: color.white,
     fontSize: 16,
     textAlignVertical:'center',
     textAlign:'center',
-    marginRight:60,
+    marginLeft:30,
+    marginRight:30,
   },
 
   insideButton:{
     flexDirection:'row',
-    justifyContent:'space-evenly',
-    
+    justifyContent:'space-between',
+    marginLeft:5,
+    marginRight:5,
+    alignItems:'center',
   },
 
 })
