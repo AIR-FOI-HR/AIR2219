@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import { color } from "../lib/style/theme";
 import { Shadow } from "react-native-shadow-2";
@@ -41,10 +41,9 @@ const CitySelectBar: React.FC<Props> = ({setCityId, cityList} ) => {
         <IconLocation width={22.5} height={22.5} style={styles.iconLocation} />
         {cityList && (
           <SelectDropdown
-            data={cityList!.map((city) => city.name)}
+            data={cityList.map((city) => city.name)}
             defaultValueByIndex={0}
-            onSelect={(selectedItem, index) => {
-              console.log(selectedItem);
+            onSelect={(selectedItem) => {
               const selectedCity = cityList.find(city => city.name == selectedItem);
               setCityId(selectedCity!.id);
               setSelected(true);
@@ -56,12 +55,12 @@ const CitySelectBar: React.FC<Props> = ({setCityId, cityList} ) => {
             dropdownStyle={styles.dropdown}
             onFocus={() => setSelected(false)}
             onBlur={() => setSelected(true)}
-            buttonTextAfterSelection={(selectedItem, index) => {
+            buttonTextAfterSelection={(selectedItem) => {
               // text represented after item is selected
               // if data array is an array of objects then return selectedItem.property to render after item is selected
               return selectedItem;
             }}
-            rowTextForSelection={(item, index) => {
+            rowTextForSelection={(item) => {
               // text represented for each item in dropdown
               // if data array is an array of objects then return item.property to represent item in dropdown
               return item;

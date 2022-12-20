@@ -10,6 +10,14 @@ import { getAllCities } from "../api/cities";
 const latitudeDelta = 0.0412;
 const longitudeDelta = 0.0211;
 
+const varazdinRegion = {
+  latitude: 46.30774076067861,
+  longitude: 16.338090229632893,
+  latitudeDelta: 0.0412,
+  longitudeDelta: 0.0211,
+};
+const varazdinCityId = 'af2cf8c0-513c-4d1f-a061-0bd46a7b2a36';
+
 interface Region {
   latitude: number;
   longitude: number;
@@ -21,28 +29,27 @@ const MapScreen: React.FC = () => {
   const [cityId, setCityId] = useState("");
   const [restroomList, setRestroomList] = useState<Restroom[]>();
   const [cityList, setCitiesList] = useState<City[]>();
-  const [region, setRegion] = useState<Region>();
+  const [region, setRegion] = useState<Region>(varazdinRegion);
 
   useEffect(() => {
     (async () => {
       const cities: City[] = await getAllCities();
       setCitiesList(cities);
-      let region : Region = {latitude: cities[0].latitude, longitude: cities[0].longitude, latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta};
-      setRegion(region)
-      const restrooms: Restroom[] = await getRestroomsByCityId(cities[0].id);
+      const restrooms: Restroom[] = await getRestroomsByCityId(varazdinCityId);
       setRestroomList(restrooms);
     })();
   }, []);
 
   useEffect(() => {
-    if(cityId!="")
-    {
+    if(cityId && cityList) {
       (async () => {
+        let city: City | undefined = cityList.find(city => city.id == cityId);
+        if(!city) {
+          throw new Error('Invalid city selected!');
+        }
         const restrooms: Restroom[] = await getRestroomsByCityId(cityId);
         setRestroomList(restrooms);
-        {}
-        let city: City | undefined = cityList!.find(city => city.id == cityId);
-        let region : Region = {latitude: city!.latitude, longitude: city!.longitude, latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta};
+        let region : Region = {latitude: city.latitude, longitude: city.longitude, latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta};
         setRegion(region);
       })();
     }

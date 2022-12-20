@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Image, View } from "react-native";
-import MapView, { Callout } from "react-native-maps";
-import { Marker } from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
 import { Restroom } from "../api/models/response/Restroom";
-import { City } from "../api/models/response/City";
 
 interface Region {
   latitude: number;
@@ -34,7 +32,6 @@ const RestroomMap: React.FC<Props> = ({ region, restrooms}) => {
       }
       let location = await Location.getCurrentPositionAsync({});
       setUserLocation(location);
-      //console.log(userLocation);
     })();
   }, []);
 
@@ -49,11 +46,11 @@ const RestroomMap: React.FC<Props> = ({ region, restrooms}) => {
         <View key={restroom.id}>
           <Marker
             coordinate={{
-              latitude: parseFloat(restroom.latitude),
-              longitude: parseFloat(restroom.longitude),
+              latitude: restroom.latitude,
+              longitude: restroom.longitude,
             }}
             title={restroom.address}
-            description={`${restroom.price} EUR`}
+            description={`${restroom.price} €`}
           >
             <Image
               source={require("../assets/img_WCLocator.png")}
