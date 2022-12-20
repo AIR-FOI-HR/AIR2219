@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import { color } from "../lib/style/theme";
 import { Shadow } from "react-native-shadow-2";
@@ -11,25 +11,20 @@ import {
 import AppLoading from "expo-app-loading";
 import IconLocation from "../assets/ic_CurrentLocation.svg";
 import { City } from "../api/models/response/City";
-import { getAllCities } from "../api/cities";
 
-const CitySelectBar: React.FC = () => {
+interface Props {
+  cityList: City[];
+  setCityId: (cityId: string | ((prevCityId: string) => string)) => void;
+}
+
+const CitySelectBar: React.FC<Props> = ({setCityId, cityList} ) => {
   let [fontsLoaded] = useFonts({
     OpenSans_400Regular,
     OpenSans_600SemiBold,
   });
 
   const [selected, setSelected] = useState(true);
-  const [citiesList, setCitiesList] = useState<City[]>();
 
-  useEffect(() => {
-    getCities();
-  }, []);
-
-  const getCities = async () => {
-    const cities: City[] = await getAllCities();
-    setCitiesList(cities);
-  };
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -44,12 +39,13 @@ const CitySelectBar: React.FC = () => {
         distance={5}
       >
         <IconLocation width={22.5} height={22.5} style={styles.iconLocation} />
-        {citiesList && (
+        {cityList && (
           <SelectDropdown
-            data={citiesList!.map((city) => city.name)}
+            data={cityList.map((city) => city.name)}
             defaultValueByIndex={0}
-            onSelect={(selectedItem, index) => {
-              console.log(selectedItem);
+            onSelect={(selectedItem) => {
+              const selectedCity = cityList.find(city => city.name == selectedItem);
+              setCityId(selectedCity!.id);
               setSelected(true);
             }}
             buttonTextStyle={styles.buttonText}
@@ -59,12 +55,12 @@ const CitySelectBar: React.FC = () => {
             dropdownStyle={styles.dropdown}
             onFocus={() => setSelected(false)}
             onBlur={() => setSelected(true)}
-            buttonTextAfterSelection={(selectedItem, index) => {
+            buttonTextAfterSelection={(selectedItem) => {
               // text represented after item is selected
               // if data array is an array of objects then return selectedItem.property to render after item is selected
               return selectedItem;
             }}
-            rowTextForSelection={(item, index) => {
+            rowTextForSelection={(item) => {
               // text represented for each item in dropdown
               // if data array is an array of objects then return item.property to represent item in dropdown
               return item;
