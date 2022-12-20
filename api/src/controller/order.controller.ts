@@ -7,21 +7,6 @@ import { OrderResponse } from "../model/response/OrderResponse";
 
 dotenv.config();
 
-export function checkQueryParamsValidity(
-  cityId?: string,
-  sortDirection: string = "DESC"
-) {
-  if (
-    (sortDirection != "ASC" && sortDirection != "DESC") ||
-    cityId?.length !== 36 ||
-    cityId?.split("-").length - 1 !== 4
-  ) {
-    return null;
-  } else {
-    return true;
-  }
-}
-
 const router = express.Router();
 
 router.get("/:userId", async (req, res, next) => {
@@ -30,7 +15,8 @@ router.get("/:userId", async (req, res, next) => {
     if (
       checkQueryParamsValidity(
         req.query.cityId?.toString(),
-        req.query.sortDirection?.toString()
+        req.query.sortDirection?.toString(),
+        req.query.sortField?.toString()
       )
     ) {
       orders = await orderService.getOrdersByUserId(
@@ -58,3 +44,39 @@ router.get("/:userId", async (req, res, next) => {
 });
 
 module.exports = router;
+
+
+enum sortFields{
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+  deletedAt = "deletedAt"
+};
+
+export function checkIfSortFieldValid(sortField = "createdAt"): boolean{
+  const values = Object.values(sortFields);
+
+  if (values.includes(sortField as unknown as sortFields)){
+    console.log("POSTOJI");
+    return true;
+  } else {
+    return false;
+  }
+
+}
+
+export function checkQueryParamsValidity(
+  cityId?: string,
+  sortDirection: string = "DESC",
+  sortField: string = "createdAt"
+) {
+  if (
+    (sortDirection != "ASC" && sortDirection != "DESC") ||
+    cityId?.length !== 36 ||
+    cityId?.split("-").length - 1 !== 4 ||
+    !checkIfSortFieldValid(sortField)
+  ) {
+    return null;
+  } else {
+    return true;
+  }
+}
