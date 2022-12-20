@@ -1,5 +1,6 @@
 import { Entity, Column, ManyToOne, OneToMany } from 'typeorm';
 import { City } from './City';
+import { ColumnNumericMarshaller } from './marshaller/columnNumeric.marshaller';
 import { Order } from './Order';
 import { TemporalEntity } from './TemporalEntity';
 
@@ -11,16 +12,16 @@ export class Restroom extends TemporalEntity {
   @Column('varchar', {length: 25, nullable: false })
   tag: string;
 
-  @Column({type: 'decimal', precision: 10, scale: 2, nullable: false})
+  @Column({type: 'decimal', precision: 10, scale: 2, nullable: false, transformer: new ColumnNumericMarshaller()})
   price: number;
 
   @Column('varchar', {length: 255, nullable: false})
   address: string;
 
-  @Column({type: 'decimal', precision: 8, scale: 6, nullable: false})
+  @Column({type: 'decimal', precision: 8, scale: 6, nullable: false, transformer: new ColumnNumericMarshaller()})
   latitude: number;
 
-  @Column({type: 'decimal', precision: 9, scale: 6, nullable: false})
+  @Column({type: 'decimal', precision: 9, scale: 6, nullable: false, transformer: new ColumnNumericMarshaller()})
   longitude: number;
 
   @ManyToOne(() => City, city => city.restrooms) 
@@ -39,12 +40,12 @@ export class Restroom extends TemporalEntity {
     city: City
   ) {
     super();
-    this.name = name,
-    this.tag = tag,
-    this.price = price,
-    this.address = address,
-    this.latitude = latitude,
-    this.longitude = longitude,
-    this.city = city
+    this.name = name;
+    this.tag = tag;
+    this.price = price;
+    this.address = address;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.city = city;
   }
 }

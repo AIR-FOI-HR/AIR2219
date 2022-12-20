@@ -53,8 +53,8 @@ export class ddl1661970526687 implements MigrationInterface {
             "id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
             "name" varchar(45) NOT NULL,
             "code" varchar(10) NOT NULL,
-            "latitude" float NOT NULL,
-            "longitude" float NOT NULL
+            "latitude" decimal(8,6) NOT NULL,
+            "longitude" decimal(9,6) NOT NULL
             );
 
             DROP TABLE IF EXISTS "restroom" CASCADE;

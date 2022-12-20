@@ -1,12 +1,13 @@
 import { PrimaryGeneratedColumn, Entity, Column } from 'typeorm';
 import { Currency } from '../constants/Currency';
+import { ColumnNumericMarshaller } from './marshaller/columnNumeric.marshaller';
 
 @Entity()
 export class Amount{
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @Column({type: 'decimal', precision: 10, scale: 2, nullable: false })
+    @Column({type: 'decimal', precision: 10, scale: 2, nullable: false, transformer: new ColumnNumericMarshaller() })
     value: number;
 
     @Column('varchar', { length: 20, nullable: false })
