@@ -1,4 +1,4 @@
-const baseUrl: string = 'http://localhost:8000';
+const baseUrl: string = 'https://air2219.mobilisis.hr';
 const apiOrigin: string = baseUrl + '/api';
 
 export default apiOrigin;
