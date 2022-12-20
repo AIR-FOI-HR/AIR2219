@@ -1,6 +1,6 @@
 import { Order } from '../model/entity/Order';
 import { OrderRepository } from '../dao/order.repository';
-import { FindOptionsOrderValue } from 'typeorm';
+import { Between, FindOptionsOrderValue } from 'typeorm';
 
 export const getOrdersByUserId = async (userId: string, cityId?: string, sortDirection: string = "DESC", sortField: string = "createdAt"): Promise<Order[] | null> => {
   if(userId.length !== 36 || userId.split("-").length - 1 !== 4) {
