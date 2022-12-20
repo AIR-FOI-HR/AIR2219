@@ -6,6 +6,7 @@ import { Restroom } from "../api/models/response/Restroom";
 import { getRestroomsByCityId } from "../api/restrooms";
 import { City } from "../api/models/response/City";
 import { getAllCities } from "../api/cities";
+import { LocationObject } from "expo-location";
 
 const latitudeDelta = 0.0412;
 const longitudeDelta = 0.0211;
@@ -16,7 +17,7 @@ const varazdinRegion = {
   latitudeDelta: 0.0412,
   longitudeDelta: 0.0211,
 };
-const varazdinCityId = 'af2cf8c0-513c-4d1f-a061-0bd46a7b2a36';
+const varazdinCityId = "af2cf8c0-513c-4d1f-a061-0bd46a7b2a36";
 
 interface Region {
   latitude: number;
@@ -41,15 +42,20 @@ const MapScreen: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if(cityId && cityList) {
+    if (cityId && cityList) {
       (async () => {
-        let city: City | undefined = cityList.find(city => city.id == cityId);
-        if(!city) {
-          throw new Error('Invalid city selected!');
+        let city: City | undefined = cityList.find((city) => city.id == cityId);
+        if (!city) {
+          throw new Error("Invalid city selected!");
         }
         const restrooms: Restroom[] = await getRestroomsByCityId(cityId);
         setRestroomList(restrooms);
-        let region : Region = {latitude: city.latitude, longitude: city.longitude, latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta};
+        let region: Region = {
+          latitude: city.latitude,
+          longitude: city.longitude,
+          latitudeDelta: latitudeDelta,
+          longitudeDelta: longitudeDelta,
+        };
         setRegion(region);
       })();
     }
@@ -57,12 +63,10 @@ const MapScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      {restroomList && region &&
+      {restroomList && region && (
         <RestroomMap region={region} restrooms={restroomList} />
-      }
-      {cityList &&
-        <CitySelectBar cityList={cityList} setCityId={setCityId} />
-      }
+      )}
+      {cityList && <CitySelectBar cityList={cityList} setCityId={setCityId} />}
     </View>
   );
 };

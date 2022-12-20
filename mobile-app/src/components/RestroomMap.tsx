@@ -4,6 +4,9 @@ import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { LocationObject } from "expo-location";
 import { Restroom } from "../api/models/response/Restroom";
+import MapViewDirections from "react-native-maps-directions";
+import { color } from "../lib/style/theme";
+import getDistance from "geolib/es/getDistance";
 
 interface Region {
   latitude: number;
@@ -18,9 +21,12 @@ interface Props {
   //TODO: Add markers and callbacks
 }
 
-const RestroomMap: React.FC<Props> = ({ region, restrooms}) => {
+const RestroomMap: React.FC<Props> = ({ region, restrooms }) => {
   const [userLocation, setUserLocation] = useState<LocationObject | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [closestRestroom, setClosestRestroom] = useState<Restroom | null>(
+    restrooms[0]
+  );
 
   useEffect(() => {
     (async () => {
@@ -32,6 +38,36 @@ const RestroomMap: React.FC<Props> = ({ region, restrooms}) => {
       }
       let location = await Location.getCurrentPositionAsync({});
       setUserLocation(location);
+      let restroomFound: React.SetStateAction<Restroom | null> | undefined;
+      let closestDistance = getDistance(
+        {
+          latitude: location!.coords.latitude,
+          longitude: location!.coords.longitude,
+        },
+        {
+          latitude: restrooms[0].latitude,
+          longitude: restrooms[0].longitude,
+        }
+      );
+      restrooms.forEach((restroom) => {
+        let distance = getDistance(
+          {
+            latitude: location!.coords.latitude,
+            longitude: location!.coords.longitude,
+          },
+          {
+            latitude: restroom.latitude,
+            longitude: restroom.longitude,
+          }
+        );
+        if (distance < closestDistance) {
+          restroomFound = restroom;
+        }
+        if (restroomFound != undefined) {
+          console.log(restroomFound);
+          setClosestRestroom(restroomFound);
+        }
+      });
     })();
   }, []);
 
@@ -59,6 +95,22 @@ const RestroomMap: React.FC<Props> = ({ region, restrooms}) => {
           </Marker>
         </View>
       ))}
+      {restrooms && userLocation && closestRestroom && (
+        <MapViewDirections
+          apikey="AIzaSyBtWfUxE5ubsLXBPp23TNYIzKDXiRMxalE"
+          origin={{
+            latitude: userLocation!.coords.latitude,
+            longitude: userLocation!.coords.longitude,
+          }}
+          destination={{
+            latitude: closestRestroom.latitude,
+            longitude: closestRestroom.longitude,
+          }}
+          mode="WALKING"
+          strokeWidth={3}
+          strokeColor={color.primaryBlue}
+        />
+      )}
     </MapView>
   );
 };
