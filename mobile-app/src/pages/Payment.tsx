@@ -58,7 +58,7 @@ const Payment : React.FC<Props> = ({navigation,route}) => {
   const [loaderState, setLoaderState] = useState<string>('hide');
 
   
-  async function submit(values:any) {
+  async function submit(values:{cardNumber:string,cvv:string, expiryDate:string}) {
     setLoaderState('loading');
 
     const data = await createOrder(values,restroomData);
