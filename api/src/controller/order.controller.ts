@@ -9,8 +9,13 @@ dotenv.config();
 
 const router = express.Router();
 
+let dateFromQuery: Date;
+let dateToQuery: Date;
+
+
 router.get("/:userId", async (req, res, next) => {
   let orders: Order[] | null = null;
+  
   try {
     if (
       checkQueryParamsValidity(
@@ -23,9 +28,11 @@ router.get("/:userId", async (req, res, next) => {
     ) {
       orders = await orderService.getOrdersByUserId(
         req.params.userId,
+        dateFromQuery,
+        dateToQuery,
         req.query.cityId?.toString(),
         req.query.sortDirection?.toString(),
-        req.query.sortField?.toString()
+        req.query.sortField?.toString(),
       );
     } else {
       return next(
@@ -75,6 +82,8 @@ export function checkDateRange(dateFrom = "2000-01-01", dateTo = new Date().toIS
     if (!dateF || !dateT){
       return false
     } else {
+      dateFromQuery = dateF;
+      dateToQuery = dateT;
       return true;
     }
   } else {
@@ -89,7 +98,7 @@ export function convertStringToDate(date: string){
 
   //console.log(year, month, day);
 
-  if (year >= 2000 && month >= 1 && day >= 1){
+  if (year >= 2000 && month >= 1 && month <= 12 && day >= 1 && day <= 31){
     let newDate = new Date(year, month-1, day+1);
     return newDate;
   } else {
