@@ -47,6 +47,11 @@ const ScannerScreen: React.FC = ({navigation}) => {
     setDataQR(restroom);  
   };
 
+  const handleConfirmation = () =>{
+    setScanned(false);
+    navigation.navigate('payment',dataQR);
+  }
+
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
   }
@@ -63,7 +68,6 @@ const ScannerScreen: React.FC = ({navigation}) => {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={[StyleSheet.absoluteFillObject]}
       />
-      <Button title='Go to Payment' onPress={() => navigation.navigate("payment")}></Button>
       {scanned && (
         <Modal transparent>
           <View style={styles.modalOpacity}>
@@ -85,7 +89,7 @@ const ScannerScreen: React.FC = ({navigation}) => {
                   </Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                  <TouchableOpacity style={styles.confirmButton}>
+                  <TouchableOpacity style={styles.confirmButton} onPress={handleConfirmation}>
                     <Text style={styles.confirmText}>Confirm</Text>
                   </TouchableOpacity>
                   <TouchableOpacity

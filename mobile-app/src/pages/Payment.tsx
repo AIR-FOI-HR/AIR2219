@@ -8,7 +8,6 @@ import SimpleButton from "../components/SimpleButton";
 import * as yup from 'yup';
 import {Formik} from 'formik';
 import {ScrollView} from 'react-native';
-import PaymnetSuccesModal from "../components/PaymentSuccessModal";
 import SwipeButton from 'rn-swipe-button';
 import {
   useFonts,
@@ -19,10 +18,12 @@ import AppLoading from "expo-app-loading";
 import SliderArrow from "../assets/ic_SliderArrow.svg";
 import Loader from "../components/Loader";
 import { Restroom } from "../api/models/response/Restroom";
+import { createOrder } from "../api/orders";
 
 interface Props{
   navigation:any;
   restroomData:Restroom;
+  route:any;
 }
 
 const paymentValidationSchema = yup.object().shape({
@@ -34,12 +35,12 @@ const paymentValidationSchema = yup.object().shape({
     .required('This field is required!')
     ,
 
-  expirationDate:
+  expiryDate:
     yup.string()
     .matches(/^[0-9]{2}\/[0-9]{2}$/g,'Expiration date format is MM/DD!')
     .required('This field is required!'),
 
-  CVV:
+  cvv:
     yup.string()
     .matches(/^[0-9]*$/,'The CVV should consist only of numbers!')
     .min(3,'The CVV is 3 digits long!')
@@ -48,36 +49,33 @@ const paymentValidationSchema = yup.object().shape({
   
 })
 
-const Payment : React.FC<Props> = ({navigation,restroomData={address:'Ul. Vladimira Nazora 17',cityCode:'42000',cityName:'Varaždin',price:'3,00'}}) => {
+const Payment : React.FC<Props> = ({navigation,route}) => {
   let [fontsLoaded] = useFonts({
     OpenSans_600SemiBold,
   });
 
+  const restroomData:Restroom = route.params;
   const [loaderState, setLoaderState] = useState<string>('hide');
 
+  
+  async function submit(values:any) {
+    setLoaderState('loading');
 
-  async function submit(values:string) {
-    
-    setLoaderState('loading')
+    const data = await createOrder(values,restroomData);
 
-    setTimeout(()=>{
-
-      setLoaderState('success');
-
+    if(data["error"]!=undefined){
+      setLoaderState('failure');
       setTimeout(()=>{
-        setLoaderState('failure');
-
-        setTimeout(()=>{setLoaderState('hide')},2000)
-
+        setLoaderState('hide')
       },2000);
-
-
-    },
-    2000);
-
-    
-
-    
+    }
+    else{
+      setLoaderState('success');
+      setTimeout(()=>{
+        setLoaderState('hide');
+        navigation.navigate("map");
+      },2000);
+    }
   }
 
   if (!fontsLoaded) {
@@ -87,9 +85,9 @@ const Payment : React.FC<Props> = ({navigation,restroomData={address:'Ul. Vladim
   return (
     <>
       <Formik
-        initialValues={{cardNumber: '', expirationDate:'',CVV:''}}
+        initialValues={{cardNumber: '', expiryDate:'',cvv:''}}
         validateOnMount={true}
-        onSubmit={values => submit(JSON.stringify(values))}
+        onSubmit={values => submit(values)}
         validationSchema={paymentValidationSchema}> 
         {({ handleChange, handleBlur, handleSubmit, values, touched,errors, isValid }) => (
 
@@ -99,7 +97,7 @@ const Payment : React.FC<Props> = ({navigation,restroomData={address:'Ul. Vladim
             </View>
             <View>
               <SimpleTitledText title="Door" value={`${restroomData?.address}, ${restroomData?.cityCode} ${restroomData?.cityName}`}valueColor={color.primaryBlue}/> 
-              <SimpleTitledText title="Price" value={`${restroomData?.price}, EUR`} valueColor={color.primaryOrange}/>
+              <SimpleTitledText title="Price" value={`${restroomData?.price} EUR`} valueColor={color.primaryOrange}/>
             </View>
             <View>
               <View>
@@ -109,13 +107,13 @@ const Payment : React.FC<Props> = ({navigation,restroomData={address:'Ul. Vladim
               <View style={{flexDirection:'row'}}>
                 <View style={{flex:1,marginRight:20}}>
                   <TitledInput title="Expiration date" placeholder="MM/YY"
-                  onChangeText={handleChange('expirationDate')} onBlur={handleBlur('expirationDate')} 
-                  value={values.expirationDate} errors={errors.expirationDate} touched={touched.expirationDate} />
+                  onChangeText={handleChange('expiryDate')} onBlur={handleBlur('expiryDate')} 
+                  value={values.expiryDate} errors={errors.expiryDate} touched={touched.expiryDate} />
                 </View>
                 <View style={{flex:1,marginLeft:20}}>
-                  <TitledInput title="CVV" placeholder="xxx" 
-                  onChangeText={handleChange('CVV')} onBlur={handleBlur('CVV')} 
-                  value={values.CVV} errors={errors.CVV} touched={touched.CVV}/>
+                  <TitledInput title="cvv" placeholder="xxx" 
+                  onChangeText={handleChange('cvv')} onBlur={handleBlur('cvv')} 
+                  value={values.cvv} errors={errors.cvv} touched={touched.cvv}/>
                 </View>
               </View>
             </View>
