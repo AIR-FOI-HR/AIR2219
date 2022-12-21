@@ -18,7 +18,7 @@ const main = async () => {
   app.use('/api/restrooms', restroomRoutes);
   app.use('/api/payments', paymentRoutes);
   app.use('/api/cities', cityRoutes);
-  app.use('/api/getOrdersByUserId', orderRoutes);
+  app.use('/api/orders', orderRoutes);
 
   //Reached only when no other middleware gives a response. Basically, for handling unsupported routes
   app.use((_, __, next) => {
