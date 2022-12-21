@@ -27,16 +27,24 @@ export class insertData1661971213868 implements MigrationInterface {
             ( '128b9137-ccd2-412b-aa1f-920057cc8701', now(), now(), NULL, 1, 'admin@eflushapp.com', '+385990000000', 'EUR', 'AUTOMATIC');
 
             INSERT INTO "city" VALUES
-            ('af2cf8c0-513c-4d1f-a061-0bd46a7b2a36', 'Varaždin', '42000'),
-            ('ab1fce53-64ca-4398-8541-f5ff47bc9dc7', 'Zagreb', '10000'),
-            ('5611b312-da8b-4e90-8bc3-0372c144c22e', 'Split', '21000'),
-            ('064f4bd5-96b3-4b58-b9ad-04ecb874abb8', 'Rijeka', '51000'),
-            ('caac5312-2a93-4a0f-8c93-2cd68b0d18be', 'Osijek', '31000');
+            ('af2cf8c0-513c-4d1f-a061-0bd46a7b2a36', 'Varaždin', '42000', 46.30774076067861, 16.338090229632893),
+            ('ab1fce53-64ca-4398-8541-f5ff47bc9dc7', 'Zagreb', '10000', 45.80317549117889, 15.983676368583467),
+            ('5611b312-da8b-4e90-8bc3-0372c144c22e', 'Split', '21000', 43.51195942322312, 16.44598841552412),
+            ('064f4bd5-96b3-4b58-b9ad-04ecb874abb8', 'Rijeka', '51000', 45.32419093506675, 14.4610102557877),
+            ('caac5312-2a93-4a0f-8c93-2cd68b0d18be', 'Osijek', '31000', 45.557737360014244, 18.699879502347304);
 
             INSERT INTO restroom VALUES
             ('95b17ff6-4036-4020-be2c-a9751518af4f', now(), now(), null, 1, 'FOI1', 'eFlush-WnmqqYYrWc', 0.4, 'Pavlinska ul. 2', 46.30770732889613, 16.338047018104785, 'af2cf8c0-513c-4d1f-a061-0bd46a7b2a36'),
             ('54ccab34-df7a-4d09-ac3b-88eface2c780', now(), now(), null, 1, 'FOI2', 'eFlush-eBjhjZOvxG', 0.5, 'Prilaz Fausta Vrančića 3', 46.309320610288765, 16.342742220051523, 'af2cf8c0-513c-4d1f-a061-0bd46a7b2a36'),
-            ('8cd7ce7a-0fc4-4581-9500-33d2e0aac8cb','2022-12-01 14:42:53.757389','2022-12-02 14:42:53.757389',NULL,1,'ZG1','eFlush-OqLskroqwe','0.85','Ulica Kneza Branimira 8','45.816680','16.037700','ab1fce53-64ca-4398-8541-f5ff47bc9dc7');
+            ('8cd7ce7a-0fc4-4581-9500-33d2e0aac8cb','2022-12-01 14:42:53.757389','2022-12-02 14:42:53.757389',NULL,1,'ZG1','eFlush-OqLskroqwe','0.85','Ulica Kneza Branimira 8','45.816680','16.037700','ab1fce53-64ca-4398-8541-f5ff47bc9dc7'),
+            ('95b17ff6-4036-4020-be2c-a9751518af41', now(), now(), null, 1, 'FOI1', 'eFlush-WnmqqYYrWa', 0.4, 'Ul. kneza Branimira 71', 45.80694719144503, 15.993303109451311, 'ab1fce53-64ca-4398-8541-f5ff47bc9dc7'),
+            ('54ccab34-df7a-4d09-ac3b-88eface2c782', now(), now(), null, 1, 'FOI2', 'eFlush-eBjhjZOvxb', 0.5, 'Ul. Ivana Lučića 5', 45.79575194750931, 15.971721839377237, 'ab1fce53-64ca-4398-8541-f5ff47bc9dc7'),
+            ('95b17ff6-4036-4020-be2c-a9751518af43', now(), now(), null, 1, 'FOI1', 'eFlush-WnmqqYYrWe', 0.4, 'Dioklecijanova 1', 43.51009991616476, 16.44177764952187, '5611b312-da8b-4e90-8bc3-0372c144c22e'),
+            ('54ccab34-df7a-4d09-ac3b-88eface2c784', now(), now(), null, 1, 'FOI2', 'eFlush-eBjhjZOvxf', 0.5, 'Slobode ul. 16A', 43.509771981993666, 16.45028213055012, '5611b312-da8b-4e90-8bc3-0372c144c22e'),
+            ('95b17ff6-4036-4020-be2c-a9751518af45', now(), now(), null, 1, 'FOI1', 'eFlush-WnmqqYYrWg', 0.4, 'Derenčinova Ul. 9', 45.32480706172747, 14.45592517957803, '064f4bd5-96b3-4b58-b9ad-04ecb874abb8'),
+            ('54ccab34-df7a-4d09-ac3b-88eface2c786', now(), now(), null, 1, 'FOI2', 'eFlush-eBjhjZOvxh', 0.5, 'Šetalište XIII divizije 46', 45.31901933397243, 14.464389930616031, '064f4bd5-96b3-4b58-b9ad-04ecb874abb8'),
+            ('95b17ff6-4036-4020-be2c-a9751518af47', now(), now(), null, 1, 'FOI1', 'eFlush-WnmqqYYrWi', 0.4, 'Trg Svetog Trojstva 6', 45.56074937159172, 18.69639984939644, 'caac5312-2a93-4a0f-8c93-2cd68b0d18be'),
+            ('54ccab34-df7a-4d09-ac3b-88eface2c788', now(), now(), null, 1, 'FOI2', 'eFlush-eBjhjZOvxj', 0.5, 'Ul. Ivana Gorana Kovačića 4', 45.553878129202864, 18.7026974755836, 'caac5312-2a93-4a0f-8c93-2cd68b0d18be');
 
             INSERT INTO amount VALUES
             ('6b53fe77-8643-45ac-a7da-7b5d7958fb42',0.40,'EUR','2022-12-06 17:39:57.722059','admin@mail.com'),
