@@ -5,14 +5,17 @@ export class CityResponse {
         public id: string,
         public name: string,
         public code: string,
-
+        public latitude: number,
+        public longitude: number,
     ) {}
 
     public static toDto(city: City): CityResponse {
         return new CityResponse(
             city.id,
             city.name,
-            city.code
+            city.code,
+            city.latitude,
+            city.longitude
         );
     }
 
