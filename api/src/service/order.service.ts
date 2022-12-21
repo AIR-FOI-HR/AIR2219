@@ -7,7 +7,6 @@ export const getOrdersByUserId = async (userId: string, dateFrom: Date, dateTo: 
     return null;
   }
 
-  console.log(cityId);
   if(cityId){
   if( cityId.length !== 36 || cityId.split("-").length - 1 !== 4 ) {
     return null;
