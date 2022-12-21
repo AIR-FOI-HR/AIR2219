@@ -39,11 +39,11 @@ export class insertData1661971213868 implements MigrationInterface {
             ('8cd7ce7a-0fc4-4581-9500-33d2e0aac8cb','2022-12-01 14:42:53.757389','2022-12-02 14:42:53.757389',NULL,1,'ZG1','eFlush-OqLskroqwe','0.85','Ulica Kneza Branimira 8','45.816680','16.037700','ab1fce53-64ca-4398-8541-f5ff47bc9dc7');
 
             INSERT INTO amount VALUES
-            ('6b53fe77-8643-45ac-a7da-7b5d7958fb42',0.40,'EUR','2022-12-06 15:52:37.513937','admin@mail.com'),
-            ('4cf36de6-a6dd-40c2-8523-be5eaafe9986',0.50,'EUR','2022-12-06 15:57:50.904053','obican@mail.com'),
-            ('67a5a5f1-182e-4d7f-b39e-42da85c2296e',0.40,'EUR','2022-12-06 15:57:50.912413','blokiran@mail.com'),
-            ('cdff709e-3bbd-413a-a01c-61d670e5872b',0.50,'EUR','2022-12-06 15:57:50.914728','mimi@mail.com'),
-            ('9866b91a-fd74-4933-99d6-0239da5b5a4c',0.85,'EUR','2022-12-06 15:52:37.513937','obican@mail.com');
+            ('6b53fe77-8643-45ac-a7da-7b5d7958fb42',0.40,'EUR','2022-12-06 17:39:57.722059','admin@mail.com'),
+            ('4cf36de6-a6dd-40c2-8523-be5eaafe9986',0.50,'EUR','2022-12-06 17:39:57.729498','obican@mail.com'),
+            ('67a5a5f1-182e-4d7f-b39e-42da85c2296e',0.40,'EUR','2022-12-06 17:39:57.733014','blokiran@mail.com'),
+            ('cdff709e-3bbd-413a-a01c-61d670e5872b',0.50,'EUR','2022-12-06 17:39:57.735703','mimi@mail.com'),
+            ('9866b91a-fd74-4933-99d6-0239da5b5a4c',0.85,'EUR','2022-12-07 17:39:57.729498','obican@mail.com');
 
             INSERT INTO "order" VALUES
             ('852a090d-5580-4d97-8f3d-d95fc9e3f48a','b6b6cd73-939b-485f-96cd-f782508336c1','2022-12-06 17:39:57.722059','2022-12-06 17:39:57.722059',NULL,1,'PAYMENT','PENDING','AUTOMATIC','Order test','admin@mail.com','6b53fe77-8643-45ac-a7da-7b5d7958fb42','https://www.eflush.hr/checkout/852a090d-5580-4d97-8f3d-d95fc9e3f48a','498cdfca-d855-42c4-b50c-2f9fec357cc2','95b17ff6-4036-4020-be2c-a9751518af4f'),
