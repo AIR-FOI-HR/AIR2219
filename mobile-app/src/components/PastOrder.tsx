@@ -9,10 +9,10 @@ import {
 import AppLoading from 'expo-app-loading';
 
 interface Props{
-    state:boolean;
+    order:any;
 }
 
-const PastOrder : React.FC<Props>= ({state}) => {
+const PastOrder : React.FC<Props>= ({order}) => {
     let [fontsLoaded] = useFonts({
         OpenSans_400Regular,
         OpenSans_600SemiBold,
@@ -22,13 +22,13 @@ const PastOrder : React.FC<Props>= ({state}) => {
         return <AppLoading />;
     }
     return (
-        <View style={[styles.container,{borderTopColor: state?color.primaryBlue:color.primaryOrange}]}>
+        <View style={[styles.container,{borderTopColor: order.status?color.primaryBlue:color.primaryOrange}]}>
 
             <View style={styles.topTextContainer}>
-                <Text style={styles.dateText}>31/10/2022</Text>
-                <Text style={styles.priceText}>3,00 HRK</Text>
+                <Text style={styles.dateText}>{order.date}</Text>
+                <Text style={styles.priceText}>{order.price} EUR</Text>
             </View>
-            <Text style={[styles.addressText,{color:state?color.primaryBlue:color.primaryOrange}]}>Ul. Vladimira Nazora 6, 42000, Varaždin</Text>
+            <Text style={[styles.addressText,{color:order.status?color.primaryBlue:color.primaryOrange}]}>{order.address}</Text>
 
         </View>
     )
@@ -44,8 +44,6 @@ const styles = StyleSheet.create({
         borderRadius:10,
         borderTopWidth:3.5,
         elevation:2,
-        marginLeft:20,
-        marginRight:20,
         marginBottom:10,
         marginTop:10,
     },
