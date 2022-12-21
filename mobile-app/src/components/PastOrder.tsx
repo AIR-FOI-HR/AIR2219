@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
         elevation:2,
         marginBottom:10,
         marginTop:10,
+        marginRight:20,
+        marginLeft:20,
     },
     topTextContainer:{
         flexDirection:'row',

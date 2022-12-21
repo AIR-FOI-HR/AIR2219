@@ -17,7 +17,6 @@ import { color } from "./src/lib/style/theme";
 import PaymentScreen from "./src/pages/Payment";
 import { createStackNavigator } from "@react-navigation/stack";
 import PurchaseHistory from "./src/pages/PurchaseHistory";
-
 const Tab = createBottomTabNavigator();
 
 const HomeTabs = () => {
@@ -73,6 +72,14 @@ const HomeTabs = () => {
             return <IconScanner width={35} height={35} />;
             // );
           },
+        }}
+      />
+      <Tab.Screen
+        
+        name={"purchaseHistory"}
+        component={PurchaseHistory}
+        options={{
+          tabBarItemStyle:{display:'none'}
         }}
       />
     </Tab.Navigator>

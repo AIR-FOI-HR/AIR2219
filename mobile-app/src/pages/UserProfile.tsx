@@ -11,7 +11,11 @@ import ProfileIcon from '../assets/ic_EditProfile.svg'
 import PurchasesIcon from '../assets/ic_PurchasesBasket.svg'
 import LogOutIcon from '../assets/ic_LogOut.svg';
 
-const UserProfileScreen : React.FC = ({navigation}) => {
+interface Props{
+  navigation:any;
+}
+
+const UserProfileScreen : React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.itemContainer}>
@@ -42,6 +46,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     padding:30,
+    paddingTop:50,
     height:'100%',
   },
   itemContainer:{
@@ -50,10 +55,11 @@ const styles = StyleSheet.create({
   },
   titleCurve:{
     margin:40,
+    marginTop:50,
   },
   buttonContainer:{
     flex:1,
-    justifyContent:'space-between',
+    justifyContent:'space-evenly',
     alignItems:'center',
   }
 
