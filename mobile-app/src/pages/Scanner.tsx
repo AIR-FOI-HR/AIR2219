@@ -18,7 +18,7 @@ import {
 import { getRestroomById } from "../api/restrooms";
 import { Restroom } from "../api/models/response/Restroom";
 
-const ScannerScreen: React.FC = () => {
+const ScannerScreen: React.FC = ({navigation}) => {
   let [fontsLoaded] = useFonts({
     OpenSans_400Regular,
     OpenSans_600SemiBold,
@@ -46,6 +46,11 @@ const ScannerScreen: React.FC = () => {
     const restroom: Restroom = await getRestroomById(data);
     setDataQR(restroom);  
   };
+
+  const handleConfirmation = () =>{
+    setScanned(false);
+    navigation.navigate('payment',dataQR);
+  }
 
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
@@ -84,7 +89,7 @@ const ScannerScreen: React.FC = () => {
                   </Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                  <TouchableOpacity style={styles.confirmButton}>
+                  <TouchableOpacity style={styles.confirmButton} onPress={handleConfirmation}>
                     <Text style={styles.confirmText}>Confirm</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
