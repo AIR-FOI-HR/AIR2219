@@ -27,28 +27,40 @@ export class insertData1661971213868 implements MigrationInterface {
             ( '128b9137-ccd2-412b-aa1f-920057cc8701', now(), now(), NULL, 1, 'admin@eflushapp.com', '+385990000000', 'EUR', 'AUTOMATIC');
 
             INSERT INTO "city" VALUES
-            ('af2cf8c0-513c-4d1f-a061-0bd46a7b2a36', 'Varaždin', '42000'),
-            ('ab1fce53-64ca-4398-8541-f5ff47bc9dc7', 'Zagreb', '10000'),
-            ('5611b312-da8b-4e90-8bc3-0372c144c22e', 'Split', '21000'),
-            ('064f4bd5-96b3-4b58-b9ad-04ecb874abb8', 'Rijeka', '51000'),
-            ('caac5312-2a93-4a0f-8c93-2cd68b0d18be', 'Osijek', '31000');
+            ('af2cf8c0-513c-4d1f-a061-0bd46a7b2a36', 'Varaždin', '42000', 46.30774076067861, 16.338090229632893),
+            ('ab1fce53-64ca-4398-8541-f5ff47bc9dc7', 'Zagreb', '10000', 45.80317549117889, 15.983676368583467),
+            ('5611b312-da8b-4e90-8bc3-0372c144c22e', 'Split', '21000', 43.51195942322312, 16.44598841552412),
+            ('064f4bd5-96b3-4b58-b9ad-04ecb874abb8', 'Rijeka', '51000', 45.32419093506675, 14.4610102557877),
+            ('caac5312-2a93-4a0f-8c93-2cd68b0d18be', 'Osijek', '31000', 45.557737360014244, 18.699879502347304);
 
             INSERT INTO restroom VALUES
             ('95b17ff6-4036-4020-be2c-a9751518af4f', now(), now(), null, 1, 'FOI1', 'eFlush-WnmqqYYrWc', 0.4, 'Pavlinska ul. 2', 46.30770732889613, 16.338047018104785, 'af2cf8c0-513c-4d1f-a061-0bd46a7b2a36'),
-            ('54ccab34-df7a-4d09-ac3b-88eface2c780', now(), now(), null, 1, 'FOI2', 'eFlush-eBjhjZOvxG', 0.5, 'Prilaz Fausta Vrančića 3', 46.309320610288765, 16.342742220051523, 'af2cf8c0-513c-4d1f-a061-0bd46a7b2a36');
+            ('54ccab34-df7a-4d09-ac3b-88eface2c780', now(), now(), null, 1, 'FOI2', 'eFlush-eBjhjZOvxG', 0.5, 'Prilaz Fausta Vrančića 3', 46.309320610288765, 16.342742220051523, 'af2cf8c0-513c-4d1f-a061-0bd46a7b2a36'),
+            ('8cd7ce7a-0fc4-4581-9500-33d2e0aac8cb','2022-12-01 14:42:53.757389','2022-12-02 14:42:53.757389',NULL,1,'ZG1','eFlush-OqLskroqwe','0.85','Ulica Kneza Branimira 8','45.816680','16.037700','ab1fce53-64ca-4398-8541-f5ff47bc9dc7'),
+            ('95b17ff6-4036-4020-be2c-a9751518af41', now(), now(), null, 1, 'FOI1', 'eFlush-WnmqqYYrWa', 0.4, 'Ul. kneza Branimira 71', 45.80694719144503, 15.993303109451311, 'ab1fce53-64ca-4398-8541-f5ff47bc9dc7'),
+            ('54ccab34-df7a-4d09-ac3b-88eface2c782', now(), now(), null, 1, 'FOI2', 'eFlush-eBjhjZOvxb', 0.5, 'Ul. Ivana Lučića 5', 45.79575194750931, 15.971721839377237, 'ab1fce53-64ca-4398-8541-f5ff47bc9dc7'),
+            ('95b17ff6-4036-4020-be2c-a9751518af43', now(), now(), null, 1, 'FOI1', 'eFlush-WnmqqYYrWe', 0.4, 'Dioklecijanova 1', 43.51009991616476, 16.44177764952187, '5611b312-da8b-4e90-8bc3-0372c144c22e'),
+            ('54ccab34-df7a-4d09-ac3b-88eface2c784', now(), now(), null, 1, 'FOI2', 'eFlush-eBjhjZOvxf', 0.5, 'Slobode ul. 16A', 43.509771981993666, 16.45028213055012, '5611b312-da8b-4e90-8bc3-0372c144c22e'),
+            ('95b17ff6-4036-4020-be2c-a9751518af45', now(), now(), null, 1, 'FOI1', 'eFlush-WnmqqYYrWg', 0.4, 'Derenčinova Ul. 9', 45.32480706172747, 14.45592517957803, '064f4bd5-96b3-4b58-b9ad-04ecb874abb8'),
+            ('54ccab34-df7a-4d09-ac3b-88eface2c786', now(), now(), null, 1, 'FOI2', 'eFlush-eBjhjZOvxh', 0.5, 'Šetalište XIII divizije 46', 45.31901933397243, 14.464389930616031, '064f4bd5-96b3-4b58-b9ad-04ecb874abb8'),
+            ('95b17ff6-4036-4020-be2c-a9751518af47', now(), now(), null, 1, 'FOI1', 'eFlush-WnmqqYYrWi', 0.4, 'Trg Svetog Trojstva 6', 45.56074937159172, 18.69639984939644, 'caac5312-2a93-4a0f-8c93-2cd68b0d18be'),
+            ('54ccab34-df7a-4d09-ac3b-88eface2c788', now(), now(), null, 1, 'FOI2', 'eFlush-eBjhjZOvxj', 0.5, 'Ul. Ivana Gorana Kovačića 4', 45.553878129202864, 18.7026974755836, 'caac5312-2a93-4a0f-8c93-2cd68b0d18be');
 
             INSERT INTO amount VALUES
-            ('6b53fe77-8643-45ac-a7da-7b5d7958fb42',0.40,'EUR','2022-12-06 15:52:37.513937','admin@mail.com'),
-            ('4cf36de6-a6dd-40c2-8523-be5eaafe9986',0.50,'EUR','2022-12-06 15:57:50.904053','obican@mail.com'),
-            ('67a5a5f1-182e-4d7f-b39e-42da85c2296e',0.40,'EUR','2022-12-06 15:57:50.912413','blokiran@mail.com'),
-            ('cdff709e-3bbd-413a-a01c-61d670e5872b',0.50,'EUR','2022-12-06 15:57:50.914728','mimi@mail.com');
+            ('6b53fe77-8643-45ac-a7da-7b5d7958fb42',0.40,'EUR','2022-12-06 17:39:57.722059','admin@mail.com'),
+            ('4cf36de6-a6dd-40c2-8523-be5eaafe9986',0.50,'EUR','2022-12-06 17:39:57.729498','obican@mail.com'),
+            ('67a5a5f1-182e-4d7f-b39e-42da85c2296e',0.40,'EUR','2022-12-06 17:39:57.733014','blokiran@mail.com'),
+            ('cdff709e-3bbd-413a-a01c-61d670e5872b',0.50,'EUR','2022-12-06 17:39:57.735703','mimi@mail.com'),
+            ('9866b91a-fd74-4933-99d6-0239da5b5a4c',0.85,'EUR','2022-12-07 17:39:57.729498','obican@mail.com');
 
             INSERT INTO "order" VALUES
             ('852a090d-5580-4d97-8f3d-d95fc9e3f48a','b6b6cd73-939b-485f-96cd-f782508336c1','2022-12-06 17:39:57.722059','2022-12-06 17:39:57.722059',NULL,1,'PAYMENT','PENDING','AUTOMATIC','Order test','admin@mail.com','6b53fe77-8643-45ac-a7da-7b5d7958fb42','https://www.eflush.hr/checkout/852a090d-5580-4d97-8f3d-d95fc9e3f48a','498cdfca-d855-42c4-b50c-2f9fec357cc2','95b17ff6-4036-4020-be2c-a9751518af4f'),
             ('6752599b-637c-4e16-952e-2b1c440bceda','2ff50f1c-065a-454a-84f1-f266822b3820','2022-12-06 17:39:57.729498','2022-12-06 17:39:57.729498',NULL,1,'PAYMENT','COMPLETED','AUTOMATIC','Order test','obican@mail.com','4cf36de6-a6dd-40c2-8523-be5eaafe9986','https://www.eflush.hr/checkout/6752599b-637c-4e16-952e-2b1c440bceda','60c8837a-87d1-4f7e-b4ed-7d260a8ceed7','95b17ff6-4036-4020-be2c-a9751518af4f'),
             ('38d168db-fa8d-4c5f-8a90-afbcb601836b','9f4569f4-2ea7-40db-abc1-888c85a7a9ac','2022-12-06 17:39:57.733014','2022-12-06 17:39:57.733014',NULL,1,'PAYMENT','COMPLETED','AUTOMATIC','Order test','blokiran@mail.com','67a5a5f1-182e-4d7f-b39e-42da85c2296e','https://www.eflush.hr/checkout/38d168db-fa8d-4c5f-8a90-afbcb601836b','21d26684-8652-4b2c-baab-199d0853d778','54ccab34-df7a-4d09-ac3b-88eface2c780'),
-            ('a7332f6e-dfae-4931-b126-e137a83a45f6','c4374a7a-c641-48a6-b2aa-87810aee47b7','2022-12-06 17:39:57.735703','2022-12-06 17:39:57.735703',NULL,1,'PAYMENT','PENDING','AUTOMATIC','Order test','mimi@mail.com','cdff709e-3bbd-413a-a01c-61d670e5872b','https://www.eflush.hr/checkout/a7332f6e-dfae-4931-b126-e137a83a45f6','5a04fcf5-0541-4c31-8fc2-41ab2f7af3ed','54ccab34-df7a-4d09-ac3b-88eface2c780');
-       
+            ('a7332f6e-dfae-4931-b126-e137a83a45f6','c4374a7a-c641-48a6-b2aa-87810aee47b7','2022-12-06 17:39:57.735703','2022-12-06 17:39:57.735703',NULL,1,'PAYMENT','PENDING','AUTOMATIC','Order test','mimi@mail.com','cdff709e-3bbd-413a-a01c-61d670e5872b','https://www.eflush.hr/checkout/a7332f6e-dfae-4931-b126-e137a83a45f6','5a04fcf5-0541-4c31-8fc2-41ab2f7af3ed','54ccab34-df7a-4d09-ac3b-88eface2c780'),
+            ('587b863f-30ff-44db-8b90-4d3ef31259e8','0acaeaf6-b69c-4952-bf12-5035239e9b8a','2022-12-07 17:39:57.729498','2022-12-08 13:23:54.729778',NULL,1,'PAYMENT','COMPLETED','AUTOMATIC','Order test','obican@mail.com','9866b91a-fd74-4933-99d6-0239da5b5a4c','https://www.eflush.hr/checkout/9866b91a-fd74-4933-99d6-0239da5b5a4c','60c8837a-87d1-4f7e-b4ed-7d260a8ceed7','8cd7ce7a-0fc4-4581-9500-33d2e0aac8cb');
+        
+
             INSERT INTO order_error VALUES
             ('1768a522-4edb-44fb-b901-77d730d517b6','38d168db-fa8d-4c5f-8a90-afbcb601836b','2d69be42-1e9f-43ef-9760-564cff3b1c7c',1670415370701),
             ('9d3edbc7-cdc9-4bf6-a8e5-da5eb883dd05','6752599b-637c-4e16-952e-2b1c440bceda','b9706d29-b011-49b7-ba3b-d3a46971afbe',1670415350701),
