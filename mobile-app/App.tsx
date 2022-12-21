@@ -16,6 +16,7 @@ import IconScanner from "./src/assets/ic_NavigationQR.svg";
 import { color } from "./src/lib/style/theme";
 import PaymentScreen from "./src/pages/Payment";
 import { createStackNavigator } from "@react-navigation/stack";
+import PurchaseHistory from "./src/pages/PurchaseHistory";
 
 const Tab = createBottomTabNavigator();
 
@@ -106,6 +107,7 @@ export default function App() {
       >
         <ScannerStack.Screen name="home" component={HomeTabs} />
         <ScannerStack.Screen name="payment" component={PaymentScreen} />
+        <ScannerStack.Screen name="purchaseHistory" component={PurchaseHistory} />
       </ScannerStack.Navigator>
     </NavigationContainer>
   );

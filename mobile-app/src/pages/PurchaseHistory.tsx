@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import PastOrder from '../components/PastOrder'
 
@@ -18,7 +18,7 @@ const mock=[
     {date:'10/04/2022',price:'0,40',address:'Ul. Perice Bjelčića, 42000 Varaždin',status:true},
 ]
 
-const PurchaseHistory : React.FC = () => {
+const PurchaseHistory : React.FC = ({navigation}) => {
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
@@ -38,6 +38,7 @@ const PurchaseHistory : React.FC = () => {
 
                 </FlatList>
             </View>
+            <Button title='text' onPress={()=>navigation.navigate('profile')}/>
         </View>
     )
 }
