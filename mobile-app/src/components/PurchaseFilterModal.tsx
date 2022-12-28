@@ -1,5 +1,5 @@
 import {Modal, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { color, font } from '../lib/style/theme'
 import Title from './Title'
 import DatePicker from './DatePicker'
@@ -12,23 +12,27 @@ import {
   OpenSans_400Regular
 }from "@expo-google-fonts/open-sans";
 import { Formik } from 'formik';
+import { getAllCities } from '../api/cities'
+import { City } from '../api/models/response/City'
 
 interface Props{
     show:boolean;
     onClose:any;
 }
 
-const cities = [
-    {key:'1', value:'Varaždin'},
-    {key:'2', value:'Split'},
-    {key:'3', value:'Zagreb'},
-    {key:'4', value:'Koprivnica'},
-    {key:'5', value:'Zbelava'},
-]
 //-- TO DO-- 
 //fetch cities from the database
 const PurchaseFilterModal : React.FC<Props> = ({show=false,onClose}) => {
+    const [citiesData,setCitiesData] = useState<{key:string,value:string}>();
     const [checked, setChecked] = useState('');  
+
+    let attributes = [                                        
+        {key:'city',value:'City'},
+        {key:'createdAt',value:'Date'},
+        {key:'price',value:'Price'},
+    ];
+
+
     let [fontsLoaded] = useFonts({
         OpenSans_300Light,
         OpenSans_400Regular
@@ -41,6 +45,14 @@ const PurchaseFilterModal : React.FC<Props> = ({show=false,onClose}) => {
     function submit(values:any){
         closeModal(values);
     }
+
+    useEffect(() => {
+        (async () => {
+            const cities:City[] = await getAllCities();
+            setCitiesData(cities.map((city)=>({key:city['id'],value:city['name']})));
+            })();
+      }, []);
+    
 
   return (
     <> 
@@ -57,9 +69,12 @@ const PurchaseFilterModal : React.FC<Props> = ({show=false,onClose}) => {
                             <View style={styles.filterSection}>
                                 <Title value='Filter' color={color.primaryBlue} fontSize={20}/>
                                 <SelectList 
-                                    setSelected={(val:any) => {setFieldValue('city',val)}} 
-                                    data={cities} 
-                                    defaultOption={{key:values.city,value:values.city}}
+                                    setSelected={(val:any) => {
+                                        let valueKey = citiesData.find(element=>element.value==val)==undefined?val:citiesData.find(element=>element.value==val).key;
+                                        setFieldValue('city',valueKey);
+                                    }} 
+                                    data={citiesData} 
+                                    defaultOption={{key:values.city,value:(citiesData.find(element=>element.key==values.city)==undefined?values.city:citiesData.find(element=>element.key==values.city).value)}}
                                     save="value"
                                     search={false}
                                     boxStyles={styles.dropDownBox}
@@ -67,6 +82,7 @@ const PurchaseFilterModal : React.FC<Props> = ({show=false,onClose}) => {
                                     dropdownStyles={styles.dropDownDropDown}
                                     dropdownTextStyles={styles.dropDownText}
                                     placeholder={'Select city'}
+                                    
                                 />
                                 <View style={{marginTop:15}}>
                                     <DatePicker title='Start: ' value={values.startDate} setFieldValue={setFieldValue} valueName={'startDate'}/>
@@ -76,17 +92,15 @@ const PurchaseFilterModal : React.FC<Props> = ({show=false,onClose}) => {
                             <View style={styles.sortSection}>
                                 <Title value='Sort' color={color.primaryBlue} fontSize={20}/>
                                 <SelectList 
-                                    setSelected={(val:any) => {setFieldValue('attribute',val)}} 
+                                    setSelected={(val:any) => {
+                                        let valueKey = attributes.find(element=>element.value==val)==undefined?val:attributes.find(element=>element.value==val).key;
+                                        setFieldValue('attribute',valueKey);}} 
                                     data={
-                                        [
-                                            {key:1,value:'City'},
-                                            {key:2,value:'Date'},
-                                            {key:3,value:'Price'},
-                                        ]                
+                                        attributes
                                     }
                                     //-- TO DO --
                                     //Check to see if all of these attributes are "checkable"
-                                    defaultOption={{key:values.attribute,value:values.attribute}}
+                                    defaultOption={{key:values.attribute,value:(attributes.find(element=>element.key==values.attribute)==undefined?values.attribute:attributes.find(element=>element.key==values.attribute).value)}}
                                     save="value"
                                     search={false}
                                     boxStyles={styles.dropDownBox}
@@ -99,9 +113,9 @@ const PurchaseFilterModal : React.FC<Props> = ({show=false,onClose}) => {
                                     <View style={styles.radioButton}>
                                         <Text style={styles.radioText}>Ascending</Text>
                                         <RadioButton 
-                                            value='asc' 
-                                            status={ checked === 'asc' ? 'checked' : 'unchecked' } 
-                                            onPress={()=>{setChecked('asc');setFieldValue('sortDirection','asc')}} 
+                                            value='ASC' 
+                                            status={ checked === 'ASC' ? 'checked' : 'unchecked' } 
+                                            onPress={()=>{setChecked('ASC');setFieldValue('sortDirection','ASC')}} 
                                             color={color.primaryBlue}
                                             uncheckedColor={color.primaryBlue}
                                         />
@@ -109,9 +123,9 @@ const PurchaseFilterModal : React.FC<Props> = ({show=false,onClose}) => {
                                     <View style={styles.radioButton}>
                                         <Text style={styles.radioText}>Descending</Text>
                                         <RadioButton 
-                                            value='desc' 
-                                            status={ checked === 'desc' ? 'checked' : 'unchecked' } 
-                                            onPress={()=>{setChecked('desc');setFieldValue('sortDirection','desc')}} 
+                                            value='DESC' 
+                                            status={ checked === 'DESC' ? 'checked' : 'unchecked' } 
+                                            onPress={()=>{setChecked('DESC');setFieldValue('sortDirection','DESC')}} 
                                             color={color.primaryBlue}
                                             uncheckedColor={color.primaryBlue}
                                         />
