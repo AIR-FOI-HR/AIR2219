@@ -2,11 +2,7 @@ import { StyleSheet, Text, View, Button } from "react-native";
 import Logo from '../assets/ic_Logo.svg';
 import { color } from "../lib/style/theme";
 import TitleCurve from '../assets/vec_TitleCurve.svg';
-import PurchaseHistory from "./PurchaseHistory";
-import PastOrder from "../components/PastOrder";
-import { Restroom } from "../api/models/response/Restroom";
 import SimpleButton from "../components/SimpleButton";
-import Title from "../components/Title";
 import ProfileIcon from '../assets/ic_EditProfile.svg'
 import PurchasesIcon from '../assets/ic_PurchasesBasket.svg'
 import LogOutIcon from '../assets/ic_LogOut.svg';
