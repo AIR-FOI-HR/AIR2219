@@ -34,4 +34,32 @@ router.get('', async (_, res) => {
     res.json(UserResponse.toDtos(users));
 });
 
+
+router.post('/changePassword',
+  [
+    check("email").notEmpty(),
+    check("oldPassword").notEmpty(),
+    check("newPassword").notEmpty(),
+    check("newPassword").isLength({ min: 8 })
+  ],
+  async (req: Request, res: Response, next: NextFunction) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return next(new AppError("Invalid user data!", 422));
+    }
+
+    let { email, oldPassword, newPassword } = req.body;
+
+    try {
+      await userService.changeUserPassword(email, oldPassword, newPassword);
+    } catch (error) {
+      return next(new AppError(error.message, 500))
+    }
+
+    res.json({message: 'Password changed successfully!'})
+  }
+
+)
+
+
 module.exports = router;
