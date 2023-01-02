@@ -14,21 +14,29 @@ export const getAllUsers = async (): Promise<User[]> => {
 };
 
 export async function changeUserPassword(email: string, oldPassword: string, newPassword: string) {
-
-  const hashedOldPassword = await argon2.hash(oldPassword)
+  
   const hashedNewPassword = await argon2.hash(newPassword)
 
-  if (hashedOldPassword != hashedNewPassword){
+  if (oldPassword != newPassword){
+    
     const user = await UserRepository.findOne({ where: { email } });
     if (!user) {
-      throw new Error(`User with email "${email}" not found`);
+      throw new Error(`User with email ${email} not found`);
+    } else {
+      let isOldPasswordCorrect = await argon2.verify(user.password, oldPassword)
+      if (isOldPasswordCorrect){
+        try {
+        user.password = hashedNewPassword;
+        await UserRepository.save(user);
+        } catch (error) {
+          throw new Error(error.message);
+        }
+      } else {
+        throw new Error('Invalid data given.');
+      }    
     }
-
-    user.password = hashedNewPassword;
-    await UserRepository.save(user);
-    return true
   } 
   else {
-    return null;
+    throw new Error('New password can not be the same as the old one');
   }
 };
