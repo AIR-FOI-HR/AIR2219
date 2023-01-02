@@ -12,3 +12,23 @@ export const registerUser = async (userCreateRequest: UserCreateRequest) => {
 export const getAllUsers = async (): Promise<User[]> => {
   return UserRepository.find();
 };
+
+export async function changeUserPassword(email: string, oldPassword: string, newPassword: string) {
+
+  const hashedOldPassword = await argon2.hash(oldPassword)
+  const hashedNewPassword = await argon2.hash(newPassword)
+
+  if (hashedOldPassword != hashedNewPassword){
+    const user = await UserRepository.findOne({ where: { email } });
+    if (!user) {
+      throw new Error(`User with email "${email}" not found`);
+    }
+
+    user.password = hashedNewPassword;
+    await UserRepository.save(user);
+    return true
+  } 
+  else {
+    return null;
+  }
+};
