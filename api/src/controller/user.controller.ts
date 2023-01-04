@@ -9,8 +9,6 @@ import { authenticateRequest } from '../middleware/auth';
 
 const router = express.Router();
 
-router.use(authenticateRequest);
-
 router.post(
   '',
   [
@@ -32,9 +30,16 @@ router.post(
   }
 );
 
-router.get('', async (_, res) => {
-    const users: User[] = await userService.getAllUsers();
-    res.json(UserResponse.toDtos(users));
+router.use(authenticateRequest);
+
+router.get('', async ( _, res, next) => {
+    const { isAdmin } = _.userData;
+    if ( isAdmin ){
+      const users: User[] = await userService.getAllUsers();
+      res.json(UserResponse.toDtos(users));
+    } else {
+      return next(new AppError("Unauthorized", 401));
+    }
 });
 
 module.exports = router;
