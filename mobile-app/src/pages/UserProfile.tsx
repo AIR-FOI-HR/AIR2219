@@ -24,7 +24,7 @@ const UserProfileScreen : React.FC<Props> = ({navigation}) => {
 
       <View style={styles.buttonContainer}>
         <View>
-          <SimpleButton text='Edit profile' onPress={()=>{}} svgImage={<ProfileIcon/>} width={300}/>
+          <SimpleButton text='Edit profile' onPress={()=>navigation.navigate('editProfile')} svgImage={<ProfileIcon/>} width={300}/>
           <SimpleButton text='Purchase history' onPress={()=>navigation.navigate('purchaseHistory')} svgImage={<PurchasesIcon/>} width={300}/>
         </View>
         

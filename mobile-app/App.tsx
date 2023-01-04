@@ -17,6 +17,7 @@ import { color } from "./src/lib/style/theme";
 import PaymentScreen from "./src/pages/Payment";
 import { createStackNavigator } from "@react-navigation/stack";
 import PurchaseHistory from "./src/pages/PurchaseHistory";
+import EditProfile from "./src/pages/EditProfile";
 const Tab = createBottomTabNavigator();
 
 const HomeTabs = () => {
@@ -82,6 +83,14 @@ const HomeTabs = () => {
           tabBarItemStyle:{display:'none'}
         }}
       />
+      <Tab.Screen
+        
+        name={"editProfile"}
+        component={EditProfile}
+        options={{
+          tabBarItemStyle:{display:'none'}
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -115,6 +124,7 @@ export default function App() {
         <ScannerStack.Screen name="home" component={HomeTabs} />
         <ScannerStack.Screen name="payment" component={PaymentScreen} />
         <ScannerStack.Screen name="purchaseHistory" component={PurchaseHistory} />
+        <ScannerStack.Screen name="editProfile" component={EditProfile} />
       </ScannerStack.Navigator>
     </NavigationContainer>
   );
