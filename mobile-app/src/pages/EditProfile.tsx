@@ -29,6 +29,9 @@ const paymentValidationSchema = yup.object().shape({
 
     phoneNumber:
         yup.string()
+        .min(10,({min})=>'Your phone number must consist of 10 digits!')
+        .max(10,({max})=>'Your phone number must consist of 10 digits!')
+        .matches(/^[0-9]+$/g,'The phone number must consist of only numbers!')
         .required('This field is required!'),
   
   })
