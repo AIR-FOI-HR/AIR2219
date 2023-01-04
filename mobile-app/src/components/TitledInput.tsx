@@ -1,6 +1,6 @@
 import {NativeSyntheticEvent, StyleSheet, Text, TextInputFocusEventData, View } from 'react-native'
-import React from 'react'
-import { TextInput } from 'react-native-gesture-handler'
+import React, { useState } from 'react'
+import { TextInput } from 'react-native'
 import { color, font } from "../lib/style/theme";
 import {
     useFonts, 
@@ -8,6 +8,9 @@ import {
     OpenSans_300Light_Italic, 
   }from "@expo-google-fonts/open-sans";
 import AppLoading from "expo-app-loading"
+import ShowPasswordIcon from '../assets/ic_SeePasswordEye.svg'
+import HidePasswordIcon from '../assets/ic_HidePassword.svg'
+
 interface Props{
     title:string;
     placeholder:string;
@@ -16,9 +19,11 @@ interface Props{
     value:string;
     touched:boolean | undefined;
     errors:string | undefined;
+    password?:boolean;
 }
 
-const TitledInput : React.FC<Props> = ({title,placeholder,...props}) => {
+const TitledInput : React.FC<Props> = ({title,placeholder,password=false,...props}) => {
+  const [hidePassword,setHidePassword] = useState<boolean>(true)
   let [fontsLoaded] = useFonts({
     OpenSans_400Regular,
     OpenSans_300Light_Italic,
@@ -31,13 +36,20 @@ const TitledInput : React.FC<Props> = ({title,placeholder,...props}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <TextInput 
-      style={[styles.input, {borderColor: (props.errors && props.touched) ? color.failureRed:color.primaryBlue}]} 
-      placeholder={placeholder} autoCorrect={false}
-      onChangeText={props.onChangeText}
-      onBlur = {props.onBlur}
-      value= {props.value}
-      />
+      <View style={[styles.input, {borderColor: (props.errors && props.touched) ? color.failureRed:color.primaryBlue}]}>
+        <TextInput 
+        secureTextEntry={password && hidePassword}
+        placeholder={placeholder} autoCorrect={false}
+        onChangeText={props.onChangeText}
+        onBlur = {props.onBlur}
+        value= {props.value}
+        style={password ? {width:'90%'}: {flex:1}}
+        />
+        {password &&
+          (hidePassword?
+          <HidePasswordIcon style={password && {width:'10%'}} onPress={()=>setHidePassword(!hidePassword)}/>
+          :<ShowPasswordIcon style={password && {width:'10%'}} onPress={()=>setHidePassword(!hidePassword)}/>)}
+      </View>
     {(props.errors && props.touched) &&
       <Text style={[styles.warning,]}>*{props.errors}</Text>
     }
@@ -71,8 +83,10 @@ const styles = StyleSheet.create({
         paddingRight:20,
         borderWidth:1,
         borderRadius:40,
-        borderColor: color.primaryBlue
-
+        borderColor: color.primaryBlue,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center',
     },
 
     warning:{
