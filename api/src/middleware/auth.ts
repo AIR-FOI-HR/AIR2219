@@ -1,5 +1,4 @@
 import { NextFunction } from "express";
-//import { AppError } from "src/model/constants/AppError";
 
 
 export async function authenticateRequest( req: Request, _res: Response, next: NextFunction ){
