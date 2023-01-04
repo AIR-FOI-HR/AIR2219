@@ -1,6 +1,6 @@
 
 import { ScrollView, StyleSheet,View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Formik } from 'formik'
 import Title from '../components/Title'
 import { color } from '../lib/style/theme'
@@ -8,6 +8,7 @@ import TitledInput from '../components/TitledInput'
 import SimpleButton from '../components/SimpleButton'
 import CheckmarkIcon from '../assets/ic_Checkmark.svg'
 import * as yup from 'yup';
+import Loader from '../components/Loader'
 
 const paymentValidationSchema = yup.object().shape({
     name: 
@@ -41,15 +42,45 @@ interface Props{
 }
 
 const EditProfile : React.FC<Props>= ({navigation}) => {
+    //{name:'John',surname:'Doe',email:'email@mail.com',phoneNumber:'2135151212'}
+    
+      
+    const [formData,setFormData] = useState({name:'',surname:'',email:'',phoneNumber:''})
 
-    function submit(values:any){
-      alert(JSON.stringify(values));
-    }
+    ////-- TO DO --
+    //useEffect(()=>{setFormData({name:'John',surname:'Doe',email:'email@mail.com',phoneNumber:'2135151212'})},[]);
+    //Fetch user and set fetched data as initializedValues
+
+    const [loaderState,setLoaderState] = useState<string>('hide');
+
+    async function submit(values:{name:string,surname:string, email:string,phoneNumber:string}) {
+        setLoaderState('loading');
+    
+        //-- TO DO --
+        // Update user information with API
+        const data = {"error":undefined};//await createOrder(values,restroomData);
+    
+        if(data["error"]!=undefined){
+            
+          setLoaderState('failure');
+          setTimeout(()=>{
+            setLoaderState('hide')
+          },2000);
+        }
+        else{
+          setLoaderState('success');
+          setTimeout(()=>{
+            setLoaderState('hide');
+            navigation.navigate("editProfile");
+          },2000);
+        }
+      }
         
     return (
         <>
             <Formik
-                initialValues={{name:'',surname:'',email:'',phoneNumber:''}}
+                initialValues={formData}
+                enableReinitialize
                 validateOnMount={true}
                 onSubmit={values => submit(values)}
                 validationSchema={paymentValidationSchema}> 
@@ -101,6 +132,8 @@ const EditProfile : React.FC<Props>= ({navigation}) => {
                 </View>     
                 )}
             </Formik>
+
+            <Loader state={loaderState}/>
         </>
     )
 }
