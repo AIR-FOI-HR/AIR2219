@@ -11,7 +11,6 @@ dotenv.config();
 
 const router = express.Router();
 
-
 router.use(authenticateRequest);
 
 router.post(
@@ -30,22 +29,6 @@ router.post(
     if (!errors.isEmpty()) {
       return next(new AppError('Invalid order data!', 422));
     }
-
-    /* Test implementation to check if user who sent request is admin
-       If the user is admin, the process can continue
-       If the user is not admin, the process can not continue and error is returned
-       For testing purposes temporarily because the creation of the order should
-       be possible for every logged in user
-
-       Uncomment this to test the authentication middleware
-       ||||||||||||
-       vvvvvvvvvvvv
-       
-    const { isAdmin } = req.userData;
-    if (!isAdmin) {
-      return next(new AppError("Unauthorized", 401));
-    }
-    */
 
     const createdOrder = await paymentService.processPayment(req.body);
 

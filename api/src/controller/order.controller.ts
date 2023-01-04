@@ -4,11 +4,13 @@ import * as dotenv from "dotenv";
 import { Order } from "../model/entity/Order";
 import { AppError } from "../model/constants/AppError";
 import { OrderResponse } from "../model/response/OrderResponse";
+import { authenticateRequest } from '../middleware/auth';
 
 dotenv.config();
 
 const router = express.Router();
 
+router.use(authenticateRequest);
 
 router.get("/:userId", async (req, res, next) => {
   let orders: Order[] | null = null;

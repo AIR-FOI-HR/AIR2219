@@ -5,8 +5,11 @@ import { User } from '../model/entity/User';
 import { UserResponse } from '../model/response/UserResponse';
 import * as userService from '../service/user.service';
 import { AppError } from '../model/constants/AppError';
+import { authenticateRequest } from '../middleware/auth';
 
 const router = express.Router();
+
+router.use(authenticateRequest);
 
 router.post(
   '',
