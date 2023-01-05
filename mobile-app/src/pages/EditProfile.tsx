@@ -9,6 +9,8 @@ import SimpleButton from '../components/SimpleButton'
 import CheckmarkIcon from '../assets/ic_Checkmark.svg'
 import * as yup from 'yup';
 import Loader from '../components/Loader'
+import { User } from '../api/models/response/User'
+import { getUserById, updateUserInfo } from '../api/users'
 
 const paymentValidationSchema = yup.object().shape({
     name: 
@@ -42,23 +44,33 @@ interface Props{
 }
 
 const EditProfile : React.FC<Props>= ({navigation}) => {
-    //{name:'John',surname:'Doe',email:'email@mail.com',phoneNumber:'2135151212'}
-    
-      
     const [formData,setFormData] = useState({name:'',surname:'',email:'',phoneNumber:''})
 
-    ////-- TO DO --
-    //useEffect(()=>{setFormData({name:'John',surname:'Doe',email:'email@mail.com',phoneNumber:'2135151212'})},[]);
-    //Fetch user and set fetched data as initializedValues
+    useEffect(()=>{
+        //-- TO DO--
+        //Get ID of logged in user to send it to the API
+        //MOCK DATA
+        let id='60c8837a-87d1-4f7e-b4ed-7d260a8ceed7'
+        const fetchUserInfo = async () =>{
+            const user: User = await getUserById(id);
+            setFormData({name:user.firstName,surname:user.lastName,email:user.email,phoneNumber:user.phone})
+        };
+        //
+
+        fetchUserInfo().catch(console.error)
+    },[]);
 
     const [loaderState,setLoaderState] = useState<string>('hide');
 
     async function submit(values:{name:string,surname:string, email:string,phoneNumber:string}) {
         setLoaderState('loading');
-    
+        
         //-- TO DO --
         // Update user information with API
-        const data = {"error":undefined};//await createOrder(values,restroomData);
+        // AND
+        // get user id from authentification
+        let user:User = {id:'60c8837a-87d1-4f7e-b4ed-7d260a8ceed7',firstName:values.name,lastName:values.surname, email:values.email,phone:values.phoneNumber};
+        const data = await updateUserInfo(user);
     
         if(data["error"]!=undefined){
             
