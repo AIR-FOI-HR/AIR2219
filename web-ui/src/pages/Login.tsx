@@ -4,11 +4,12 @@ import TitledInput from '../components/TitledInput';
 
 const Login: React.FC = () => {
   return (
-    <div className='bg-green-700 w-screen h-screen flex justify-center items-center'>
-        <div className='w-1/5'>
-            <div className='bg-white flex flex-col justify-between items-center rounded-md shadow-lg'>
-                <Title value='Log In' color='text-purple-500' fontSize='text-2xl'/>
-                <TitledInput errors='' onChangeText={()=>{}} placeholder='Lol' title='Tekst' touched value='' />
+    <div className='bg-primaryBlue w-screen h-screen flex justify-center items-center'>
+        <div className=''>
+            <div className='bg-white flex flex-col justify-between items-center rounded-md shadow-lg p-5'>
+                <Title value='Log In' color='text-primaryOrange' fontSize='text-2xl'/>
+                <TitledInput errors='' onChange={()=>{}} onBlur={()=>{}} placeholder='E-mail' touched value='' />
+                <TitledInput errors='' onChange={()=>{}} onBlur={()=>{}} placeholder='Password' touched value='' />
             </div>
             <div className='flex flex-row justify-between text-white'>
                 <a href='../forgotPassword'>Forgot password?</a>

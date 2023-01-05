@@ -1,28 +1,32 @@
+import React from "react";
+import myLogo from '../assets/ic_Logo.svg';
 
 interface Props{
-    title:string;
+    title?:string;
     placeholder:string;
-    onChangeText:(event: string) => void;
-    //onBlur:(event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+    onChange: any;
+    onBlur: any;
     value:string;
     touched:boolean | undefined;
     errors:string | undefined;
 }
 
 const TitledInput : React.FC<Props> = ({title,placeholder,...props}) => {
-  
   return (
     <div className='mt-3 mb-3'>
-      <p className='text-base m-1'>{title}</p>
+      { title && <p className='text-base m-1'>{title}</p>}
       <input 
-      style={{/*[styles.input, /*{borderColor: (props.errors && props.touched) ? color.failureRed:color.primaryBlue}]*/}} 
-      placeholder={placeholder}
-      //onChangeText={props.onChangeText}
+      className={`text-sm font-openSans text-black m-1 pt-2 pb-2 pl-5 pr-5 border-2 rounded-full border-primaryBlue ${(props.errors && props.touched) ? "border-failureRed": "border-primaryBlue"} focus:ring-1 outline-none ring-primaryBlue`}
+      //onChange={props.onChange}
       //onBlur = {props.onBlur}
-      value= {props.value}
+      //value= {props.value}
+      placeholder={placeholder}
+      
       />
+      
+      <img src={myLogo} alt="SVG logo image"/>
     {(props.errors && props.touched) &&
-      <p /*style={[styles.warning,]}*/>*{props.errors}</p>
+      <p className="text-xs font-openSans text-failureRed m-1">*{props.errors}</p>
     }
     </div>
   )
