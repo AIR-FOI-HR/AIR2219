@@ -6,22 +6,22 @@
    fill="none"
    version="1.1"
    id="svg1400"
-   sodipodi:docname="ic_MapOrange.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   sodipodiDocname="ic_MapOrange.svg"
+   xmlnsInkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlnsSodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
+   xmlnsSvg="http://www.w3.org/2000/svg">
   <defs
      id="defs1404" />
-  <sodipodi:namedview
+  <sodipodiNamedview
      id="namedview1402"
      pagecolor="#ffffff"
      bordercolor="#000000"
      borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
+     inkscapeShowpageshadow="2"
+     inkscapePageopacity="0.0"
+     inkscapePagecheckerboard="0"
+     inkscapeDeskcolor="#d1d1d1"
      showgrid="false" />
   <path
      d="m 10.66665,31.8393 -0.5486,-0.794 C 9.70535,30.4473 0,16.3327 0,10.6667 0,4.78533 4.78535,0 10.66665,0 c 5.8814,0 10.6667,4.78533 10.6667,10.6667 0,5.666 -9.7053,19.7806 -10.118,20.3786 z m 0,-30.50597 c -5.1466,0 -9.33331,4.18667 -9.33331,9.33337 0,4.5246 7.25671,15.7033 9.33331,18.8093 2.0767,-3.106 9.3334,-14.2847 9.3334,-18.8093 0,-5.1467 -4.1867,-9.33337 -9.3334,-9.33337 z"

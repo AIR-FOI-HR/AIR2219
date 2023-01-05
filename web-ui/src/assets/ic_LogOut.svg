@@ -6,25 +6,25 @@
    fill="none"
    version="1.1"
    id="svg274"
-   sodipodi:docname="ic_LogOut.svg"
-   inkscape:export-filename="..\made\ic_LogOut.svg"
-   inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   sodipodiDocname="ic_LogOut.svg"
+   inkscapeExport-filename="..\made\ic_LogOut.svg"
+   inkscapeExport-xdpi="96"
+   inkscapeExport-ydpi="96"
+   xmlnsInkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlnsSodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
+   xmlnsSvg="http://www.w3.org/2000/svg">
   <defs
      id="defs278" />
-  <sodipodi:namedview
+  <sodipodiNamedview
      id="namedview276"
      pagecolor="#ffffff"
      bordercolor="#000000"
      borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
+     inkscapeShowpageshadow="2"
+     inkscapePageopacity="0.0"
+     inkscapePagecheckerboard="0"
+     inkscapeDeskcolor="#d1d1d1"
      showgrid="false" />
   <path
      d="m 1.0590285,10.2924 4.99999,-5 c 0.1886,-0.1821 0.4412,-0.2829 0.7034,-0.2806 0.2622,0.0022 0.513,0.1074 0.6984,0.2928 0.1854,0.1854 0.2906,0.4362 0.2929,0.6984 0.0023,0.2622 -0.0985,0.5148 -0.2807,0.7034 l -3.29299,3.2929999 H 15.766019 c 0.2652,0 0.5196,0.1054001 0.7071,0.2929001 0.1876,0.1876 0.2929,0.4419 0.2929,0.7071 0,0.2652 -0.1053,0.5196 -0.2929,0.7071 -0.1875,0.1876 -0.4419,0.2929 -0.7071,0.2929 H 4.1800285 l 3.29299,3.293 c 0.0955,0.0923 0.1717,0.2026 0.2241,0.3246 0.0524,0.122 0.08,0.2533 0.0812,0.386 0.0011,0.1328 -0.0242,0.2645 -0.0745,0.3874 -0.0502,0.1229 -0.1245,0.2345 -0.2184,0.3284 -0.0939,0.0939 -0.2055,0.1682 -0.3284,0.2185 -0.1229,0.0502 -0.2546,0.0755 -0.3874,0.0744 -0.1328,-0.0012 -0.264,-0.0288 -0.386,-0.0812 -0.122,-0.0524 -0.2323,-0.1286 -0.3246,-0.2241 l -4.99999,-5 c -0.18746992,-0.1875 -0.29277992,-0.4418 -0.29277992,-0.707 0,-0.2651 0.10531,-0.5194 0.29277992,-0.707 z"

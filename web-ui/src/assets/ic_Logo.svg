@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<!-- Created with Inkscape (http//www.inkscape.org/) -->
 
 <svg
    width="106.481mm"
@@ -7,39 +7,39 @@
    viewBox="0 0 106.481 106.33801"
    version="1.1"
    id="svg5"
-   inkscape:export-filename="ic_Logo.svg"
-   inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   inkscapeExport-filename="ic_Logo.svg"
+   inkscapeExport-xdpi="96"
+   inkscapeExport-ydpi="96"
+   xmlnsInkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlnsSodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
+   xmlnsSvg="http://www.w3.org/2000/svg">
+  <sodipodiNamedview
      id="namedview7"
      pagecolor="#ffffff"
      bordercolor="#000000"
      borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1"
-     inkscape:document-units="mm"
+     inkscapeShowpageshadow="2"
+     inkscapePageopacity="0.0"
+     inkscapePagecheckerboard="0"
+     inkscapeDeskcolor="#d1d1d1"
+     inkscapeDocument-units="mm"
      showgrid="false"
-     inkscape:zoom="0.78127806"
-     inkscape:cx="397.42573"
-     inkscape:cy="561.89982"
-     inkscape:window-width="1920"
-     inkscape:window-height="1057"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="layer1"
+     inkscapeZoom="0.78127806"
+     inkscapeCx="397.42573"
+     inkscapeCy="561.89982"
+     inkscapeWindow-width="1920"
+     inkscapeWindow-height="1057"
+     inkscapeWindow-x="-8"
+     inkscapeWindow-y="-8"
+     inkscapeWindow-maximized="1"
+     inkscapeCurrent-layer="layer1"
      showguides="false" />
   <defs
      id="defs2" />
   <g
-     inkscape:label="Layer 1"
-     inkscape:groupmode="layer"
+     inkscapeLabel="Layer 1"
+     inkscapeGroupmode="layer"
      id="layer1"
      transform="translate(-51.759499,-95.33099)">
     <rect
@@ -66,7 +66,7 @@
        x="51.759499"
        y="138.07185"
        ry="0"
-       inkscape:label="rect4100" />
+       inkscapeLabel="rect4100" />
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke-width:0.264571"
        id="rect4100-1"
@@ -75,15 +75,15 @@
        x="-201.70422"
        y="92.582466"
        ry="0"
-       inkscape:label="rect4100"
+       inkscapeLabel="rect4100"
        transform="matrix(-3.8141162e-4,-0.99999993,0.99999993,-3.8032064e-4,0,0)" />
     <text
-       xml:space="preserve"
+       xmlSpace="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.7px;font-family:Kanit;-inkscape-font-specification:Kanit;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
        x="105.09525"
        y="152.7164"
        id="text4187"><tspan
-         sodipodi:role="line"
+         sodipodiRole="line"
          id="tspan4185"
          style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:12.7px;font-family:Kanit;-inkscape-font-specification:'Kanit Semi-Bold';text-align:center;text-anchor:middle;fill:#006daa;fill-opacity:1;stroke-width:0.264583"
          x="105.09525"
