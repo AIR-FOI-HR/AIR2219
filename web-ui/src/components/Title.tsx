@@ -9,7 +9,7 @@ interface Props{
 const Title : React.FC<Props>= ({value,fontSize,color}) => {
   return (
     <div className='m-5'>
-      <p className= {`font-semibold text-center ${fontSize} ${color}`}>{value}</p>
+      <p className= {`font-openSans font-semibold text-center ${fontSize} ${color}`}>{value}</p>
     </div>
   )
 }
