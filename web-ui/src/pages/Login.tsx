@@ -1,13 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SimpleButton from '../components/SimpleButton';
 import Title from '../components/Title';
 import TitledInput from '../components/TitledInput';
 import logInIcon from '../assets/ic_LogIn.svg';
 import * as yup from 'yup';
 import { Formik } from 'formik';
-interface Props{
-
-}
+import Loader from '../components/Loader';
 
 const loginValidationSchema = yup.object().shape({
   email: 
@@ -26,15 +24,21 @@ const loginValidationSchema = yup.object().shape({
 })
 
 
-const Login: React.FC<Props> = () => {
+const Login: React.FC = () => {
+  const [loader,setLoader] = useState<boolean>(false);
+  const [apiError,setApiError] = useState<string>("");
 
   async function submit(values:{email:string,password:string}) {
-    alert(JSON.stringify(values));
+    setApiError("Nešta ne valja message");
+    setLoader(true);
+
+    setTimeout(()=>{setLoader(false)},2000);
   }
 
 
   return (
     <>
+    <Loader loading={loader}/>
       <Formik
         initialValues={{email:'',password:''}}
         validateOnMount={true}
@@ -44,9 +48,16 @@ const Login: React.FC<Props> = () => {
           <div className='bg-primaryBlue w-screen h-screen flex justify-center items-center'>
               <div className='w-1/5'>
                   <div className='bg-white flex flex-col items-center rounded-xl shadow-2xl p-5 mb-3 w-full'>
-                      <div className="mb-4">
+                      <div className="">
                         <Title value='Log In' color='text-primaryOrange' fontSize='text-2xl'/>
                       </div>
+                      {
+                      apiError && 
+                        <div className='text-failureRed mb-3 p-3 text-justify font-openSans text-sm border-gray-100 w-full flex flex-row'>
+                          <p className="font-semibold">Error:&nbsp;</p>
+                          <p>{apiError}</p>
+                        </div>
+                        }
                       <div className="w-full">
                         <TitledInput placeholder='E-mail' 
                         onChange={handleChange('email')} onBlur={handleBlur('email')} value={values.email} errors={errors.email} touched={touched.email}
