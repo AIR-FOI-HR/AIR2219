@@ -29,10 +29,13 @@ const Login: React.FC = () => {
   const [apiError,setApiError] = useState<string>("");
 
   async function submit(values:{email:string,password:string}) {
-    setApiError("Nešta ne valja message");
+    setApiError("");
     setLoader(true);
 
-    setTimeout(()=>{setLoader(false)},2000);
+    //-- TO DO --
+    //send authentication data and catch error or login
+
+    setLoader(false);
   }
 
 
