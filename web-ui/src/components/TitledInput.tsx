@@ -16,6 +16,7 @@ interface Props{
 const TitledInput : React.FC<Props> = ({title,placeholder,password=false,...props}) => {
   const [hidePassword,setHidePassword] = useState<boolean>(true)
   const [focus,setFocus] = useState<boolean>(false)
+
   return (
     <div className='mt-3 mb-3'>
       { title && <p className='text-base m-1'>{title}</p>}
@@ -23,12 +24,14 @@ const TitledInput : React.FC<Props> = ({title,placeholder,password=false,...prop
 
           <input 
           className={`${password?"w-11/12":"flex flex-1"}  focus:outline-none`}
-          //onChange={props.onChange}
-          //onBlur = {props.onBlur}
-          //value= {props.value}
+          onChange={props.onChange}
+          onBlur = {e=>{
+            props.onBlur(e);
+            setFocus(false);
+          }}
+          value= {props.value}
           placeholder={placeholder}
           onFocus={()=>{setFocus(true)}}
-          onBlur={()=>{setFocus(false)}}
           type={(password && hidePassword)?"password":"text"}
           />
           {password && 
