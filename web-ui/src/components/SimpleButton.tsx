@@ -12,7 +12,7 @@ interface Props{
 
 const SimpleButton : React.FC<Props> = ({text,disabled=false,width=undefined,buttonColor="bg-primaryBlue",textColor="text-white",svgImage=null,onClick}) => {
   return (
-    <button onClick={disabled?()=>{}:onClick} className={`mx-14 my-2 p-4 rounded-full shadow-md ${disabled?"bg-borderGrey":buttonColor} ${width} `}>
+    <button onClick={disabled?()=>{}:onClick} className={`mx-14 my-2 p-4 rounded-full shadow-md border-t border-x-gray-200 ${disabled?"bg-borderGrey":buttonColor} ${width} hover:opacity-70`}>
         <div className="flex flex-row justify-between mx-1 items-center">
             {svgImage && <img src={svgImage} alt="alt"/>}
             <p className={`font-openSans font-semibold text-base text-center mx-7 ${textColor}`}>{text}</p>
