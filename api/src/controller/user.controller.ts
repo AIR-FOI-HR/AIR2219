@@ -1,6 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
-import { validationResult } from "express-validator";
-import { check } from "express-validator";
+import { validationResult, check } from "express-validator";
 import { User } from "../model/entity/User";
 import { UserResponse } from "../model/response/UserResponse";
 import * as userService from "../service/user.service";
@@ -41,8 +40,10 @@ router.post(
     let loginResponse;
     try {
       loginResponse = await userService.loginUser(req.body);
-    } catch (error) { 
-      return next(new AppError("User login failed!", 400));
+    } catch (error) {
+      const errorMessage = error instanceof AppError ? error.message : "User login failed!";
+      const errorCode = error instanceof AppError ? error.code : 500;
+      return next(new AppError(errorMessage, errorCode));
     }
 
     res.json(loginResponse);
