@@ -39,11 +39,13 @@ export const loginUser = async (
     throw new AppError('Incorrect password', 422);
   }
 
+  const jwtKey = process.env.JWT_KEY ? process.env.JWT_KEY : 'epCWPfx1T3s9FbVx';
   const token = jwt.sign(
     { userId: existingUser.id, isAdmin: existingUser.role === UserRole.ADMIN },
-    'epCWPfx1T3s9FbVx',
+    jwtKey,
     { expiresIn: '1h' }
   );
+
   return UserLoginResponse.toDto(
     token,
     existingUser.role === UserRole.ADMIN,
