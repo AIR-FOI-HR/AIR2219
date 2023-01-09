@@ -23,7 +23,7 @@ router.get(
 
     const loggedUserData = (req as AuthRequest).userData;
     if(!loggedUserData.isAdmin && loggedUserData.id !== userId) {
-      return next(new AppError('', 400));
+      return next(new AppError('You do not have permission to perform this operation!', 403));
     }
 
     if (!dateFrom) {
