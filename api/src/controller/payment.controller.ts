@@ -1,11 +1,11 @@
 import express, { NextFunction, Request, Response } from 'express';
-import { validationResult } from 'express-validator';
-import { check } from 'express-validator';
+import { validationResult, check } from 'express-validator';
 import * as paymentService from '../service/payment.service';
 import * as dotenv from 'dotenv';
 import { AppError } from '../model/constants/AppError';
 import { OrderState } from '../model/constants/OrderState';
-import { authenticateRequest } from '../middleware/auth';
+import { authenticateRequest } from '../auth/auth';
+import { AuthRequest } from '../model/request/AuthRequest';
 
 dotenv.config();
 
@@ -19,7 +19,6 @@ router.post(
     check('restroomId').notEmpty(),
     check('amount').notEmpty(),
     check('currency').notEmpty(),
-    check('email').isEmail(),
     check('cardNumber').notEmpty(),
     check('cvv').isLength({ min: 3 }),
     check('expiryDate').isLength({ max: 5 }),
@@ -30,10 +29,9 @@ router.post(
       return next(new AppError('Invalid order data!', 422));
     }
 
-    const createdOrder = await paymentService.processPayment(req.body);
+    const createdOrder = await paymentService.processPayment(req as AuthRequest);
 
     if (createdOrder.state === OrderState.FAILED) {
-      
       return next(
         new AppError(createdOrder.errorToOrder[0].error.description, createdOrder.errorToOrder[0].error.statusCode)
       );

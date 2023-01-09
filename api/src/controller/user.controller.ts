@@ -1,11 +1,11 @@
 import express, { NextFunction, Request, Response } from 'express';
-import { validationResult } from 'express-validator';
-import { check } from 'express-validator';
+import { validationResult, check } from 'express-validator';
 import { User } from '../model/entity/User';
 import { UserResponse } from '../model/response/UserResponse';
 import * as userService from '../service/user.service';
 import { AppError } from '../model/constants/AppError';
-import { authenticateRequest } from '../middleware/auth';
+import { authenticateRequest } from '../auth/auth';
+import { AuthRequest } from '../model/request/AuthRequest';
 
 const router = express.Router();
 
@@ -30,16 +30,6 @@ router.post(
   }
 );
 
-router.use(authenticateRequest);
-
-router.get('', async ( _, res, next) => {
-    const { isAdmin } = _.userData;
-    if ( isAdmin ){
-      const users: User[] = await userService.getAllUsers();
-      res.json(UserResponse.toDtos(users));
-    } else {
-      return next(new AppError("Unauthorized", 401));
-    }
 router.post(
   "/login",
   [check("email").isEmail(), check("password").isLength({ min: 8 })],
@@ -62,9 +52,16 @@ router.post(
   }
 );
 
-router.get("", async (_, res) => {
-  const users: User[] = await userService.getAllUsers();
-  res.json(UserResponse.toDtos(users));
+router.use(authenticateRequest);
+
+router.get('', async ( req: Request, res: Response, next: NextFunction) => {
+    const { isAdmin } = (req as AuthRequest).userData;
+    if(!isAdmin) {
+      return next(new AppError("Admin privileges are needed to access this route!", 403));
+    }
+    
+    const users: User[] = await userService.getAllUsers();
+    res.json(UserResponse.toDtos(users));
 });
 
 module.exports = router;

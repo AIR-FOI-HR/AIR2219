@@ -15,33 +15,36 @@ import { OrderErrorRepository } from '../dao/orderError.repository';
 import { OrderError } from '../model/entity/OrderError';
 import { OrderType } from '../model/constants/OrderType';
 import { CaptureMode } from '../model/constants/CaptureMode';
+import { AuthRequest } from '../model/request/AuthRequest';
 const client = mqtt.connect('mqtt://test.mosquitto.org:1883/ws');
 
 export const processPayment = async (
-  req: OrderCreateRequest
+  paymentRequest: AuthRequest
 ): Promise<Order> => {
   //TODO: Transactions
 
-  let price: number = parseOrderPrice(req.amount);
+  const orderCreateReq: OrderCreateRequest = paymentRequest.body;
+
+  const user = await UserRepository.findOneByOrFail({
+    id: paymentRequest.userData.id,
+  });
+
+  let price: number = parseOrderPrice(orderCreateReq.amount);
   const amount: Amount = new Amount(
     price,
-    req.currency,
+    orderCreateReq.currency,
     new Date().toISOString(),
-    req.email
+    user.email
   );
 
   const restroom = await RestroomRepository.findOneByOrFail({
-    id: req.restroomId,
-  });
-
-  const user = await UserRepository.findOneByOrFail({
-    email: req.email,
+    id: orderCreateReq.restroomId,
   });
 
   const response = await sendRequestToPaymentService(
     'POST',
     'createOrder',
-    JSON.stringify(req)
+    JSON.stringify({...orderCreateReq, email: user.email})
   );
   const parsedResponse = await response.json();
 
@@ -67,7 +70,7 @@ export const processPayment = async (
       OrderState.FAILED,
       CaptureMode.AUTOMATIC,
       'Order created using a test card',
-      req.email,
+      user.email,
       amount,
       '',
       user,
