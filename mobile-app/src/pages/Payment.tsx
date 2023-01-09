@@ -93,10 +93,10 @@ const Payment : React.FC<Props> = ({navigation,route}) => {
 
           <ScrollView style={styles.container}  contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between' }}>
             <View>
-              <Title value="Plaćanje" fontSize={24} color={color.primaryBlue}/>
+              <Title value="Payment" fontSize={24} color={color.primaryBlue}/>
             </View>
             <View>
-              <SimpleTitledText title="Door" value={`${restroomData?.address}, ${restroomData?.cityCode} ${restroomData?.cityName}`}valueColor={color.primaryBlue}/> 
+              <SimpleTitledText title="Restroom" value={`${restroomData?.address}, ${restroomData?.cityCode} ${restroomData?.cityName}`}valueColor={color.primaryBlue}/> 
               <SimpleTitledText title="Price" value={`${restroomData?.price} EUR`} valueColor={color.primaryOrange}/>
             </View>
             <View>
@@ -137,7 +137,7 @@ const Payment : React.FC<Props> = ({navigation,route}) => {
               shouldResetAfterSuccess={true}
               resetAfterSuccessAnimDuration={200}
               />
-              <SimpleButton text="Otkaži" onPress={() => navigation.navigate("scannerOptions")}/>
+              <SimpleButton text="Cancel" onPress={() => navigation.navigate("scannerOptions")}/>
             </View>
           </ScrollView>
           

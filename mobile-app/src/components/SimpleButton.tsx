@@ -35,7 +35,7 @@ const SimpleButton : React.FC<Props>= ({text, onPress,svgImage=null, width=undef
         <View style={styles.insideButton}>
           <View style={{}}>{svgImage}</View>      
           <Text style={[styles.buttonText,{color:textColor}]}>{text}</Text>
-          <View style={svgImage?{width:20,height:20,backgroundColor:disabled?color.borderGrey:buttonColor}:null}></View>
+          <View style={svgImage?{width:20,height:20,backgroundColor:'rgba(0,0,0,0)'}:null}></View>
         </View>
       </View>
     </TouchableOpacity>

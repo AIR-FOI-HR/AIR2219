@@ -18,7 +18,11 @@ import {
 import { getRestroomById } from "../api/restrooms";
 import { Restroom } from "../api/models/response/Restroom";
 
-const ScannerScreen: React.FC = ({navigation}) => {
+interface Props{
+  navigation:any;
+}
+
+const ScannerScreen: React.FC<Props> = ({navigation}) => {
   let [fontsLoaded] = useFonts({
     OpenSans_400Regular,
     OpenSans_600SemiBold,
