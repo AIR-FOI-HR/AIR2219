@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap');
 /* Base layer is for things like reset rules or default styles applied to plain HTML elements */
 @tailwind base;
 /* Components layer is for class-based styles that you want to be able to override with utilities */

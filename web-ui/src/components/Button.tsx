@@ -1,7 +1,7 @@
 export enum ButtonType {
-    PRIMARY = 'bg-teal-800',
-    SECONDARY = 'bg-yellow-400',
-    DANGER = 'bg-rose-900'
+    PRIMARY = 'bg-primaryBlue',
+    SECONDARY = 'bg-primaryOrange',
+    DANGER = 'bg-failureRed'
 }
 
 interface Props {
